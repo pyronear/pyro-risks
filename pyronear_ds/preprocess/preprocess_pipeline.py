@@ -9,6 +9,10 @@ from pyronear_ds.preprocess.final_merger.same_time_span_selector import (
 
 
 class PreprocessPipeline:
+    """
+    Preprocessing pipeline object
+    """
+
     def __init__(
         self,
         data_provider1: DataProvider,

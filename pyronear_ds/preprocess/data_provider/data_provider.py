@@ -12,7 +12,7 @@ class DataProvider:
         self.raw_data_cleaners = raw_data_cleaners
 
     def get_cleaned_data(self) -> gpd.GeoDataFrame:
-        data = self.raw_data_provider.get_merged_data()
+        data = self.raw_data_provider.get_merged_data().dataframe
         for cleaner in self.raw_data_cleaners:
             data = cleaner.clean(data)
         return data

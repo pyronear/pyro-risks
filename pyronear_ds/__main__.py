@@ -40,6 +40,8 @@ def main():
             GeographicReader(
                 "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
             ),
+            time_col="DATE",
+            geometry_col="geometry",
         ),
         [
             DropNaCleaner(),
@@ -61,6 +63,8 @@ def main():
             GeographicReader(
                 "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
             ),
+            time_col="Date",
+            geometry_col="DepartementGeometry",
         ),
         [
             DropNaCleaner(cols_to_except=["DepartementGeometry"]),

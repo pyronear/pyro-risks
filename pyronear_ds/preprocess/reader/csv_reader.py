@@ -1,10 +1,11 @@
 import pandas as pd
 
+from pyronear_ds.preprocess.geographic_data import GeographicData
 from pyronear_ds.preprocess.reader.reader import Reader
 
 
 class CsvReader(Reader):
-    def __init__(self, file_path, separator):
+    def __init__(self, file_path: str, separator: str):
         self.file_path = file_path
         self.separator = separator
 
