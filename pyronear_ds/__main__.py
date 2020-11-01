@@ -99,6 +99,10 @@ def main():
                 "geometry",
                 "code",
                 "DATE",
+                "Commune",
+                "Surfaces non boisées naturelles (m2)",
+                "Surfaces non boisées artificialisées (m2)",
+                "Précision des surfaces",
             ]
         )
     ]
@@ -115,5 +119,5 @@ def main():
 
 
 if __name__ == "__main__":
-    test = main()
-    print(test)
+    data = main()
+    print(data)

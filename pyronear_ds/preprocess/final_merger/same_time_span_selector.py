@@ -12,7 +12,6 @@ class SameTimeSpanSelector:
 
     @staticmethod
     def compute_time_span(dataframe: gpd.GeoDataFrame, time_col: str):
-        print(dataframe)
         min_time, max_time = dataframe[time_col].min(), dataframe[time_col].max()
         return min_time, max_time
 

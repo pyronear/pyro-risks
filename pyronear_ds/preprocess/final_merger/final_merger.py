@@ -21,8 +21,6 @@ class FinalMerger:
     def get_merged_data(
         self, data1: gpd.GeoDataFrame, data2: gpd.GeoDataFrame
     ) -> DataFrame:
-        print(data1)
-        print(data2)
         final_data = pd.merge(
             data1,
             data2,
