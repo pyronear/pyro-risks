@@ -63,7 +63,7 @@ def main():
             ),
         ),
         [
-            # DropNaCleaner(cols_to_except=['DepartementGeometry']),
+            DropNaCleaner(cols_to_except=["DepartementGeometry"]),
             DatetimeSplitter(),
             ConvertDatetimesCleaner(datetime_format_fires),
         ],
@@ -99,10 +99,6 @@ def main():
                 "geometry",
                 "code",
                 "DATE",
-                "Commune",
-                "Surfaces non boisées naturelles (m2)",
-                "Surfaces non boisées artificialisées (m2)",
-                "Précision des surfaces",
             ]
         )
     ]
