@@ -1,6 +1,4 @@
 import pandas as pd
-
-from pyronear_ds.preprocess.geographic_data import GeographicData
 from pyronear_ds.preprocess.reader.reader import Reader
 
 

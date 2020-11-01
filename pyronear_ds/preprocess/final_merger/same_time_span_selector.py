@@ -2,25 +2,27 @@ from typing import Tuple
 
 import geopandas as gpd
 import pandas as pd
-from pandas import DatetimeIndex
+from pandas import DatetimeIndex, DataFrame
+
+from pyronear_ds.preprocess.geographic_data import GeographicData
 
 
 class SameTimeSpanSelector:
-    def __init__(self, time_col1: str, time_col2: str):
-        self.time_col1 = time_col1
-        self.time_col2 = time_col2
-
     @staticmethod
-    def compute_time_span(dataframe: gpd.GeoDataFrame, time_col: str):
+    def compute_time_span(dataframe: DataFrame, time_col: str):
         min_time, max_time = dataframe[time_col].min(), dataframe[time_col].max()
         return min_time, max_time
 
     def find_largest_time_span(
-        self, data1: gpd.GeoDataFrame, data2: gpd.GeoDataFrame
+        self, dataclass1: GeographicData, dataclass2: GeographicData
     ) -> DatetimeIndex:
-        min_time1, max_time1 = self.compute_time_span(data1, self.time_col1)
+        min_time1, max_time1 = self.compute_time_span(
+            dataclass1.dataframe, dataclass1.time_col
+        )
         time_span1 = pd.date_range(min_time1, max_time1)
-        min_time2, max_time2 = self.compute_time_span(data2, self.time_col2)
+        min_time2, max_time2 = self.compute_time_span(
+            dataclass2.dataframe, dataclass2.time_col
+        )
         time_span2 = pd.date_range(min_time2, max_time2)
         if len(time_span1) > len(time_span2):
             return time_span2
@@ -28,9 +30,16 @@ class SameTimeSpanSelector:
             return time_span1
 
     def select_largest_time_span(
-        self, data1: gpd.GeoDataFrame, data2: gpd.GeoDataFrame
+        self, dataclass1: GeographicData, dataclass2: GeographicData
     ) -> Tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
-        time_span_to_select = self.find_largest_time_span(data1, data2)
-        where_time_data1 = data1[self.time_col1].isin(time_span_to_select)
-        where_time_data2 = data2[self.time_col2].isin(time_span_to_select)
-        return data1[where_time_data1], data2[where_time_data2]
+        time_span_to_select = self.find_largest_time_span(dataclass1, dataclass2)
+        where_time_data1 = dataclass1.dataframe[dataclass1.time_col].isin(
+            time_span_to_select
+        )
+        where_time_data2 = dataclass2.dataframe[dataclass2.time_col].isin(
+            time_span_to_select
+        )
+        return (
+            dataclass1.dataframe[where_time_data1],
+            dataclass2.dataframe[where_time_data2],
+        )

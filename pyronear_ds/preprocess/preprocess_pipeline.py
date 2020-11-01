@@ -28,9 +28,11 @@ class PreprocessPipeline:
         self.cleaners = cleaners
 
     def pipeline(self):
-        data1 = self.data_provider1.get_cleaned_data()
-        data2 = self.data_provider2.get_cleaned_data()
-        data1, data2 = self.time_span_selector.select_largest_time_span(data1, data2)
+        dataclass1 = self.data_provider1.get_cleaned_data()
+        dataclass2 = self.data_provider2.get_cleaned_data()
+        data1, data2 = self.time_span_selector.select_largest_time_span(
+            dataclass1, dataclass2
+        )
         merged_data = self.final_merger.get_merged_data(data1, data2)
         for cleaner in self.cleaners:
             merged_data = cleaner.clean(merged_data)

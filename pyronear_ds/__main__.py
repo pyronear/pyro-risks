@@ -73,7 +73,7 @@ def main():
         ],
     )
 
-    time_span_selector = SameTimeSpanSelector("DATE", "Date")
+    time_span_selector = SameTimeSpanSelector()
 
     final_merger = FinalMerger(
         "DATE", "Date", "geometry", "DepartementGeometry", "left"
