@@ -1,6 +1,7 @@
 from typing import List
 
 import geopandas as gpd
+
 from pyronear_ds.preprocess.cleaner.cleaner import Cleaner
 
 

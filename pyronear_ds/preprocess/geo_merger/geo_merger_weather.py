@@ -8,12 +8,12 @@ from pyronear_ds.preprocess.reader.reader import Reader
 
 class GeoMergerWeather(GeoMerger):
     def __init__(
-        self,
-        data_reader: Reader,
-        geographic_reader: Reader,
-        time_col: str,
-        geometry_col: str,
-        level: str = DEP,
+            self,
+            data_reader: Reader,
+            geographic_reader: Reader,
+            time_col: str,
+            geometry_col: str,
+            level: str = DEP,
     ):
         self.data_reader = data_reader
         self.geographic_reader = geographic_reader

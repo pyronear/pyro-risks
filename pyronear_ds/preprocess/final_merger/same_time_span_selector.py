@@ -1,6 +1,5 @@
 from typing import Tuple
 
-import geopandas as gpd
 import pandas as pd
 from pandas import DatetimeIndex, DataFrame
 
@@ -14,7 +13,7 @@ class SameTimeSpanSelector:
         return min_time, max_time
 
     def find_largest_time_span(
-        self, dataclass1: GeographicData, dataclass2: GeographicData
+            self, dataclass1: GeographicData, dataclass2: GeographicData
     ) -> DatetimeIndex:
         min_time1, max_time1 = self.compute_time_span(
             dataclass1.dataframe, dataclass1.time_col
@@ -30,8 +29,8 @@ class SameTimeSpanSelector:
             return time_span1
 
     def select_largest_time_span(
-        self, dataclass1: GeographicData, dataclass2: GeographicData
-    ) -> Tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
+            self, dataclass1: GeographicData, dataclass2: GeographicData
+    ) -> Tuple[GeographicData, GeographicData]:
         time_span_to_select = self.find_largest_time_span(dataclass1, dataclass2)
         where_time_data1 = dataclass1.dataframe[dataclass1.time_col].isin(
             time_span_to_select
@@ -39,7 +38,9 @@ class SameTimeSpanSelector:
         where_time_data2 = dataclass2.dataframe[dataclass2.time_col].isin(
             time_span_to_select
         )
+        dataclass1.dataframe = dataclass1.dataframe[where_time_data1]
+        dataclass2.dataframe = dataclass2.dataframe[where_time_data2]
         return (
-            dataclass1.dataframe[where_time_data1],
-            dataclass2.dataframe[where_time_data2],
+            dataclass1,
+            dataclass2,
         )

@@ -1,5 +1,3 @@
-import geopandas as gpd
-
 from pyronear_ds.preprocess.geographic_data import GeographicData
 
 
