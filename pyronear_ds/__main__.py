@@ -13,6 +13,7 @@ from pyronear_ds.preprocess.final_merger.same_time_span_selector import (
 )
 from pyronear_ds.preprocess.geo_merger.geo_merger_fires import GeoMergerFires
 from pyronear_ds.preprocess.geo_merger.geo_merger_weather import GeoMergerWeather
+from pyronear_ds.preprocess.label_converter.classification_label_converter import ClassificationLabelConverter
 from pyronear_ds.preprocess.preprocess_pipeline import PreprocessPipeline
 from pyronear_ds.preprocess.reader.csv_reader import CsvReader
 from pyronear_ds.preprocess.reader.geographic_reader import GeographicReader
@@ -105,12 +106,15 @@ def main():
         )
     ]
 
+    label_converter = ClassificationLabelConverter("Statut")
+
     preprocess_pipeline = PreprocessPipeline(
         weather_data_provider,
         fires_data_provider,
         time_span_selector,
         final_merger,
         cleaners,
+        label_converter
     )
 
     return preprocess_pipeline.pipeline()
