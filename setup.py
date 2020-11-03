@@ -32,7 +32,8 @@ with open('README.md') as f:
 
 requirements = [
     'pandas>=1.0.0',
-    'geopandas>=0.8.1'
+    'geopandas>=0.8.1',
+    'Rtree>=0.9.4',
 ]
 
 setup(
