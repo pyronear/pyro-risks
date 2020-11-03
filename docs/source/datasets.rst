@@ -36,7 +36,7 @@ Weather information about specific locations over a predefined time range.
 France
 ------
 
-.. autoclass:: WeatherDataset
+.. autoclass:: NOAAWeather
 
 
 
@@ -49,4 +49,4 @@ The frequency and intensity of wildfire in some areas can be a key indicator abo
 France
 ------
 
-.. autoclass:: WildfireDataset
+.. autoclass:: BDIFFHistory
