@@ -1,6 +1,5 @@
 import logging
 import pandas as pd
-import geopandas as gpd
 from typing import List, Optional
 
 from pyronear_ds import config as cfg
