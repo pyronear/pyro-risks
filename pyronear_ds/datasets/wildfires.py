@@ -6,14 +6,14 @@ from typing import List, Optional
 from pyronear_ds import config as cfg
 
 
-__all__ = ['WildfireDataset']
+__all__ = ['BDIFFHistory']
 
 
-class WildfireDataset(pd.DataFrame):
-    """Wildfire history dataset on French territory.
+class BDIFFHistory(pd.DataFrame):
+    """Wildfire history dataset on French territory, accessible at https://bdiff.agriculture.gouv.fr/.
 
     Args:
-        source_path: path to your static version of the source data
+        source_path: path or URL to your version of the source data
         use_cols: columns to read from source
     """
 

@@ -6,15 +6,15 @@ from typing import List, Optional
 from pyronear_ds import config as cfg
 from .masks import get_french_geom
 
-__all__ = ['WeatherDataset']
+__all__ = ['NOAAWeather']
 
 
-class WeatherDataset(pd.DataFrame):
+class NOAAWeather(pd.DataFrame):
     """Weather dataset on French territory, accessible upon request to NOAA. Requests are to be made at:
     https://www.ncdc.noaa.gov/cdo-web.
 
     Args:
-        source_path: path to your static version of the source data
+        source_path: path or URL to your version of the source data
         use_cols: columns to read from source
     """
 
