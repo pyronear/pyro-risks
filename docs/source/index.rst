@@ -14,6 +14,8 @@ The :mod:`pyronear_ds` package aggregates pre-processing pipeliens and models fo
    :maxdepth: 1
    :caption: Package Documentation
 
+   datasets
+
 
 .. automodule:: pyronear_ds
    :members:
