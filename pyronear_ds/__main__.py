@@ -1,5 +1,9 @@
 import os
 
+from sklearn.model_selection import StratifiedKFold
+
+from pyronear_ds.models.pyronear_xgb_classifier import PyronearXGBoostClassifier
+from pyronear_ds.models.xgb_classifier_pipeline import XGBClassifierPipeline
 from pyronear_ds.preprocess.cleaner.columns_remover import ColumnsRemover
 from pyronear_ds.preprocess.cleaner.convert_datetimes_cleaner import (
     ConvertDatetimesCleaner,
@@ -117,9 +121,33 @@ def main():
         label_converter
     )
 
-    return preprocess_pipeline.pipeline()
+    data = preprocess_pipeline.pipeline()
+
+    xgb_params = {
+        "objective": "binary:logistic",
+        "learning_rate": 0.1,
+        "min_child_weight": 4,
+        "subsample": 0.5,
+        "colsample_bytree": 0.6,
+        "n_estimators": 1000,
+        "n_jobs": -1,
+    }
+
+    cv = StratifiedKFold(n_splits=6)
+
+    classifier = PyronearXGBoostClassifier(
+        params=xgb_params, label_column="Statut", cross_validator=cv, scoring="recall",
+    )
+
+    scores, predictions = XGBClassifierPipeline(classifier=classifier).pipeline(
+        data=data
+    )
+
+    return data, scores, predictions
 
 
 if __name__ == "__main__":
-    data = main()
+    data, scores, predictions = main()
     print(data)
+    print('Mean recall on cross-validation: ', scores.mean())
+    print(predictions)
