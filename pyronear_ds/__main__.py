@@ -11,7 +11,7 @@ from pyronear_ds.preprocess.cleaner.convert_datetimes_cleaner import (
 from pyronear_ds.preprocess.cleaner.datetime_splitter import DatetimeSplitter
 from pyronear_ds.preprocess.cleaner.drop_na_cleaner import DropNaCleaner
 from pyronear_ds.preprocess.data_provider.data_provider import DataProvider
-from pyronear_ds.preprocess.final_merger.final_merger import FinalMerger
+from pyronear_ds.preprocess.final_merger.final_merger_departements import FinalMergerDepartement
 from pyronear_ds.preprocess.final_merger.same_time_span_selector import (
     SameTimeSpanSelector,
 )
@@ -80,7 +80,7 @@ def main():
 
     time_span_selector = SameTimeSpanSelector()
 
-    final_merger = FinalMerger("left")
+    final_merger = FinalMergerDepartement("left")
 
     cleaners = [
         ColumnsRemover(

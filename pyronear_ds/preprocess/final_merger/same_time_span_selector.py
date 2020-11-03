@@ -12,7 +12,7 @@ class SameTimeSpanSelector:
         min_time, max_time = dataframe[time_col].min(), dataframe[time_col].max()
         return min_time, max_time
 
-    def find_largest_time_span(
+    def find_smallest_time_span(
             self, dataclass1: GeographicData, dataclass2: GeographicData
     ) -> DatetimeIndex:
         min_time1, max_time1 = self.compute_time_span(
@@ -28,10 +28,10 @@ class SameTimeSpanSelector:
         else:
             return time_span1
 
-    def select_largest_time_span(
+    def select_smallest_time_span(
             self, dataclass1: GeographicData, dataclass2: GeographicData
     ) -> Tuple[GeographicData, GeographicData]:
-        time_span_to_select = self.find_largest_time_span(dataclass1, dataclass2)
+        time_span_to_select = self.find_smallest_time_span(dataclass1, dataclass2)
         where_time_data1 = dataclass1.dataframe[dataclass1.time_col].isin(
             time_span_to_select
         )

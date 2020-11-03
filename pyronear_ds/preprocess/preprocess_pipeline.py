@@ -33,7 +33,7 @@ class PreprocessPipeline:
     def pipeline(self):
         dataclass1 = self.data_provider1.get_cleaned_data()
         dataclass2 = self.data_provider2.get_cleaned_data()
-        dataclass1, dataclass2 = self.time_span_selector.select_largest_time_span(
+        dataclass1, dataclass2 = self.time_span_selector.select_smallest_time_span(
             dataclass1, dataclass2
         )
         merged_data = self.final_merger.get_merged_data(dataclass1, dataclass2)
