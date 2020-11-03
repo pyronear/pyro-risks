@@ -19,6 +19,6 @@ def get_french_geom(path: Optional[str] = None) -> gpd.GeoDataFrame:
     else:
         try:
             return gpd.read_file(cfg.FR_GEOJSON)
-        except Exception as e:
+        except Exception:
             logging.warning(f"Unable to access {cfg.FR_GEOJSON}, trying fallback.")
             return gpd.read_file(cfg.FR_GEOJSON_FALLBACK)
