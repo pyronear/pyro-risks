@@ -37,12 +37,12 @@ class DatasetsTester(unittest.TestCase):
         self.assertIsInstance(fr_geom, GeoDataFrame)
         self.assertTrue(all(v1 == v2 for v1, v2 in zip(fr_geom.columns, ['code', 'nom', 'geometry'])))
 
-    def test_weatherdataset(self):
-        ds = weather.WeatherDataset()
+    def test_noaaweather(self):
+        ds = weather.NOAAWeather()
         self.assertIsInstance(ds, pd.DataFrame)
 
-    def test_wildfiredataset(self):
-        ds = wildfires.WildfireDataset()
+    def test_bdiffhistory(self):
+        ds = wildfires.BDIFFHistory()
         self.assertIsInstance(ds, pd.DataFrame)
 
 
