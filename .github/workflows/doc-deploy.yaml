@@ -28,6 +28,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: |
+          apt install python-rtree
           python -m pip install --upgrade pip
           pip install -e .
           pip install -r docs/requirements.txt
