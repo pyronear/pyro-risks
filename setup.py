@@ -1,5 +1,4 @@
 #!usr/bin/python
-# -*- coding: utf-8 -*-
 
 """
 Package installation setup
@@ -45,12 +44,12 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/pyronear/pyronear-datascience',
     download_url='https://github.com/pyronear/pyronear-datascience/tags',
-    license='MIT',
+    license='GPLv3',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
