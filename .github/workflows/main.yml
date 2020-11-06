@@ -27,6 +27,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install package
         run: |
+          sudo apt install libspatialindex-dev python3-rtree
           python -m pip install --upgrade pip
           pip install -e .
 
@@ -51,6 +52,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: |
+          sudo apt install libspatialindex-dev python3-rtree
           python -m pip install --upgrade pip
           pip install -e .
           pip install -r .github/workflows/requirements.txt
@@ -103,6 +105,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: |
+          sudo apt install libspatialindex-dev python3-rtree
           python -m pip install --upgrade pip
           pip install -e .
           pip install -r docs/requirements.txt
