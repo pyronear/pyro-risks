@@ -20,7 +20,12 @@ def main(args):
     # Label data
     df.Statut = 1 - df.Statut.isna().astype(int)
 
-    print(df.head())
+    df = df.filter(items=['DATE', 'code', 'nom', 'LATITUDE', 'LONGITUDE', 'ELEVATION', 'DEWP', 'DEWP_ATTRIBUTES',
+                          'FRSHTT', 'GUST', 'MAX', 'MIN', 'MXSPD', 'PRCP', 'SLP', 'SLP_ATTRIBUTES',
+                          'SNDP', 'STP', 'STP_ATTRIBUTES', 'TEMP', 'TEMP_ATTRIBUTES',
+                          'VISIB', 'VISIB_ATTRIBUTES', 'WDSP', 'WDSP_ATTRIBUTES', 'Statut'])
+
+    print(df)
 
 
 def parse_args():
