@@ -27,6 +27,6 @@ class BDIFFHistory(pd.DataFrame):
             use_cols = self.kept_cols
         data = pd.read_csv(source_path, sep=";", usecols=use_cols)
         tmp = pd.to_datetime(data['Date de première alerte'], format="%Y-%m-%d %H:%M:%S", errors='coerce')
-        data['date'] = tmp.dt.date
+        data['date'] = tmp.dt.normalize()  # Set time to 00:00:00 for each entry
         # Drop Cols
         super().__init__(data.drop(['Date de première alerte'], axis=1))

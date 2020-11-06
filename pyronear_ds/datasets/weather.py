@@ -39,6 +39,6 @@ class NOAAWeather(pd.DataFrame):
         # Drop NA
         geo_data = geo_data.dropna(axis=1)
         # Convert
-        geo_data['DATE'] = pd.to_datetime(geo_data['DATE'], format="%Y-%m-%d", errors='coerce').dt.date
+        geo_data['DATE'] = pd.to_datetime(geo_data['DATE'], format="%Y-%m-%d", errors='coerce')
         # Drop Cols
         super().__init__(geo_data.drop(['index_right', 'geometry'], axis=1))
