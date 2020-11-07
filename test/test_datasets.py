@@ -31,6 +31,7 @@ class UtilsTester(unittest.TestCase):
 
 
 class DatasetsTester(unittest.TestCase):
+
     def test_get_french_geom(self):
         fr_geom = masks.get_french_geom()
         self.assertIsInstance(fr_geom, GeoDataFrame)

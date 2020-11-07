@@ -30,7 +30,6 @@ def main(args):
 
 def parse_args():
     import argparse
-
     parser = argparse.ArgumentParser(description='Pyronear weather & wildfire history example',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
@@ -42,6 +41,6 @@ def parse_args():
     return args
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     args = parse_args()
     main(args)

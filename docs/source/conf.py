@@ -36,15 +36,15 @@ release = pyronear_ds.__version__ + '-git'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-      'sphinx.ext.autodoc',
-      'sphinx.ext.napoleon',
-      'sphinx.ext.viewcode',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
+    'sphinx.ext.mathjax'
 ]
 
 napoleon_use_ivar = True
@@ -115,7 +115,7 @@ def patched_make_field(self, types, domain, items, **kw):
             # inconsistencies later when references are resolved
             fieldtype = types.pop(fieldarg)
             if len(fieldtype) == 1 and isinstance(fieldtype[0], nodes.Text):
-                typename = ''.join(n.astext() for n in fieldtype)
+                typename = u''.join(n.astext() for n in fieldtype)
                 typename = typename.replace('int', 'python:int')
                 typename = typename.replace('long', 'python:long')
                 typename = typename.replace('float', 'python:float')

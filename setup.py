@@ -16,7 +16,7 @@ sha = 'Unknown'
 cwd = os.path.dirname(os.path.abspath(__file__))
 
 try:
-    sha = (subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=cwd).decode('ascii').strip())
+    sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=cwd).decode('ascii').strip()
 except Exception:
     pass
 
@@ -24,7 +24,7 @@ if os.getenv('BUILD_VERSION'):
     version = os.getenv('BUILD_VERSION')
 elif sha != 'Unknown':
     version += '+' + sha[:7]
-print('Building wheel {}-{}'.format(package_name, version))
+print("Building wheel {}-{}".format(package_name, version))
 
 
 with open('README.md') as f:
@@ -61,7 +61,7 @@ setup(
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Topic :: Software Development',
         'Topic :: Software Development :: Libraries',
-        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     keywords=['data science', 'time series', 'machine learning'],
     packages=find_packages(exclude=('test',)),

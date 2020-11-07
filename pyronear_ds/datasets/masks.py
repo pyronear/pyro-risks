@@ -4,6 +4,7 @@ from typing import Optional
 
 from pyronear_ds import config as cfg
 
+
 __all__ = ['get_french_geom']
 
 

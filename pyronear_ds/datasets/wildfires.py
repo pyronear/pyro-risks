@@ -2,7 +2,6 @@ import logging
 import pandas as pd
 from typing import List, Optional
 
-
 from pyronear_ds import config as cfg
 
 __all__ = ['BDIFFHistory']
