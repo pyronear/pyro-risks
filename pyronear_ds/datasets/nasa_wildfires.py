@@ -41,12 +41,8 @@ class NASAFIRMS(pd.DataFrame):
     ]
     fmt = "json"
 
-    def __init__(
-            self,
-            source_path: Optional[str] = None,
-            use_cols: Optional[List[str]] = None,
-            fmt: Optional[str] = None,
-    ) -> None:
+    def __init__(self, source_path: Optional[str] = None, use_cols: Optional[List[str]] = None,
+                 fmt: Optional[str] = None) -> None:
         """
 
         Args:
@@ -82,6 +78,15 @@ class NASAFIRMS(pd.DataFrame):
 
         elif fmt == "csv":
             data = pd.read_csv(source_path, usecols=use_cols)
+            # if csv format, the `acq_time` column needs to be changed
+            # the raw data as the format "HHMM", we will transform it
+            # so that it has the format "HHMMSS"
+            # convert type to str
+            data['acq_time'] = data['acq_time'].astype(str)
+            # fill with 0
+            data['acq_time'] = data['acq_time'].str.ljust(6, "0")
+            # prepare for datetime need
+            data['acq_time'] = data['acq_time'].apply(lambda s: ':'.join(map('{}{}'.format, *(s[::2], s[1::2]))))
 
         data["acq_date_time"] = data["acq_date"] + " " + data["acq_time"]
         data["acq_date"] = pd.to_datetime(
@@ -90,5 +95,4 @@ class NASAFIRMS(pd.DataFrame):
         data["acq_date_time"] = pd.to_datetime(
             data["acq_date_time"], format="%Y-%m-%d %H:%M:%S", errors="coerce"
         )
-
         super().__init__(data.drop(["acq_time"], axis=1))
