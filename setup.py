@@ -8,70 +8,66 @@ import os
 import subprocess
 from setuptools import setup, find_packages
 
-package_name = "pyronear_ds"
-with open(os.path.join(package_name, "version.py")) as version_file:
+package_name = 'pyronear_ds'
+with open(os.path.join(package_name, 'version.py')) as version_file:
     version = version_file.read().strip()
-sha = "Unknown"
+sha = 'Unknown'
 
 cwd = os.path.dirname(os.path.abspath(__file__))
 
 try:
-    sha = (
-        subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=cwd)
-        .decode("ascii")
-        .strip()
-    )
+    sha = (subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=cwd).decode('ascii').strip())
 except Exception:
     pass
 
-if os.getenv("BUILD_VERSION"):
-    version = os.getenv("BUILD_VERSION")
-elif sha != "Unknown":
-    version += "+" + sha[:7]
-print("Building wheel {}-{}".format(package_name, version))
+if os.getenv('BUILD_VERSION'):
+    version = os.getenv('BUILD_VERSION')
+elif sha != 'Unknown':
+    version += '+' + sha[:7]
+print('Building wheel {}-{}'.format(package_name, version))
 
 
-with open("README.md") as f:
+with open('README.md') as f:
     readme = f.read()
 
 requirements = [
-    "pandas>=1.0.0",
-    "geopandas>=0.8.1",
-    "Rtree>=0.9.4",
+    'pandas>=1.0.0',
+    'geopandas>=0.8.1',
+    'Rtree>=0.9.4',
 ]
 
 setup(
     name=package_name,
     version=version,
-    author="Pyronear Contributors",
-    description="Pre-processing pipelines and models for wildfire forecasting and monitoring",
+    author='Pyronear Contributors',
+    description='Pre-processing pipelines and models for wildfire forecasting and monitoring',
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/pyronear/pyronear-datascience",
-    download_url="https://github.com/pyronear/pyronear-datascience/tags",
-    license="GPLv3",
+    url='https://github.com/pyronear/pyronear-datascience',
+    download_url='https://github.com/pyronear/pyronear-datascience/tags',
+    license='GPLv3',
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
-        "Intended Audience :: Developers",
-        "Intended Audience :: Science/Research",
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-        "Natural Language :: English",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Topic :: Scientific/Engineering",
-        "Topic :: Scientific/Engineering :: Mathematics",
-        "Topic :: Scientific/Engineering :: Artificial Intelligence",
-        "Topic :: Software Development",
-        "Topic :: Software Development :: Libraries",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Topic :: Scientific/Engineering',
+        'Topic :: Scientific/Engineering :: Mathematics',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    keywords=["data science", "time series", "machine learning"],
-    packages=find_packages(exclude=("test",)),
+    keywords=['data science', 'time series', 'machine learning'],
+    packages=find_packages(exclude=('test',)),
     zip_safe=True,
-    python_requires=">=3.6.0",
+    python_requires='>=3.6.0',
     include_package_data=True,
     install_requires=requirements,
-    package_data={"": ["LICENSE"]},
+    package_data={'': ['LICENSE']},
 )

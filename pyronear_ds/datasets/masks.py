@@ -1,11 +1,10 @@
 import logging
-from typing import Optional
-
 import geopandas as gpd
+from typing import Optional
 
 from pyronear_ds import config as cfg
 
-__all__ = ["get_french_geom"]
+__all__ = ['get_french_geom']
 
 
 def get_french_geom(path: Optional[str] = None) -> gpd.GeoDataFrame:
