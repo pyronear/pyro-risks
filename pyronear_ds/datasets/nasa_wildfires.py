@@ -23,11 +23,11 @@ class NASAFIRMS(pd.DataFrame):
     Args:
         source_path: str
             Path or URL to your version of the source data
-        use_cols: List[str]
-            List of columns to read from the source
         fmt: str
             Format of the source data, can either be "csv", "xlsx"
             or "json". Default is "json".
+        use_cols: List[str]
+            List of columns to read from the source
     """
 
     kept_cols = [
@@ -41,10 +41,9 @@ class NASAFIRMS(pd.DataFrame):
     ]
     fmt = "json"
 
-    def __init__(self, source_path: Optional[str] = None, use_cols: Optional[List[str]] = None,
-                 fmt: Optional[str] = None) -> None:
+    def __init__(self, source_path: Optional[str] = None, fmt: Optional[str] = None,
+                 use_cols: Optional[List[str]] = None) -> None:
         """
-
         Args:
             source_path: Optional[str]
                 Path or URL to your version of the source data
@@ -60,10 +59,10 @@ class NASAFIRMS(pd.DataFrame):
                 f"No data source specified for {self.__class__.__name__}, trying fallback."
             )
             source_path = cfg.FR_NASA_FIRMS_FALLBACK
-        if not isinstance(use_cols, list):
-            use_cols = self.kept_cols
         if not isinstance(fmt, str):
             fmt = self.fmt
+        if not isinstance(use_cols, list):
+            use_cols = self.kept_cols
 
         if fmt == "json":
             data = pd.read_json(source_path, orient="records")
@@ -85,8 +84,11 @@ class NASAFIRMS(pd.DataFrame):
             data['acq_time'] = data['acq_time'].astype(str)
             # fill with 0
             data['acq_time'] = data['acq_time'].str.ljust(6, "0")
-            # prepare for datetime need
+            # prepare for datetime needs
             data['acq_time'] = data['acq_time'].apply(lambda s: ':'.join(map('{}{}'.format, *(s[::2], s[1::2]))))
+
+        else:
+            raise ValueError("The given format cannot be read, it should be either csv, xlsx or json.")
 
         data["acq_date_time"] = data["acq_date"] + " " + data["acq_time"]
         data["acq_date"] = pd.to_datetime(
