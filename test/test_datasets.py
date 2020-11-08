@@ -14,7 +14,7 @@ from pathlib import Path
 from zipfile import ZipFile
 from unittest.mock import patch
 from geopandas import GeoDataFrame
-from pyronear_ds.datasets import masks, weather, wildfires, utils
+from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires
 
 
 class UtilsTester(unittest.TestCase):
@@ -226,6 +226,7 @@ class UtilsTester(unittest.TestCase):
             utils.get_ghcn(start_year=2000, end_year=2001, destination=destination)
             self.assertTrue(Path(destination, '2000.csv').is_file())
 
+
 class DatasetsTester(unittest.TestCase):
 
     def test_get_french_geom(self):
@@ -239,6 +240,10 @@ class DatasetsTester(unittest.TestCase):
 
     def test_bdiffhistory(self):
         ds = wildfires.BDIFFHistory()
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasafirms(self):
+        ds = nasa_wildfires.NASAFIRMS()
         self.assertIsInstance(ds, pd.DataFrame)
 
 
