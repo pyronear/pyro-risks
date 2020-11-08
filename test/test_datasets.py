@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 from geopandas import GeoDataFrame
-from pyronear_ds.datasets import masks, weather, wildfires, utils
+from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires
 
 
 class UtilsTester(unittest.TestCase):
@@ -43,6 +43,10 @@ class DatasetsTester(unittest.TestCase):
 
     def test_bdiffhistory(self):
         ds = wildfires.BDIFFHistory()
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasafirms(self):
+        ds = nasa_wildfires.NASAFIRMS()
         self.assertIsInstance(ds, pd.DataFrame)
 
 
