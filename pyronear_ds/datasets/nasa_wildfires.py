@@ -47,11 +47,11 @@ class NASAFIRMS(pd.DataFrame):
         Args:
             source_path: Optional[str]
                 Path or URL to your version of the source data
-            use_cols: Optional[List[str]]
-                List of columns to keep in the dataframe
             fmt: Optional[str]
                 Format of the source data, can either be
                 "csv", "xlsx" or "json".
+            use_cols: Optional[List[str]]
+                List of columns to keep in the dataframe
         """
         if not isinstance(source_path, str):
             # Download in cache
