@@ -1,7 +1,6 @@
 import unittest
 import pandas as pd
 import tempfile
-import warnings
 import requests
 import tarfile
 import gzip
@@ -65,8 +64,7 @@ class UtilsTester(unittest.TestCase):
         self.assertEqual(utils.get_fname(url_isd), ("2020", None, "tar.gz"))
 
     @staticmethod
-    def _make_tarfile(destination):
-
+    def _mock_csv(destination, fname):
         unzipped_content = [
             ['col1', 'col2', 'col3', 'col4'],
             ['test', 'test', 'test', 'test'],
@@ -77,10 +75,15 @@ class UtilsTester(unittest.TestCase):
 
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
 
-        with open(os.path.join(full_path, "test_tar.csv"), mode='w') as csvfile:
+        with open(os.path.join(full_path, fname), mode='w') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerows(unzipped_content)
 
+    def _make_tarfile(self, destination):
+
+        self._mock_csv(destination, "test_tar.csv")
+
+        full_path = os.path.join(destination, 'server/')
         out = tarfile.open(os.path.join(full_path, "test.tar.gz"), 'w:gz')
         out.add(full_path, arcname=os.path.basename(full_path))
         out.close()
@@ -90,23 +93,11 @@ class UtilsTester(unittest.TestCase):
 
         return memory_file
 
-    @staticmethod
-    def _make_gzipfile(destination):
+    def _make_gzipfile(self, destination):
 
-        unzipped_content = [
-            ['col1', 'col2', 'col3', 'col4'],
-            ['test', 'test', 'test', 'test'],
-            ['test', 'test', 'test', 'test'],
-            ['test', 'test', 'test', 'test']]
+        self._mock_csv(destination, "test_gz.csv")
 
         full_path = os.path.join(destination, 'server/')
-
-        os.makedirs(os.path.dirname(full_path), exist_ok=True)
-
-        with open(os.path.join(full_path, "test_gz.csv"), mode='w') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerows(unzipped_content)
-
         with gzip.GzipFile(os.path.join(full_path, "test.gz"), mode='w') as gz, \
                 open(os.path.join(full_path, "test_gz.csv"), mode='r') as csvfile:
             gz.write(csvfile.read().encode())
@@ -117,22 +108,11 @@ class UtilsTester(unittest.TestCase):
 
         return memory_file
 
-    @staticmethod
-    def _make_zipfile(destination):
+    def _make_zipfile(self, destination):
 
-        unzipped_content = [
-            ['col1', 'col2', 'col3', 'col4'],
-            ['test', 'test', 'test', 'test'],
-            ['test', 'test', 'test', 'test'],
-            ['test', 'test', 'test', 'test']]
+        self._mock_csv(destination, "test_zip.csv")
 
         full_path = os.path.join(destination, 'server/')
-
-        os.makedirs(os.path.dirname(full_path), exist_ok=True)
-        with open(os.path.join(full_path, "test_zip.csv"), mode='w') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerows(unzipped_content)
-
         with ZipFile(os.path.join(full_path, "test.zip"), 'w') as zip_file:
             zip_file.write(os.path.join(full_path, "test_zip.csv"),
                            os.path.basename(os.path.join(full_path, "test_zip.csv")))
@@ -142,22 +122,11 @@ class UtilsTester(unittest.TestCase):
 
         return memory_file
 
-    @staticmethod
-    def _make_csv(destination):
+    def _make_csv(self, destination):
 
-        unzipped_content = [
-            ['col1', 'col2', 'col3', 'col4'],
-            ['test', 'test', 'test', 'test'],
-            ['test', 'test', 'test', 'test'],
-            ['test', 'test', 'test', 'test']]
+        self._mock_csv(destination, "test_csv.csv")
 
         full_path = os.path.join(destination, 'server/')
-
-        os.makedirs(os.path.dirname(full_path), exist_ok=True)
-        with open(os.path.join(full_path, "test_csv.csv"), mode='w') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerows(unzipped_content)
-
         with open(os.path.join(full_path, "test_csv.csv"), 'rb') as csv_file:
             memory_file = BytesIO(csv_file.read())
 

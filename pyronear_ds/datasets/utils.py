@@ -110,21 +110,19 @@ def download(url: str, default_extension: str, unzip: Optional[bool] = True, des
 # Check if the file are  download
 # Add print and logging statement add
     base, extension, compression = get_fname(url)
+    content = url_retrieve(url)
 
     if unzip and compression == "zip":
-        content = url_retrieve(url)
         os.makedirs(os.path.dirname(destination), exist_ok=True)
         with ZipFile(BytesIO(content)) as zip_file:
             zip_file.extractall(destination)
 
     elif unzip and compression == "tar.gz":
-        content = url_retrieve(url)
         os.makedirs(os.path.dirname(destination), exist_ok=True)
         with tarfile.open(fileobj=BytesIO(content), mode='r:gz') as tar_file:
             tar_file.extractall(path=destination)
 
     elif unzip and compression == "gz":
-        content = url_retrieve(url)
         file_name = f"{base}.{extension}" if extension is not None else f"{base}.{default_extension}"
         full_path = os.path.join(destination, file_name)
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
@@ -132,7 +130,6 @@ def download(url: str, default_extension: str, unzip: Optional[bool] = True, des
             shutil.copyfileobj(gzip_file, unzipped_file)
 
     elif not unzip and compression is None:
-        content = url_retrieve(url)
         file_name = f"{base}.{extension}" if extension is not None else f"{base}.{default_extension}"
         full_path = os.path.join(destination, file_name)
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
@@ -140,7 +137,6 @@ def download(url: str, default_extension: str, unzip: Optional[bool] = True, des
             file.write(content)
 
     elif not unzip and isinstance(compression, str):
-        content = url_retrieve(url)
         file_name = f"{base}.{compression}"
         full_path = os.path.join(destination, file_name)
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
