@@ -1,11 +1,14 @@
 import logging
 from typing import List, Optional
 
+import geopandas as gpd
 import pandas as pd
 
 from pyronear_ds import config as cfg
 
 __all__ = ["NASAFIRMS"]
+
+from .masks import get_french_geom
 
 
 class NASAFIRMS(pd.DataFrame):
@@ -101,4 +104,11 @@ class NASAFIRMS(pd.DataFrame):
         data['longitude'] = data['longitude'].astype(float)
         data['bright_t31'] = data['bright_t31'].astype(float)
         data['frp'] = data['frp'].astype(float)
-        super().__init__(data.drop(["acq_time"], axis=1))
+
+        # add departements geometry to allow for departements merging
+        geo_data = gpd.GeoDataFrame(data, geometry=gpd.points_from_xy(data["longitude"], data["latitude"]),
+                                    crs="EPSG:4326")
+        # Match the polygons using the ones of each predefined country area
+        geo_masks = get_french_geom()
+        geo_df = gpd.sjoin(geo_masks, geo_data, how="inner")
+        super().__init__(geo_df.drop(["acq_time", "index_right", "geometry"], axis=1))
