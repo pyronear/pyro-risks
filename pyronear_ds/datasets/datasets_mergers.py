@@ -1,5 +1,7 @@
 import pandas as pd
 
+from .utils import find_closest_weather_station
+
 
 def merge_datasets_by_departements(
         dataframe1: pd.DataFrame,
@@ -46,8 +48,25 @@ def merge_datasets_by_departements(
     merged_data = pd.merge(
         dataframe1,
         dataframe2,
-        left_on=[dataframe1[time_col1], dataframe1[geometry_col1]],
-        right_on=[dataframe2[time_col2], dataframe2[geometry_col2]],
+        left_on=[time_col1, geometry_col1],
+        right_on=[time_col2, geometry_col2],
         how=how
+    )
+    return merged_data
+
+
+def merge_datasets_by_closest_weather_station(df_weather, time_col_weather: str, df_fires, time_col_fires: str):
+    # For wildfires dataframe
+    df_fires['closest_weather_station'] = df_fires.apply(
+        lambda row: find_closest_weather_station(df_weather, row['latitude'], row['longitude']), axis=1)
+
+    grouped_fires = df_fires.groupby(['closest_weather_station', 'acq_date'], observed=True).first().reset_index()
+
+    merged_data = pd.merge(
+        df_weather,
+        grouped_fires,
+        left_on=[time_col_weather, 'STATION'],
+        right_on=[time_col_fires, 'closest_weather_station'],
+        how='left'
     )
     return merged_data

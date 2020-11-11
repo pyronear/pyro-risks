@@ -1,10 +1,34 @@
-from pyronear_ds.datasets import NASAFIRMS
+from pyronear_ds.datasets import NASAFIRMS, NOAAWeather
+from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_closest_weather_station
 
 
 def main(args):
-
+    weather = NOAAWeather(args.weather)
     nasa_firms = NASAFIRMS(args.nasa_firms, args.nasa_firms_type)
-    print(nasa_firms)
+    print(weather.shape)
+    print(nasa_firms.shape)
+
+    merged_data = merge_datasets_by_closest_weather_station(weather, 'DATE', nasa_firms, 'acq_date')
+
+    final_data = merged_data.copy()
+    where = merged_data['confidence'] >= 60
+    final_data.loc[where, 'Statut'] = 1
+    final_data.loc[~where, 'Statut'] = 0
+
+    to_drop = [
+        'closest_weather_station',
+        'acq_date',
+        'latitude',
+        'longitude',
+        'bright_t31',
+        'frp',
+        'acq_date_time',
+        'confidence'
+    ]
+
+    final_data = final_data.drop(to_drop, axis=1)
+
+    print(final_data)
 
 
 def parse_args():
@@ -14,6 +38,8 @@ def parse_args():
         description="Pyronear wildfire history example based on NASA FIRMS",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+
+    parser.add_argument('--weather', default=None, type=str, help='path or URL of NOAA weather source')
 
     parser.add_argument(
         "--nasa_firms",

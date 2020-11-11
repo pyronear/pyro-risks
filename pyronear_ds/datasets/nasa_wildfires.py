@@ -97,4 +97,8 @@ class NASAFIRMS(pd.DataFrame):
         data["acq_date_time"] = pd.to_datetime(
             data["acq_date_time"], format="%Y-%m-%d %H:%M:%S", errors="coerce"
         )
+        data['latitude'] = data['latitude'].astype(float)
+        data['longitude'] = data['longitude'].astype(float)
+        data['bright_t31'] = data['bright_t31'].astype(float)
+        data['frp'] = data['frp'].astype(float)
         super().__init__(data.drop(["acq_time"], axis=1))
