@@ -22,8 +22,9 @@ def main(args):
 
     final_data = merged_data.copy()
     where = merged_data['confidence'] >= 60
-    final_data.loc[where, 'Statut'] = int(1)
-    final_data.loc[~where, 'Statut'] = int(0)
+    final_data.loc[where, 'Statut'] = 1
+    final_data.loc[~where, 'Statut'] = 0
+    final_data['Statut'] = final_data['Statut'].astype(int)
 
     to_drop = [
         'closest_weather_station',

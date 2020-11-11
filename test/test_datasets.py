@@ -5,6 +5,8 @@ import pandas as pd
 from geopandas import GeoDataFrame
 
 from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires
+from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_departements, \
+    merge_datasets_by_closest_weather_station
 
 
 class UtilsTester(unittest.TestCase):
@@ -41,6 +43,18 @@ class UtilsTester(unittest.TestCase):
                           columns=['STATION', 'LATITUDE', 'LONGITUDE'])
         ref_station = utils.find_closest_weather_station(df, 3.871, 11.234)
         self.assertIsInstance(ref_station, int)
+
+    def test_merge_datasets_by_departements(self):
+        df_weather = weather.NOAAWeather()
+        df_fires = wildfires.BDIFFHistory()
+        df = merge_datasets_by_departements(df_weather, 'DATE', 'code', df_fires, 'date', 'Département', 'left')
+        self.assertIsInstance(df, pd.DataFrame)
+
+    def test_merge_datasets_by_closest_weather_station(self):
+        df_weather = weather.NOAAWeather()
+        nasa_firms = nasa_wildfires.NASAFIRMS()
+        df = merge_datasets_by_closest_weather_station(df_weather, 'DATE', nasa_firms, 'acq_date')
+        self.assertIsInstance(df, pd.DataFrame)
 
 
 class DatasetsTester(unittest.TestCase):
