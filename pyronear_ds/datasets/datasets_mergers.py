@@ -4,13 +4,13 @@ from .utils import find_closest_weather_station
 
 
 def merge_datasets_by_departements(
-        dataframe1: pd.DataFrame,
-        time_col1: str,
-        geometry_col1: str,
-        dataframe2: pd.DataFrame,
-        time_col2: str,
-        geometry_col2: str,
-        how: str
+    dataframe1: pd.DataFrame,
+    time_col1: str,
+    geometry_col1: str,
+    dataframe2: pd.DataFrame,
+    time_col2: str,
+    geometry_col2: str,
+    how: str,
 ) -> pd.DataFrame:
     """
     Merge two datasets containing some kind of geometry and date columns.
@@ -50,16 +50,16 @@ def merge_datasets_by_departements(
         dataframe2,
         left_on=[time_col1, geometry_col1],
         right_on=[time_col2, geometry_col2],
-        how=how
+        how=how,
     )
     return merged_data
 
 
 def merge_datasets_by_closest_weather_station(
-        df_weather: pd.DataFrame,
-        time_col_weather: str,
-        df_fires: pd.DataFrame,
-        time_col_fires: str
+    df_weather: pd.DataFrame,
+    time_col_weather: str,
+    df_fires: pd.DataFrame,
+    time_col_fires: str,
 ) -> pd.DataFrame:
     """
     Merge two datasets: one of weather conditions and the other of wildfires history data.
@@ -85,16 +85,24 @@ def merge_datasets_by_closest_weather_station(
         Merged dataset by weather station proximity.
     """
     # For wildfires dataframe, need to find for each point the closest weather station
-    df_fires['closest_weather_station'] = df_fires.apply(
-        lambda row: find_closest_weather_station(df_weather, row['latitude'], row['longitude']), axis=1)
+    df_fires["closest_weather_station"] = df_fires.apply(
+        lambda row: find_closest_weather_station(
+            df_weather, row["latitude"], row["longitude"]
+        ),
+        axis=1,
+    )
 
-    grouped_fires = df_fires.groupby(['closest_weather_station', 'acq_date'], observed=True).first().reset_index()
+    grouped_fires = (
+        df_fires.groupby(["closest_weather_station", "acq_date"], observed=True)
+        .first()
+        .reset_index()
+    )
 
     merged_data = pd.merge(
         df_weather,
         grouped_fires,
-        left_on=[time_col_weather, 'STATION'],
-        right_on=[time_col_fires, 'closest_weather_station'],
-        how='left'
+        left_on=[time_col_weather, "STATION"],
+        right_on=[time_col_fires, "closest_weather_station"],
+        how="left",
     )
     return merged_data

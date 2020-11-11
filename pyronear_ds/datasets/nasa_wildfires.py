@@ -44,8 +44,12 @@ class NASAFIRMS(pd.DataFrame):
     ]
     fmt = "json"
 
-    def __init__(self, source_path: Optional[str] = None, fmt: Optional[str] = None,
-                 use_cols: Optional[List[str]] = None) -> None:
+    def __init__(
+        self,
+        source_path: Optional[str] = None,
+        fmt: Optional[str] = None,
+        use_cols: Optional[List[str]] = None,
+    ) -> None:
         """
         Args:
             source_path: Optional[str]
@@ -84,14 +88,18 @@ class NASAFIRMS(pd.DataFrame):
             # the raw data as the format "HHMM", we will transform it
             # so that it has the format "HHMMSS"
             # convert type to str
-            data['acq_time'] = data['acq_time'].astype(str)
+            data["acq_time"] = data["acq_time"].astype(str)
             # fill with 0
-            data['acq_time'] = data['acq_time'].str.ljust(6, "0")
+            data["acq_time"] = data["acq_time"].str.ljust(6, "0")
             # prepare for datetime needs
-            data['acq_time'] = data['acq_time'].apply(lambda s: ':'.join(map('{}{}'.format, *(s[::2], s[1::2]))))
+            data["acq_time"] = data["acq_time"].apply(
+                lambda s: ":".join(map("{}{}".format, *(s[::2], s[1::2])))
+            )
 
         else:
-            raise ValueError("The given format cannot be read, it should be either csv, xlsx or json.")
+            raise ValueError(
+                "The given format cannot be read, it should be either csv, xlsx or json."
+            )
 
         data["acq_date_time"] = data["acq_date"] + " " + data["acq_time"]
         data["acq_date"] = pd.to_datetime(
@@ -100,14 +108,17 @@ class NASAFIRMS(pd.DataFrame):
         data["acq_date_time"] = pd.to_datetime(
             data["acq_date_time"], format="%Y-%m-%d %H:%M:%S", errors="coerce"
         )
-        data['latitude'] = data['latitude'].astype(float)
-        data['longitude'] = data['longitude'].astype(float)
-        data['bright_t31'] = data['bright_t31'].astype(float)
-        data['frp'] = data['frp'].astype(float)
+        data["latitude"] = data["latitude"].astype(float)
+        data["longitude"] = data["longitude"].astype(float)
+        data["bright_t31"] = data["bright_t31"].astype(float)
+        data["frp"] = data["frp"].astype(float)
 
         # add departements geometry to allow for departements merging
-        geo_data = gpd.GeoDataFrame(data, geometry=gpd.points_from_xy(data["longitude"], data["latitude"]),
-                                    crs="EPSG:4326")
+        geo_data = gpd.GeoDataFrame(
+            data,
+            geometry=gpd.points_from_xy(data["longitude"], data["latitude"]),
+            crs="EPSG:4326",
+        )
         # Match the polygons using the ones of each predefined country area
         geo_masks = get_french_geom()
         geo_df = gpd.sjoin(geo_masks, geo_data, how="inner")
