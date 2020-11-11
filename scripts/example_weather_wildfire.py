@@ -1,11 +1,9 @@
-import pandas as pd
-
 from pyronear_ds.datasets import NOAAWeather, BDIFFHistory
+from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_departements
 from pyronear_ds.datasets.utils import get_intersection_range
 
 
 def main(args):
-
     weather = NOAAWeather(args.weather)
     history = BDIFFHistory(args.wildfire)
 
@@ -15,7 +13,7 @@ def main(args):
     history = history[history.date.isin(date_range)]
 
     # Merge
-    df = pd.merge(weather, history, left_on=['DATE', 'code'], right_on=['date', 'Département'], how='left')
+    df = merge_datasets_by_departements(weather, 'DATE', 'code', history, 'date', 'Département', 'left')
 
     # Label data
     df.Statut = 1 - df.Statut.isna().astype(int)

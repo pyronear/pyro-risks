@@ -1,4 +1,6 @@
 import unittest
+
+import numpy as np
 import pandas as pd
 import tempfile
 import requests
@@ -13,7 +15,10 @@ from pathlib import Path
 from zipfile import ZipFile
 from unittest.mock import patch
 from geopandas import GeoDataFrame
+
 from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires
+from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_departements, \
+    merge_datasets_by_closest_weather_station
 
 
 class UtilsTester(unittest.TestCase):
@@ -25,7 +30,6 @@ class UtilsTester(unittest.TestCase):
 
     # Template unittest
     def test_get_intersection_range(self):
-
         # Non-intersecting series
         s1 = pd.Series(pd.date_range('2020-01-01', '2020-08-31'))
         s2 = pd.Series(pd.date_range('2020-09-01', '2020-11-01'))
@@ -194,6 +198,29 @@ class UtilsTester(unittest.TestCase):
         with tempfile.TemporaryDirectory() as destination:
             utils.get_ghcn(start_year=2000, end_year=2001, destination=destination)
             self.assertTrue(Path(destination, '2000.csv').is_file())
+
+    def test_find_closest_weather_station(self):
+        # Dataframe without STATION column
+        df = pd.DataFrame(np.array([[5.876, 23.875], [8.986, 12.978]]), columns=['LATITUDE', 'LONGITUDE'])
+        self.assertRaises(ValueError, utils.find_closest_weather_station, df, 3.871, 11.234)
+
+        # Dataframe with STATION column
+        df = pd.DataFrame(np.array([[5676499, 5.876, 23.875], [4597821, 3.286, 12.978], [8767822, 8.564, 10.764]]),
+                          columns=['STATION', 'LATITUDE', 'LONGITUDE'])
+        ref_station = utils.find_closest_weather_station(df, 3.871, 11.234)
+        self.assertIsInstance(ref_station, int)
+
+    def test_merge_datasets_by_departements(self):
+        df_weather = weather.NOAAWeather()
+        df_fires = wildfires.BDIFFHistory()
+        df = merge_datasets_by_departements(df_weather, 'DATE', 'code', df_fires, 'date', 'Département', 'left')
+        self.assertIsInstance(df, pd.DataFrame)
+
+    def test_merge_datasets_by_closest_weather_station(self):
+        df_weather = weather.NOAAWeather()
+        nasa_firms = nasa_wildfires.NASAFIRMS()
+        df = merge_datasets_by_closest_weather_station(df_weather, 'DATE', nasa_firms, 'acq_date')
+        self.assertIsInstance(df, pd.DataFrame)
 
 
 class DatasetsTester(unittest.TestCase):
