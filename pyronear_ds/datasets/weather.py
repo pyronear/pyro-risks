@@ -18,7 +18,7 @@ class NOAAWeather(pd.DataFrame):
         use_cols: columns to read from source
     """
 
-    kept_cols = ['DATE', 'LATITUDE', 'LONGITUDE', 'ELEVATION', 'DEWP', 'DEWP_ATTRIBUTES',
+    kept_cols = ['STATION', 'DATE', 'LATITUDE', 'LONGITUDE', 'ELEVATION', 'DEWP', 'DEWP_ATTRIBUTES',
                  'FRSHTT', 'GUST', 'MAX', 'MIN', 'MXSPD', 'PRCP', 'SLP', 'SLP_ATTRIBUTES',
                  'SNDP', 'STP', 'STP_ATTRIBUTES', 'TEMP', 'TEMP_ATTRIBUTES',
                  'VISIB', 'VISIB_ATTRIBUTES', 'WDSP', 'WDSP_ATTRIBUTES']
