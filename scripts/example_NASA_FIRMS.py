@@ -1,5 +1,6 @@
 from pyronear_ds.datasets import NASAFIRMS, NOAAWeather
 from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_closest_weather_station
+from pyronear_ds.datasets.utils import get_intersection_range
 
 
 def main(args):
@@ -8,12 +9,21 @@ def main(args):
     print(weather.shape)
     print(nasa_firms.shape)
 
+    # Time span selection
+    date_range = get_intersection_range(weather.DATE, nasa_firms.acq_date)
+    weather = weather[weather.DATE.isin(date_range)]
+    nasa_firms = nasa_firms[nasa_firms.acq_date.isin(date_range)]
+
+    print(weather.shape)
+    print(nasa_firms.shape)
+
+    # Merge
     merged_data = merge_datasets_by_closest_weather_station(weather, 'DATE', nasa_firms, 'acq_date')
 
     final_data = merged_data.copy()
     where = merged_data['confidence'] >= 60
-    final_data.loc[where, 'Statut'] = 1
-    final_data.loc[~where, 'Statut'] = 0
+    final_data.loc[where, 'Statut'] = int(1)
+    final_data.loc[~where, 'Statut'] = int(0)
 
     to_drop = [
         'closest_weather_station',

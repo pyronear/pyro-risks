@@ -55,8 +55,36 @@ def merge_datasets_by_departements(
     return merged_data
 
 
-def merge_datasets_by_closest_weather_station(df_weather, time_col_weather: str, df_fires, time_col_fires: str):
-    # For wildfires dataframe
+def merge_datasets_by_closest_weather_station(
+        df_weather: pd.DataFrame,
+        time_col_weather: str,
+        df_fires: pd.DataFrame,
+        time_col_fires: str
+) -> pd.DataFrame:
+    """
+    Merge two datasets: one of weather conditions and the other of wildfires history data.
+    Each dataset must contain a time column, and the weather dataset must have a `STATION`
+    column which allows to identify uniquely each station. The merge is done by finding the
+    closest weather station to each (lat, lon) point of the wildfires history dataset. The
+    latter is then grouped by date and closest_weather_station, which then allows to join it
+    with the weather conditions dataframe.
+
+    Args:
+        df_weather: pd.DataFrame
+            Weather conditions dataframe. Must have a `STATION` column to identify each
+            weather station.
+        time_col_weather: str
+            Name of the time column in `df_weather`.
+        df_fires: pd.DataFrame
+            Wildfires history dataset, must have points described by their latitude and
+            longitude.
+        time_col_fires: str
+            Name of the time column in `df_fires`.
+
+    Returns: pd.DataFrame
+        Merged dataset by weather station proximity.
+    """
+    # For wildfires dataframe, need to find for each point the closest weather station
     df_fires['closest_weather_station'] = df_fires.apply(
         lambda row: find_closest_weather_station(df_weather, row['latitude'], row['longitude']), axis=1)
 
