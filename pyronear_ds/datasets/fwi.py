@@ -11,15 +11,12 @@ import logging
 
 from shapely.geometry import Point
 from shapely import geometry
-from shapely.geometry.polygon import Polygon
-
 
 from pyronear_ds import config as cfg
 
 
 def load_data(source_path=None, output_path=cfg.DATA_PATH):
-    """Load FWI zipped data from github repo and unzip data in folder output_path
-    """
+    """Load FWI zipped data from github repo and unzip data in folder output_path"""
     if not isinstance(source_path, str):
         source_path = cfg.FR_FWI_2019_FALLBACK
     results = requests.get(source_path)
@@ -34,6 +31,7 @@ def load_data(source_path=None, output_path=cfg.DATA_PATH):
 
 def include_department(row, polygons_json):
     """Given a row of a dataframe containing longitude and latitude returns name of french department.
+
     This function makes use of shapely to return if a polygon contains a point.
 
     Args:
@@ -51,8 +49,10 @@ def include_department(row, polygons_json):
 
 
 def get_fwi_data(source_path=cfg.DATA_PATH, day='20190101'):
-    """Load and handle netcdf data for selected day and returns pandas dataframe with longitude, latitude,
-    day and fwi indices (fwi, ffmc, dmc, dc, isi, bui, dsr, dr).
+    """Load and handle netcdf data for selected day.
+
+    Return pandas dataframe with longitude, latitude, day and fwi indices
+    (fwi, ffmc, dmc, dc, isi, bui, dsr, dr).
 
     Args:
         source_path (str, optional): path with unzipped netcdf fwi data. Defaults to cfg.DATA_PATH.
@@ -110,7 +110,6 @@ def create_departement_df(day_data=get_fwi_data(), output_path=cfg.DATA_PATH):
 
     Args:
         day_data (pd.Dataframe): where to find the netcdf from the load_data step.
-
         output_path (str, optional): Defaults to config.DATA_PATH.
     """
     df = day_data.copy()
@@ -126,10 +125,10 @@ def create_departement_df(day_data=get_fwi_data(), output_path=cfg.DATA_PATH):
 
 
 class GwisFwi(pd.DataFrame):
-    """FWI dataset (8 km resolution) on French territory based on 2019-2020 data received via
-    personal communication. Concatenate fwi indices data from source_path corresponding to days_list and
-    join french department.
+    """FWI dataset (8 km resolution) on French territory based on 2019-2020 data.
 
+    Concatenate fwi indices data from source_path corresponding to days_list and
+    join french department.
     Attention: load_data and create_department_df must be run before initializing this class
 
     Args:

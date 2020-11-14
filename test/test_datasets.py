@@ -5,6 +5,7 @@ import urllib.request
 
 from pathlib import Path
 import tempfile
+import json
 
 from pyronear_ds import config as cfg
 from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires, fwi
