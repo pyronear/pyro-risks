@@ -9,6 +9,8 @@ import gzip
 import csv
 import os
 
+from pandas.testing import assert_frame_equal
+
 from io import BytesIO
 from pathlib import Path
 
@@ -16,7 +18,11 @@ from zipfile import ZipFile
 from unittest.mock import patch
 from geopandas import GeoDataFrame
 
-from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires
+import urllib.request
+import json
+
+from pyronear_ds import config as cfg
+from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires, fwi
 from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_departements, \
     merge_datasets_by_closest_weather_station
 
@@ -44,6 +50,42 @@ class UtilsTester(unittest.TestCase):
         s1 = pd.Series(pd.date_range('2020-09-01', '2020-11-01'))
         s2 = pd.Series(pd.date_range('2020-10-01', '2020-12-01'))
         self._test_get_intersection_range(s1, s2, 32)
+
+    def test_load_data(self):
+        with tempfile.TemporaryDirectory() as destination:
+            fwi.load_data(output_path=destination)
+            self.assertTrue(Path(destination, 'fwi_unzipped/JRC_FWI_20190101.nc').is_file())
+
+    def test_get_fwi_data(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fwi.load_data(output_path=tmp)
+            df = fwi.get_fwi_data(source_path=tmp)
+            self.assertIsInstance(df, pd.DataFrame)
+            self.assertEqual(df.shape, (26538, 11))
+
+    def test_create_departement_df(self):
+        test_data = pd.DataFrame({'latitude': {0: 47.978,
+                                               1: 46.783,
+                                               2: 43.760,
+                                               },
+                                  'longitude': {0: 5.132,
+                                                1: 4.710,
+                                                2: 1.335,
+                                                },
+                                  'fwi': {0: 6.7, 1: 0.3, 2: 8.9}})
+        res = fwi.create_departement_df(day_data=test_data)
+        true_res = pd.DataFrame({'latitude': {0: 47.978, 1: 46.783, 2: 43.76},
+                                 'longitude': {0: 5.132, 1: 4.71, 2: 1.335},
+                                 'departement': {0: 'Haute-Marne',
+                                                    1: 'Saône-et-Loire',
+                                                    2: 'Haute-Garonne'}})
+        assert_frame_equal(res, true_res)
+
+    def test_include_departement(self):
+        test_row = pd.Series({"latitude": 51.072, "longitude": 2.531, "fwi": 0.0})
+        with urllib.request.urlopen(cfg.FR_GEOJSON) as url:
+            dep_polygons = json.loads(url.read().decode())
+        self.assertEqual(fwi.include_department(test_row, dep_polygons), 'Nord')
 
     @patch('pyronear_ds.datasets.utils.requests.get')
     def test_url_retrieve(self, mock_get):
@@ -240,6 +282,10 @@ class DatasetsTester(unittest.TestCase):
 
     def test_nasafirms(self):
         ds = nasa_wildfires.NASAFIRMS()
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_gwisfwi(self):
+        ds = fwi.GwisFwi()
         self.assertIsInstance(ds, pd.DataFrame)
 
 
