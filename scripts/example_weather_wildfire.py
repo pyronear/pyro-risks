@@ -1,6 +1,6 @@
-from pyronear_ds.datasets import NOAAWeather, BDIFFHistory
-from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_departements
-from pyronear_ds.datasets.utils import get_intersection_range
+from pyro_risks.datasets import NOAAWeather, BDIFFHistory
+from pyro_risks.datasets.datasets_mergers import merge_datasets_by_departements
+from pyro_risks.datasets.utils import get_intersection_range
 
 
 def main(args):

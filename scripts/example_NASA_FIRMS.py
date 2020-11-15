@@ -1,9 +1,9 @@
-from pyronear_ds.datasets import NASAFIRMS, NOAAWeather
-from pyronear_ds.datasets.datasets_mergers import (
+from pyro_risks.datasets import NASAFIRMS, NOAAWeather
+from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_closest_weather_station,
     merge_datasets_by_departements,
 )
-from pyronear_ds.datasets.utils import get_intersection_range
+from pyro_risks.datasets.utils import get_intersection_range
 
 
 def main(args):
