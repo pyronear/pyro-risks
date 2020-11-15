@@ -1,5 +1,5 @@
 pyro_risks
-===========
+==========
 
 The :mod:`pyro_risks` package aggregates pre-processing pipeliens and models for wildfire forecasting and monitoring.
 

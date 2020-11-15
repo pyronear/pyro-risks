@@ -13,7 +13,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import pyronear_ds
+import pyro_risks
 import sphinx_rtd_theme
 from datetime import datetime
 
@@ -21,13 +21,13 @@ from datetime import datetime
 # -- Project information -----------------------------------------------------
 
 master_doc = 'index'
-project = 'pyronear_ds'
+project = 'pyro_risks'
 copyright = f"{datetime.now().year}, Pyronear Contributors"
 author = 'Pyronear Contributors'
 
 # The full version, including alpha/beta/rc tags
-version = pyronear_ds.__version__
-release = pyronear_ds.__version__ + '-git'
+version = pyro_risks.__version__
+release = pyro_risks.__version__ + '-git'
 
 
 # -- General configuration ---------------------------------------------------

@@ -1,5 +1,5 @@
-pyronear_ds.datasets
-####################
+pyro_risks.datasets
+###################
 
 The datasets submodule contains datasets with entries indexed by location and datetime, to help prediction outbreak 
 risks and wildfire evolution. Using those datasets means that you comply with the usage restrictions from the 
@@ -10,7 +10,7 @@ The following datasets are available:
 .. contents:: Models
     :local:
 
-.. currentmodule:: pyronear_ds.datasets
+.. currentmodule:: pyro_risks.datasets
 
 
 Region tiling
