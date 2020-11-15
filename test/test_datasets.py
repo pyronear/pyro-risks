@@ -21,9 +21,9 @@ from geopandas import GeoDataFrame
 import urllib.request
 import json
 
-from pyronear_ds import config as cfg
-from pyronear_ds.datasets import masks, weather, wildfires, utils, nasa_wildfires, fwi
-from pyronear_ds.datasets.datasets_mergers import merge_datasets_by_departements, \
+from pyro_risks import config as cfg
+from pyro_risks.datasets import masks, weather, wildfires, utils, nasa_wildfires, fwi
+from pyro_risks.datasets.datasets_mergers import merge_datasets_by_departements, \
     merge_datasets_by_closest_weather_station
 
 
@@ -87,7 +87,7 @@ class UtilsTester(unittest.TestCase):
             dep_polygons = json.loads(url.read().decode())
         self.assertEqual(fwi.include_department(test_row, dep_polygons), 'Nord')
 
-    @patch('pyronear_ds.datasets.utils.requests.get')
+    @patch('pyro_risks.datasets.utils.requests.get')
     def test_url_retrieve(self, mock_get):
 
         mock_get.return_value.status_code = 200
@@ -193,8 +193,8 @@ class UtilsTester(unittest.TestCase):
         else:
             return ("test_gz", "csv", "gz")
 
-    @patch('pyronear_ds.datasets.utils.get_fname')
-    @patch('pyronear_ds.datasets.utils.url_retrieve')
+    @patch('pyro_risks.datasets.utils.get_fname')
+    @patch('pyro_risks.datasets.utils.url_retrieve')
     def test_download(self, mock_url_retrieve, mock_fname):
         with tempfile.TemporaryDirectory() as destination:
 
