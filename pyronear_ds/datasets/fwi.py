@@ -22,11 +22,11 @@ def load_data(source_path=None, output_path=cfg.DATA_PATH):
     results = requests.get(source_path)
 
     os.makedirs(output_path, exist_ok=True)
-    with open(output_path + 'fwi_folder.zip', 'wb') as f:
+    with open(os.path.join(output_path, 'fwi_folder.zip'), 'wb') as f:
         f.write(results.content)
 
-    file = zipfile.ZipFile(output_path + 'fwi_folder.zip')
-    file.extractall(path=output_path + 'fwi_unzipped')
+    file = zipfile.ZipFile(os.path.join(output_path, 'fwi_folder.zip'))
+    file.extractall(path=os.path.join(output_path, 'fwi_unzipped'))
 
 
 def include_department(row, polygons_json):
@@ -121,7 +121,7 @@ def create_departement_df(day_data=get_fwi_data(), output_path=cfg.DATA_PATH):
     df['departement'] = deps
     df = df[df['departement'] != ""]
     dep_geo_df = df[['latitude', 'longitude', 'departement']]
-    dep_geo_df.to_pickle(output_path + 'departement_df.pickle')
+    dep_geo_df.to_pickle(os.path.join(output_path, 'departement_df.pickle'))
 
 
 class GwisFwi(pd.DataFrame):
