@@ -8,6 +8,7 @@ import os
 import urllib.request
 import json
 import logging
+import tempfile
 
 from shapely.geometry import Point
 from shapely import geometry
@@ -15,11 +16,13 @@ from shapely import geometry
 from pyronear_ds import config as cfg
 
 
-def load_data(source_path=None, output_path=cfg.DATA_PATH):
-    """Load FWI zipped data from github repo and unzip data in folder output_path"""
-    if not isinstance(source_path, str):
-        source_path = cfg.FR_FWI_2019_FALLBACK
-    results = requests.get(source_path)
+def load_data(output_path):
+    """Load FWI zipped data from github repo and unzip data in folder output_path.
+
+    Args:
+        output_path (str): absolute, relative or temporary path
+    """
+    results = requests.get(cfg.FR_FWI_2019_FALLBACK)
 
     os.makedirs(output_path, exist_ok=True)
     with open(os.path.join(output_path, 'fwi_folder.zip'), 'wb') as f:
@@ -33,7 +36,6 @@ def include_department(row, polygons_json):
     """Given a row of a dataframe containing longitude and latitude returns name of french department.
 
     This function makes use of shapely to return if a polygon contains a point.
-
     Args:
         row (pd.Series): row of dataframe
         polygons_json (json): json with polygons of the departments
@@ -48,20 +50,18 @@ def include_department(row, polygons_json):
     return ""
 
 
-def get_fwi_data(source_path=cfg.DATA_PATH, day='20190101'):
+def get_fwi_data(source_path, day='20190101'):
     """Load and handle netcdf data for selected day.
 
     Return pandas dataframe with longitude, latitude, day and fwi indices
     (fwi, ffmc, dmc, dc, isi, bui, dsr, dr).
-
     Args:
-        source_path (str, optional): path with unzipped netcdf fwi data. Defaults to cfg.DATA_PATH.
+        source_path (str): path with unzipped netcdf fwi data, usually got from load_data.
         day (str, optional): which day to load. Defaults to '20190101'.
 
     Returns:
         pd.DataFrame: dataframe with all fwi indices for selected day
     """
-
     nc = Dataset(os.path.join(source_path, 'fwi_unzipped/JRC_FWI_{}.nc'.format(day)), 'r')
     try:
         lons = nc.variables['lon'][:]
@@ -98,19 +98,17 @@ def get_fwi_data(source_path=cfg.DATA_PATH, day='20190101'):
     return df
 
 
-def create_departement_df(day_data=get_fwi_data(), output_path=cfg.DATA_PATH):
+def create_departement_df(day_data):
     """Create dataframe with lon, lat coordinates and corresponding departments.
 
-    Input: one day of FWI data previously loaded with function load_data.
-    Load the json with the department polygons and run function include_department to get the
-    name of departments corresponding to each row of day_data.
-    Save in source_path dataframe with lat, lon points having non-empty departments.
-
-    This may take a few minutes.
-
+    Load json with the department polygons and run function include_department to get the
+    name of departments corresponding to each row of input data, typically one day of FWI data
+    got with load_data. This may take a few minutes due to the shapely process.
     Args:
-        day_data (pd.Dataframe): where to find the netcdf from the load_data step.
-        output_path (str, optional): Defaults to config.DATA_PATH.
+        day_data (pd.Dataframe): df with longitudes and latitudes
+
+    Returns:
+        pd.DataFrame: dataframe with lat, lon and department
     """
     df = day_data.copy()
 
@@ -121,40 +119,25 @@ def create_departement_df(day_data=get_fwi_data(), output_path=cfg.DATA_PATH):
     df['departement'] = deps
     df = df[df['departement'] != ""]
     dep_geo_df = df[['latitude', 'longitude', 'departement']]
-    dep_geo_df.to_pickle(os.path.join(output_path, 'departement_df.pickle'))
+    return dep_geo_df
 
 
 class GwisFwi(pd.DataFrame):
-    """FWI dataset (8 km resolution) on French territory based on 2019-2020 data.
+    """GWIS FWI dataframe (8 km resolution) on French territory based on 2019-2020 data."""
 
-    Concatenate fwi indices data from source_path corresponding to days_list and
-    join french department.
-    Attention: load_data and create_department_df must be run before initializing this class
+    def __init__(self, days_list=['20190101']):
+        """Create dataframe with fwi indices data corresponding to days_list and join french department.
 
-    Args:
-        source_path: str, path to saved netcdf data obtained with load_data()
-        days_list: list of str, format year month day (all concatenated)
-    """
-
-    def __init__(self, source_path=cfg.DATA_PATH, days_list=['20190101']):
-
+        Args:
+            days_list: list of str, format year month day (all concatenated)
+        """
         fwi_df = pd.DataFrame(columns=['latitude', 'longitude', 'day',
                                        'fwi', 'ffmc', 'dmc', 'dc', 'isi', 'bui', 'dsr', 'dr'])
-
-        if not os.path.isdir(os.path.join(source_path, 'fwi_unzipped/')):
-            logging.warning("You must load FWI data, please run load_data")
-
-        for day in days_list:
-            df = get_fwi_data(source_path=source_path, day=day)
-            fwi_df = pd.concat([fwi_df, df])
-
-        if not os.path.isfile(source_path + 'departement_df.pickle'):
-            logging.warning("Department dataframe is needed, please run create_departement_df")
-        dep_geo_df = pd.read_pickle(os.path.join(source_path, 'departement_df.pickle'))
-        fwi_df = pd.merge(fwi_df, dep_geo_df, on=['latitude', 'longitude'])
+        with tempfile.TemporaryDirectory() as tmp:
+            load_data(output_path=tmp)
+            for day in days_list:
+                df = get_fwi_data(source_path=tmp, day=day)
+                fwi_df = pd.concat([fwi_df, df])
+            dep_geo_df = create_departement_df(df)
+            fwi_df = pd.merge(fwi_df, dep_geo_df, on=['latitude', 'longitude'])
         super().__init__(fwi_df)
-
-
-if __name__ == "__main__":
-    load_data()
-    create_departement_df()

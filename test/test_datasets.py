@@ -9,6 +9,8 @@ import gzip
 import csv
 import os
 
+from pandas.testing import assert_frame_equal
+
 from io import BytesIO
 from pathlib import Path
 
@@ -54,24 +56,30 @@ class UtilsTester(unittest.TestCase):
             fwi.load_data(output_path=destination)
             self.assertTrue(Path(destination, 'fwi_unzipped/JRC_FWI_20190101.nc').is_file())
 
-    def test_fwi_day_data(self):
-        df = fwi.get_fwi_data()
-        self.assertIsInstance(df, pd.DataFrame)
-        self.assertEqual(df.shape, (26538, 11))
+    def test_get_fwi_data(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fwi.load_data(output_path=tmp)
+            df = fwi.get_fwi_data(source_path=tmp)
+            self.assertIsInstance(df, pd.DataFrame)
+            self.assertEqual(df.shape, (26538, 11))
 
     def test_create_departement_df(self):
-        with tempfile.TemporaryDirectory() as destination:
-            test_data = pd.DataFrame({'latitude': {0: 47.97890853881836,
-                                                   1: 46.78382873535156,
-                                                   2: 43.760982513427734,
-                                                   },
-                                      'longitude': {0: 5.1328125,
-                                                    1: 4.7109375,
-                                                    2: 1.3359375,
-                                                    },
-                                      'fwi': {0: 6.7, 1: 0.3, 2: 8.9}})
-            fwi.create_departement_df(day_data=test_data, output_path=destination)
-            self.assertTrue(Path(destination, 'departement_df.pickle').is_file())
+        test_data = pd.DataFrame({'latitude': {0: 47.978,
+                                               1: 46.783,
+                                               2: 43.760,
+                                               },
+                                  'longitude': {0: 5.132,
+                                                1: 4.710,
+                                                2: 1.335,
+                                                },
+                                  'fwi': {0: 6.7, 1: 0.3, 2: 8.9}})
+        res = fwi.create_departement_df(day_data=test_data)
+        true_res = pd.DataFrame({'latitude': {0: 47.978, 1: 46.783, 2: 43.76},
+                                 'longitude': {0: 5.132, 1: 4.71, 2: 1.335},
+                                 'departement': {0: 'Haute-Marne',
+                                                    1: 'Saône-et-Loire',
+                                                    2: 'Haute-Garonne'}})
+        assert_frame_equal(res, true_res)
 
     def test_include_departement(self):
         test_row = pd.Series({"latitude": 51.072, "longitude": 2.531, "fwi": 0.0})
