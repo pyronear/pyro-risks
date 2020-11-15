@@ -62,7 +62,7 @@ def get_fwi_data(source_path=cfg.DATA_PATH, day='20190101'):
         pd.DataFrame: dataframe with all fwi indices for selected day
     """
 
-    nc = Dataset(source_path + 'fwi_unzipped/JRC_FWI_{}.nc'.format(day), 'r')
+    nc = Dataset(os.path.join(source_path, 'fwi_unzipped/JRC_FWI_{}.nc'.format(day)), 'r')
     try:
         lons = nc.variables['lon'][:]
         lats = nc.variables['lat'][:]
@@ -141,7 +141,7 @@ class GwisFwi(pd.DataFrame):
         fwi_df = pd.DataFrame(columns=['latitude', 'longitude', 'day',
                                        'fwi', 'ffmc', 'dmc', 'dc', 'isi', 'bui', 'dsr', 'dr'])
 
-        if not os.path.isdir(source_path + 'fwi_unzipped/'):
+        if not os.path.isdir(os.path.join(source_path, 'fwi_unzipped/')):
             logging.warning("You must load FWI data, please run load_data")
 
         for day in days_list:
@@ -150,7 +150,7 @@ class GwisFwi(pd.DataFrame):
 
         if not os.path.isfile(source_path + 'departement_df.pickle'):
             logging.warning("Department dataframe is needed, please run create_departement_df")
-        dep_geo_df = pd.read_pickle(source_path + 'departement_df.pickle')
+        dep_geo_df = pd.read_pickle(os.path.join(source_path, 'departement_df.pickle'))
         fwi_df = pd.merge(fwi_df, dep_geo_df, on=['latitude', 'longitude'])
         super().__init__(fwi_df)
 
