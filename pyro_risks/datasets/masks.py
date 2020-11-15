@@ -2,7 +2,7 @@ import logging
 import geopandas as gpd
 from typing import Optional
 
-from pyronear_ds import config as cfg
+from pyro_risks import config as cfg
 
 
 __all__ = ['get_french_geom']
