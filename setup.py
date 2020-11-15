@@ -34,6 +34,8 @@ requirements = [
     'pandas>=1.0.0',
     'geopandas>=0.8.1',
     'Rtree>=0.9.4',
+    'shapely>=1.7.1',
+    'netCDF4>=1.5.4'
 ]
 
 setup(
