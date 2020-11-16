@@ -320,11 +320,20 @@ class UtilsTester(unittest.TestCase):
         self.assertIsInstance(df, pd.DataFrame)
 
     def test_merge_datasets_by_closest_weather_point(self):
-        df_weather = ERA5.ERA5Land()
+        df_weather = pd.DataFrame(
+            np.array(
+                [
+                    [5.876, 23.875, '2019-06-24'],
+                    [3.286, 12.978, '2019-10-02'],
+                    [8.564, 10.764, '2019-03-12'],
+                ]
+            ),
+            columns=["latitude", "longitude", "time"],
+        )
+        df_weather["time"] = pd.to_datetime(
+            df_weather["time"], format="%Y-%m-%d", errors="coerce"
+        )
         nasa_firms = nasa_wildfires.NASAFIRMS()
-        # take only a subset of the ERA5Land dataset because it is huge
-        df_weather = df_weather[100:300]
-        nasa_firms = nasa_firms[0:200]
         df = merge_datasets_by_closest_weather_point(
             df_weather, "time", nasa_firms, "acq_date"
         )
@@ -357,9 +366,9 @@ class DatasetsTester(unittest.TestCase):
         ds = fwi.GwisFwi()
         self.assertIsInstance(ds, pd.DataFrame)
 
-    def test_era5land(self):
-        ds = ERA5.ERA5Land()
-        self.assertIsInstance(ds, pd.DataFrame)
+    # def test_era5land(self):
+    #     ds = ERA5.ERA5Land()
+    #     self.assertIsInstance(ds, pd.DataFrame)
 
 
 if __name__ == "__main__":
