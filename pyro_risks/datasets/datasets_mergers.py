@@ -1,6 +1,6 @@
 import pandas as pd
 
-from .utils import find_closest_weather_station
+from .utils import find_closest_weather_station, find_closest_location
 
 
 def merge_datasets_by_departements(
@@ -103,6 +103,61 @@ def merge_datasets_by_closest_weather_station(
         grouped_fires,
         left_on=[time_col_weather, "STATION"],
         right_on=[time_col_fires, "closest_weather_station"],
+        how="left",
+    )
+    return merged_data
+
+
+def merge_datasets_by_closest_weather_point(
+    df_weather: pd.DataFrame,
+    time_col_weather: str,
+    df_fires: pd.DataFrame,
+    time_col_fires: str,
+) -> pd.DataFrame:
+    """
+    Merge weather and fire datasets when the weather dataset is provided using satellite
+    data such as ERA5 Land hourly dataset provided here
+    https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form
+    and accessible through cdsapi.
+
+    Args:
+        df_weather: pd.DataFrame
+            Weather conditions dataframe, must have "latitude" and "longitude" columns.
+        time_col_weather: str
+            Name of the time column in `df_weather`.
+        df_fires: pd.DataFrame
+            Wildfires history dataset, must have points described by their latitude and
+            longitude.
+        time_col_fires: str
+            Name of the time column in `df_fires`.
+
+    Returns: pd.DataFrame
+        Merged dataset by weather station proximity.
+    """
+    # For wildfires dataframe, need to find for each point the closest weather station
+    df_fires["closest_weather_point"] = df_fires.apply(
+        lambda row: find_closest_location(
+            df_weather, row["latitude"], row["longitude"]
+        ),
+        axis=1,
+    )
+
+    grouped_fires = (
+        df_fires.groupby(["closest_weather_point", "acq_date"], observed=True)
+        .first()
+        .reset_index()
+    )
+
+    grouped_fires["weather_lat"], grouped_fires["weather_lon"] = (
+        grouped_fires["closest_weather_point"].str[0],
+        grouped_fires["closest_weather_point"].str[1],
+    )
+
+    merged_data = pd.merge(
+        df_weather,
+        grouped_fires,
+        left_on=[time_col_weather, "latitude", "longitude"],
+        right_on=[time_col_fires, "weather_lat", "weather_lon"],
         how="left",
     )
     return merged_data
