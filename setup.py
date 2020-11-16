@@ -42,6 +42,7 @@ requirements = [
     "netCDF4>=1.5.4",
     "requests>=2.24.0",
     "xarray>=0.16.1",
+    "scipy>=1.4.0"
 ]
 
 setup(

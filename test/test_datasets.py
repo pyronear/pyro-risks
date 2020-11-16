@@ -330,6 +330,8 @@ class UtilsTester(unittest.TestCase):
             ),
             columns=["latitude", "longitude", "time"],
         )
+        df_weather["latitude"] = df_weather["latitude"].astype(float)
+        df_weather["longitude"] = df_weather["longitude"].astype(float)
         df_weather["time"] = pd.to_datetime(
             df_weather["time"], format="%Y-%m-%d", errors="coerce"
         )
@@ -366,9 +368,9 @@ class DatasetsTester(unittest.TestCase):
         ds = fwi.GwisFwi()
         self.assertIsInstance(ds, pd.DataFrame)
 
-    # def test_era5land(self):
-    #     ds = ERA5.ERA5Land()
-    #     self.assertIsInstance(ds, pd.DataFrame)
+    def test_era5land(self):
+        ds = ERA5.ERA5Land()
+        self.assertIsInstance(ds, pd.DataFrame)
 
 
 if __name__ == "__main__":
