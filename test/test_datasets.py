@@ -369,7 +369,7 @@ class DatasetsTester(unittest.TestCase):
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_era5land(self):
-        ds = ERA5.ERA5Land()
+        ds = ERA5.ERA5Land(source_path=cfg.TEST_FR_ERA5LAND_FALLBACK)
         self.assertIsInstance(ds, pd.DataFrame)
 
 
