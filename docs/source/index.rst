@@ -1,7 +1,7 @@
-pyronear_ds
-===========
+pyro_risks
+==========
 
-The :mod:`pyronear_ds` package aggregates pre-processing pipeliens and models for wildfire forecasting and monitoring.
+The :mod:`pyro_risks` package aggregates pre-processing pipeliens and models for wildfire forecasting and monitoring.
 
 
 .. toctree::
@@ -17,7 +17,7 @@ The :mod:`pyronear_ds` package aggregates pre-processing pipeliens and models fo
    datasets
 
 
-.. automodule:: pyronear_ds
+.. automodule:: pyro_risks
    :members:
 
 

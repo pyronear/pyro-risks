@@ -13,5 +13,5 @@ Install the library in developper mode:
 
 .. code:: bash
 
-    git clone https://github.com/pyronear/pyronear-datascience.git
-    pip install -e pyronear-datascience/.
+    git clone https://github.com/pyronear/pyro-risks.git
+    pip install -e pyro-risks/.

@@ -8,7 +8,7 @@ import os
 import subprocess
 from setuptools import setup, find_packages
 
-package_name = 'pyronear_ds'
+package_name = 'pyro_risks'
 with open(os.path.join(package_name, 'version.py')) as version_file:
     version = version_file.read().strip()
 sha = 'Unknown'
@@ -46,8 +46,8 @@ setup(
     description='Pre-processing pipelines and models for wildfire forecasting and monitoring',
     long_description=readme,
     long_description_content_type="text/markdown",
-    url='https://github.com/pyronear/pyronear-datascience',
-    download_url='https://github.com/pyronear/pyronear-datascience/tags',
+    url='https://github.com/pyronear/pyro-risks',
+    download_url='https://github.com/pyronear/pyro-risks/tags',
     license='GPLv3',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',

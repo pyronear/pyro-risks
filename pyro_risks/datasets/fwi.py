@@ -13,7 +13,7 @@ import tempfile
 from shapely.geometry import Point
 from shapely import geometry
 
-from pyronear_ds import config as cfg
+from pyro_risks import config as cfg
 
 
 def load_data(output_path):

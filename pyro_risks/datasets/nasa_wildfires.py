@@ -4,7 +4,7 @@ from typing import List, Optional
 import geopandas as gpd
 import pandas as pd
 
-from pyronear_ds import config as cfg
+from pyro_risks import config as cfg
 
 __all__ = ["NASAFIRMS"]
 

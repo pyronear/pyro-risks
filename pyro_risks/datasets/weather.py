@@ -3,7 +3,7 @@ import pandas as pd
 import geopandas as gpd
 from typing import List, Optional
 
-from pyronear_ds import config as cfg
+from pyro_risks import config as cfg
 from .masks import get_french_geom
 
 __all__ = ['NOAAWeather']
