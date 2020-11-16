@@ -13,7 +13,8 @@ __all__ = ["ERA5Land"]
 
 
 class ERA5Land(pd.DataFrame):
-    """
+    """Provides ERA5-Land clean dataset as a pandas dataframe.
+
     ERA5-Land is a reanalysis dataset providing a consistent view of the evolution of land variables
     over several decades at an enhanced resolution compared to ERA5. ERA5-Land uses as input to
     control the simulated land fields ERA5 atmospheric variables, such as air temperature and air humidity.
@@ -28,6 +29,11 @@ class ERA5Land(pd.DataFrame):
     """
 
     def __init__(self, source_path: Optional[str] = None):
+        """
+        Args:
+            source_path: Optional[str]
+                Path or URL to your version of the source data
+        """
         if not isinstance(source_path, str):
             # Download in cache
             logging.warning(
