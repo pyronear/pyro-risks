@@ -5,7 +5,7 @@ import tarfile
 import shutil
 import warnings
 
-from typing import Tuple, Optional, List
+from typing import Tuple, Optional
 
 from io import BytesIO
 from datetime import datetime

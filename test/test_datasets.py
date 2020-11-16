@@ -357,9 +357,9 @@ class DatasetsTester(unittest.TestCase):
         ds = fwi.GwisFwi()
         self.assertIsInstance(ds, pd.DataFrame)
 
-    # def test_era5land(self):
-    #     ds = ERA5.ERA5Land()
-    #     self.assertIsInstance(ds, pd.DataFrame)
+    def test_era5land(self):
+        ds = ERA5.ERA5Land()
+        self.assertIsInstance(ds, pd.DataFrame)
 
 
 if __name__ == "__main__":
