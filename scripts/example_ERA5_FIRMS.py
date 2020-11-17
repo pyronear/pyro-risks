@@ -69,7 +69,6 @@ def main(args):
 
     print(final_data)
 
-
 def parse_args():
     import argparse
 

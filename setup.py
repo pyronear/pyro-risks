@@ -42,7 +42,9 @@ requirements = [
     "netCDF4>=1.5.4",
     "requests>=2.24.0",
     "xarray>=0.16.1",
-    "scipy>=1.4.0"
+    "scipy>=1.4.0",
+    "scikit-learn>=0.23.1",
+    "xgboost>=1.2.1"
 ]
 
 setup(
