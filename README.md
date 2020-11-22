@@ -5,7 +5,7 @@
       <a href="https://github.com/pyronear/pyro-vision/actions?query=workflow%3Apython-package">
         <img src="https://github.com/pyronear/pyro-risks/workflows/python-package/badge.svg" /></a>
    <a href="https://www.codacy.com/gh/pyronear/pyro-risks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pyronear/pyro-risks&amp;utm_campaign=Badge_Grade">
-      <img src="https://app.codacy.com/project/badge/Grade/3bea1a63e4aa44258cfd08831d713478" /></a>
+      <img src="" /></a>
     <a href="https://codecov.io/gh/pyronear/pyro-risks">
   		<img src="https://codecov.io/gh/pyronear/pyro-risks/branch/master/graph/badge.svg" /></a>
     <a href="https://github.com/psf/black">
@@ -15,4 +15,79 @@
 </p>
 
 
-  Machine learning based wildifire risk forcasting
+The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildifire risk forcasting capibility. 
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Getting started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [datasets](#datasets)
+- [Examples](#examples)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
+
+
+
+## Getting started
+
+### Prerequisites
+
+- Python 3.6 (or more recent)
+- [pip](https://pip.pypa.io/en/stable/)
+
+### Installation
+
+You can install the package from github as follows:
+
+```shell
+pip install git+git://github.com/pyronear/pyro-risks
+```
+
+## Usage
+
+### datasets
+
+Access all pyro-risks datasets. 
+
+```python
+from pyro_risks.datasets import NASAFIRMS, NOAAWeather
+firms = NASAFIRMS()
+noaa = NOAAWeather()
+```
+
+## Examples
+
+You are free to merge the datasets however you want and to implement any zonal statistic you want, but some are already provided for reference. In order to use them check the example scripts options as follows:
+
+```shell
+python scripts/example_ERA5_FIRMS.py --help
+```
+
+You can then run the script with your own arguments:
+
+```shell
+python scripts/example_ERA5_FIRMS.py --type_of_merged departements
+```
+
+## Documentation
+
+The full package documentation is available [here](https://pyronear.org/pyro-risks/) for detailed specifications. The documentation was built with [Sphinx](https://www.sphinx-doc.org) using a [theme](https://github.com/readthedocs/sphinx_rtd_theme) provided by [Read the Docs](https://readthedocs.org).
+
+
+## Contributing
+
+Please refer to the [`CONTRIBUTING`](./CONTRIBUTING.md) guide if you wish to contribute to this project.
+
+
+## Credits
+
+This project is developed and maintained by the repo owner and volunteers from [Data for Good](https://dataforgood.fr/).
+
+## License
+
+Distributed under the GPLv3 Licenses. See [`LICENSE`](./LICENSE) for more information.
