@@ -42,8 +42,9 @@ jobs:
           architecture: x64
       - name: Install package
         run: |
-          brew install libspatialindex-dev python3-rtree
+          brew install spatialindex
           python -m pip install --upgrade pip
+          pip install Rtree>=0.9.4
           pip install -e .
 
   windows-build:
@@ -57,8 +58,8 @@ jobs:
           architecture: x64
       - name: Install package
         run: |
-          pip install Rtree>=0.9.4
           python -m pip install --upgrade pip
+          pip install Rtree>=0.9.4
           pip install -e .
 
   pkg-test:
