@@ -56,9 +56,12 @@ jobs:
         with:
           python-version: 3.7
           architecture: x64
+      - uses: s-weigand/setup-conda@v1
+        with:
+          activate-conda: false
       - name: Install package
         run: |
-          C:\Miniconda\condabin\conda.bat install --channel conda-forge geopandas -y
+          conda install -y -c conda-forge libspatialindex=1.9.3
           python -m pip install --upgrade pip
           pip install -e .
 
