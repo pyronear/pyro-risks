@@ -61,8 +61,9 @@ jobs:
           activate-conda: false
       - name: Install package
         run: |
-          conda install pandas fiona shapely pyproj rtree>=0.9.4
-          conda install -y -c conda-forge libspatialindex=1.9.3 geopandas>=0.8.1
+          conda install -y -c conda-forge libspatialindex=1.9.3
+          conda install -y pandas fiona shapely pyproj rtree>=0.9.4
+          conda install -y -c conda-forge geopandas>=0.8.1
           python -m pip install --upgrade pip
           pip install -e .
 
