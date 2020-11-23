@@ -58,8 +58,8 @@ jobs:
           architecture: x64
       - name: Install package
         run: |
+          C:\Miniconda\condabin\conda.bat install --channel conda-forge geopandas -y
           python -m pip install --upgrade pip
-          pip install Rtree>=0.9.4
           pip install -e .
 
   pkg-test:
