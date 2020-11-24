@@ -14,7 +14,6 @@
   		<img src="https://img.shields.io/badge/docs-available-blue.svg" /></a>
 </p>
 
-The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildifire risk forcasting capibility. 
 
 ## Table of Contents
 
