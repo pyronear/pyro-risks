@@ -69,6 +69,7 @@ In order to contribute to project, you will first need to **set up your *pyro-ri
 -   We are going to get a local copy of the remote project (*fork*) and set remotes so we stay up to date to recent contributions.
 
     1.  **Create a fork** by clicking on the **fork button** on the current repository page
+
     2.  Clone *your* fork locally.
 
         ```shell
@@ -87,6 +88,7 @@ In order to contribute to project, you will first need to **set up your *pyro-ri
 <br>
 
 1.  Configure your fork `YOUR_USERNAME/pyro-risks` as `origin` remote
+
 2.  Configure `pyronear/pyro-risks repository` as `upstream` remote
 
     ```shell
