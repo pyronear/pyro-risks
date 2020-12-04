@@ -44,7 +44,8 @@ requirements = [
     "xarray>=0.16.1",
     "scipy>=1.4.0",
     "scikit-learn>=0.23.1",
-    "xgboost>=1.2.1"
+    "xgboost>=1.2.1",
+    "xlrd>=1.0.0"
 ]
 
 setup(

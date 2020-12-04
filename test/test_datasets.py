@@ -385,11 +385,15 @@ class DatasetsTester(unittest.TestCase):
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_nasafirms_csv(self):
-        ds = nasa_wildfires.NASAFIRMS(source_path=cfg.TEST_FR_FIRMS_CSV_FALLBACK, fmt="csv")
+        ds = nasa_wildfires.NASAFIRMS(
+            source_path=cfg.TEST_FR_FIRMS_CSV_FALLBACK, fmt="csv"
+        )
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_nasafirms_xlsx(self):
-        ds = nasa_wildfires.NASAFIRMS(source_path=cfg.TEST_FR_FIRMS_XLSX_FALLBACK, fmt="xlsx")
+        ds = nasa_wildfires.NASAFIRMS(
+            source_path=cfg.TEST_FR_FIRMS_XLSX_FALLBACK, fmt="xlsx"
+        )
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_nasaviirs_csv(self):
@@ -397,7 +401,15 @@ class DatasetsTester(unittest.TestCase):
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_nasaviirs_xlsx(self):
-        ds = nasa_wildfires.NASAFIRMS_VIIRS(source_path=cfg.TEST_FR_VIIRS_XLSX_FALLBACK, fmt="xlsx")
+        ds = nasa_wildfires.NASAFIRMS_VIIRS(
+            source_path=cfg.TEST_FR_VIIRS_XLSX_FALLBACK, fmt="xlsx"
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasaviirs_json(self):
+        ds = nasa_wildfires.NASAFIRMS_VIIRS(
+            source_path=cfg.TEST_FR_VIIRS_JSON_FALLBACK, fmt="json"
+        )
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_gwisfwi(self):
