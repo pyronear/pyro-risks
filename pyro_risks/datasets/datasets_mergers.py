@@ -1,6 +1,6 @@
 import pandas as pd
 
-from .utils import find_closest_weather_station, find_closest_location
+from .utils import find_closest_weather_station, find_closest_location, get_nearest_points
 
 
 def merge_datasets_by_departements(
@@ -159,5 +159,82 @@ def merge_datasets_by_closest_weather_point(
         left_on=[time_col_weather, "latitude", "longitude"],
         right_on=[time_col_fires, "weather_lat", "weather_lon"],
         how="left",
+    )
+    return merged_data
+
+
+def merge_by_proximity(
+    df_left: pd.DataFrame,
+    time_col_left: str,
+    df_right: pd.DataFrame,
+    time_col_right: str,
+    how: str
+) -> pd.DataFrame:
+    """
+    Merge df_left and df_right by finding in among all points in df_left, the closest point in df_right.
+    For instance, df_left can be a history wildfires dataset and df_right a weather conditions datasets and
+    we want to match each wildfire with its closest weather point.
+    This can also be used if, for instance, we want to merge FWI dataset (df_left) with ERA5/VIIRS datatset
+    (df_right).
+
+    Args:
+        df_left: pd.DataFrame
+            Left dataframe, must have "latitude" and "longitude" columns.
+        time_col_left: str
+            Name of the time column in `df_left`.
+        df_right: pd.DataFrame
+            Right dataset, must have points described by their latitude and
+            longitude.
+        time_col_right: str
+            Name of the time column in `df_right`.
+        how: str
+            How the pandas merge needs to be done.
+
+    Returns:
+        Merged dataset by point (lat/lon) proximity.
+    """
+    df_left = df_left.reset_index(drop=True)
+    df_right = df_right.reset_index(drop=True)
+
+    # get all df_right points in adequate format
+    df_tmp = df_right.drop_duplicates(subset=["latitude", "longitude"])
+    lat_right = df_tmp["latitude"].values
+    lon_right = df_tmp["longitude"].values
+    candidates = list(zip(lat_right, lon_right))
+
+    df_tmp2 = df_left.drop_duplicates(subset=["latitude", "longitude"])
+    source_points = list(zip(df_tmp2["latitude"].values, df_tmp2["longitude"].values))
+
+    indices, _ = get_nearest_points(source_points, candidates)
+
+    dict_idx_lat_lon = {}
+    for idx in set(indices):
+        df_tmp = df_right[df_right.index == idx]
+        dict_idx_lat_lon[idx] = (df_tmp["latitude"].values[0], df_tmp["longitude"].values[0])
+
+    dict_source_idx = dict(zip(source_points, indices))
+
+    df_left["point"] = list(zip(df_left["latitude"], df_left["longitude"]))
+
+    df_left["corresponding_index"] = df_left["point"].map(dict_source_idx)
+
+    df_left["closest_point"] = df_left["corresponding_index"].map(dict_idx_lat_lon)
+
+    df_left["closest_lat"], df_left["closest_lon"] = (
+        df_left["closest_point"].str[0],
+        df_left["closest_point"].str[1]
+    )
+
+    merged_data = pd.merge(
+        df_left,
+        df_right,
+        left_on=[time_col_left, "closest_lat", "closest_lon"],
+        right_on=[time_col_right, "latitude", "longitude"],
+        how=how,
+    )
+
+    merged_data = merged_data.drop(
+        ["point", "closest_point", "corresponding_index"],
+        axis=1
     )
     return merged_data

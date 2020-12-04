@@ -5,7 +5,8 @@ import tarfile
 import shutil
 import warnings
 
-from typing import Tuple, Optional
+from scipy import spatial
+from typing import Tuple, Optional, List
 
 from io import BytesIO
 from datetime import datetime
@@ -333,3 +334,29 @@ def get_modis(
             download(
                 url=url, default_extension="csv", unzip=False, destination=destination
             )
+
+
+def get_nearest_points(source_points: List[Tuple], candidates: List[Tuple]) -> Tuple:
+    """
+    Find nearest neighbor for all source points from a set of candidate points
+    using KDTree algorithm.
+
+    Args:
+        source_points: List[Tuple]
+            List of tuples (lat, lon) for which you want to find the closest point in candidates.
+        candidates: List[Tuple]
+            List of tuples (lat, lon) which are all possible closest points.
+
+    Returns: Tuple
+        indices : array of integers
+            The locations of the neighbors in candidates.
+        distances : array of floats
+            The distances to the nearest neighbors..
+    """
+    # Create tree from the candidate points
+    tree = spatial.KDTree(candidates)
+
+    # Find closest points and distances
+    distances, indices = tree.query(source_points, k=1)
+
+    return indices, distances

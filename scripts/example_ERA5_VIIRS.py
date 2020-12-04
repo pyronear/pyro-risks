@@ -1,14 +1,15 @@
-from pyro_risks.datasets import NASAFIRMS, ERA5Land
+from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land
 from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
     merge_datasets_by_closest_weather_point,
+    merge_by_proximity,
 )
 from pyro_risks.datasets.utils import get_intersection_range
 
 
 def main(args):
     weather = ERA5Land(args.ERA5)
-    nasa_firms = NASAFIRMS(args.nasa_firms, args.nasa_firms_type)
+    nasa_firms = NASAFIRMS_VIIRS(args.nasa_firms, args.nasa_firms_type)
     print(weather.shape)
     print(nasa_firms.shape)
 
@@ -19,6 +20,13 @@ def main(args):
 
     print(weather.shape)
     print(nasa_firms.shape)
+
+    print(weather.columns.tolist())
+    print(nasa_firms.columns.tolist())
+
+    # Keep only vegetation wildfires and remove thermal anomalies with low confidence
+    where = (nasa_firms["confidence"] != "l") & (nasa_firms["type"] == 0)
+    nasa_firms = nasa_firms[where]
 
     # Merge
     if args.type_of_merged == "departements":
@@ -31,41 +39,68 @@ def main(args):
             "acq_date",
             "latitude_y",
             "longitude_y",
-            "bright_t31",
-            "frp",
-            "acq_date_time",
+            "bright_ti4",
+            "scan",
+            "track",
+            "acq_time",
+            "satellite",
+            "instrument",
             "confidence",
+            "version",
+            "bright_ti5",
+            "frp",
+            "daynight",
+            "type",
+            "geometry_y",
+            "acq_date_time",
+            "weather_lat",
+            "weather_lon",
         ]
 
     else:
         # drop redundant columns with weather datasets
         nasa_firms = nasa_firms.drop(["code", "nom"], axis=1)
-        merged_data = merge_datasets_by_closest_weather_point(
-            weather, "time", nasa_firms, "acq_date"
+        # merged_data = merge_datasets_by_closest_weather_point(
+        #     weather, "time", nasa_firms, "acq_date"
+        # )
+        merged_data = merge_by_proximity(
+            nasa_firms, "acq_date", weather, "time", "left"
         )
         to_drop = [
-            "closest_weather_point",
             "acq_date",
             "latitude_y",
             "longitude_y",
-            "bright_t31",
-            "frp",
-            "acq_date_time",
+            "bright_ti4",
+            "scan",
+            "track",
+            "acq_time",
+            "satellite",
+            "instrument",
             "confidence",
+            "version",
+            "bright_ti5",
+            "frp",
+            "daynight",
+            "type",
+            "geometry_y",
+            "acq_date_time",
             "weather_lat",
             "weather_lon",
         ]
 
     final_data = merged_data.copy()
-    where = merged_data["confidence"] >= 60
-    final_data.loc[where, "Statut"] = 1
-    final_data.loc[~where, "Statut"] = 0
+    where = merged_data["confidence"].isna()
+    final_data.loc[~where, "Statut"] = 1
+    final_data.loc[where, "Statut"] = 0
     final_data["Statut"] = final_data["Statut"].astype(int)
 
     # drop unnecessary columns
     final_data = final_data.drop(to_drop, axis=1)
 
     print(final_data)
+    print(final_data.shape)
+    print(final_data.columns.tolist())
+
 
 def parse_args():
     import argparse
@@ -88,7 +123,7 @@ def parse_args():
 
     parser.add_argument(
         "--nasa_firms_type",
-        default="json",
+        default="csv",
         type=str,
         help="type of NASA FIRMS data source",
     )
