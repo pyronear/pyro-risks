@@ -220,10 +220,6 @@ def download(
         unzip: whether archive should be unzipped. Defaults to True.
         destination: folder where the file should be saved. Defaults to '.'.
     """
-    # TODO Write case tests for zip, tar.gz, gz and uncompressed files
-    # Check if the destination directory is created each if not exist
-    # Check if the file are  download
-    # Add print and logging statement add
     base, extension, compression = get_fname(url)
     content = url_retrieve(url)
 
@@ -284,9 +280,6 @@ def get_ghcn(
         end_year: first that will not be retrieved. Defaults to None.
         destination: destination directory. Defaults to './ghcn'.
     """
-    # TODO
-    # Write case tests
-    # Implement archive=False
     start_year = datetime.now().year if start_year is None else start_year
     end_year = (
         datetime.now().year + 1
