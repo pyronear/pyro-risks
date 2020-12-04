@@ -40,21 +40,11 @@ def main(args):
             "latitude_y",
             "longitude_y",
             "bright_ti4",
-            "scan",
-            "track",
-            "acq_time",
-            "satellite",
-            "instrument",
             "confidence",
-            "version",
             "bright_ti5",
             "frp",
-            "daynight",
             "type",
-            "geometry_y",
             "acq_date_time",
-            "weather_lat",
-            "weather_lon",
         ]
 
     else:
@@ -64,28 +54,18 @@ def main(args):
         #     weather, "time", nasa_firms, "acq_date"
         # )
         merged_data = merge_by_proximity(
-            nasa_firms, "acq_date", weather, "time", "left"
+            nasa_firms, "acq_date", weather, "time", "right"
         )
         to_drop = [
             "acq_date",
             "latitude_y",
             "longitude_y",
             "bright_ti4",
-            "scan",
-            "track",
-            "acq_time",
-            "satellite",
-            "instrument",
             "confidence",
-            "version",
             "bright_ti5",
             "frp",
-            "daynight",
             "type",
-            "geometry_y",
             "acq_date_time",
-            "weather_lat",
-            "weather_lon",
         ]
 
     final_data = merged_data.copy()
