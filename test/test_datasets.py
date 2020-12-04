@@ -384,6 +384,10 @@ class DatasetsTester(unittest.TestCase):
         ds = nasa_wildfires.NASAFIRMS()
         self.assertIsInstance(ds, pd.DataFrame)
 
+    def test_nasafirms_csv(self):
+        ds = nasa_wildfires.NASAFIRMS(source_path=cfg.TEST_FR_MODIS_FALLBACK, fmt="csv")
+        self.assertIsInstance(ds, pd.DataFrame)
+
     def test_nasaviirs(self):
         ds = nasa_wildfires.NASAFIRMS_VIIRS()
         self.assertIsInstance(ds, pd.DataFrame)
