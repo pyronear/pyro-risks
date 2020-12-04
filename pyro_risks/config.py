@@ -13,7 +13,9 @@ FR_FWI_2019_FALLBACK: str = f"{DATA_FALLBACK}/JRC_FWI_2019.zip"
 FR_FWI_2020_FALLBACK: str = f"{DATA_FALLBACK}/JRC_FWI_2020.zip"
 FR_ERA5LAND_FALLBACK: str = f"{DATA_FALLBACK}/ERA5_2018_2020.nc"
 TEST_FR_ERA5LAND_FALLBACK: str = f"{DATA_FALLBACK}/test_data_ERA5_2018.nc"
-TEST_FR_MODIS_FALLBACK: str = f"{DATA_FALLBACK}/test_data_MODIS.csv"
+TEST_FR_FIRMS_CSV_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FIRMS.csv"
+TEST_FR_FIRMS_XLSX_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FIRMS.xlsx"
+TEST_FR_VIIRS_XLSX_FALLBACK: str = f"{DATA_FALLBACK}/test_data_VIIRS.xlsx"
 
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))

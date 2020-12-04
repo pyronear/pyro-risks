@@ -101,7 +101,7 @@ class NASAFIRMS(pd.DataFrame):
                 "The given format cannot be read, it should be either csv, xlsx or json."
             )
 
-        data["acq_date_time"] = data["acq_date"] + " " + data["acq_time"]
+        data["acq_date_time"] = data["acq_date"].astype(str) + " " + data["acq_time"].astype(str)
         data["acq_date"] = pd.to_datetime(
             data["acq_date"], format="%Y-%m-%d", errors="coerce"
         )
@@ -209,7 +209,7 @@ class NASAFIRMS_VIIRS(pd.DataFrame):
                 "The given format cannot be read, it should be either csv, xlsx or json."
             )
 
-        data["acq_date_time"] = data["acq_date"] + " " + data["acq_time"]
+        data["acq_date_time"] = data["acq_date"].astype(str) + " " + data["acq_time"].astype(str)
         data["acq_date"] = pd.to_datetime(
             data["acq_date"], format="%Y-%m-%d", errors="coerce"
         )
