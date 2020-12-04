@@ -34,7 +34,8 @@ from pyro_risks.datasets import (
 from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
     merge_datasets_by_closest_weather_station,
-    merge_datasets_by_closest_weather_point, merge_by_proximity,
+    merge_datasets_by_closest_weather_point,
+    merge_by_proximity,
 )
 
 
@@ -174,7 +175,7 @@ class UtilsTester(unittest.TestCase):
 
         full_path = os.path.join(destination, "server/")
         with gzip.GzipFile(os.path.join(full_path, "test.gz"), mode="w") as gz, open(
-                os.path.join(full_path, "test_gz.csv"), mode="r"
+            os.path.join(full_path, "test_gz.csv"), mode="r"
         ) as csvfile:
             gz.write(csvfile.read().encode())
             gz.close()
@@ -322,9 +323,9 @@ class UtilsTester(unittest.TestCase):
         df_weather = pd.DataFrame(
             np.array(
                 [
-                    [5.876, 23.875, '2019-06-24'],
-                    [3.286, 12.978, '2019-10-02'],
-                    [8.564, 10.764, '2019-03-12'],
+                    [5.876, 23.875, "2019-06-24"],
+                    [3.286, 12.978, "2019-10-02"],
+                    [8.564, 10.764, "2019-03-12"],
                 ]
             ),
             columns=["latitude", "longitude", "time"],
@@ -344,9 +345,9 @@ class UtilsTester(unittest.TestCase):
         df_weather = pd.DataFrame(
             np.array(
                 [
-                    [5.876, 23.875, '2019-06-24'],
-                    [3.286, 12.978, '2019-10-02'],
-                    [8.564, 10.764, '2019-03-12'],
+                    [5.876, 23.875, "2019-06-24"],
+                    [3.286, 12.978, "2019-10-02"],
+                    [8.564, 10.764, "2019-03-12"],
                 ]
             ),
             columns=["latitude", "longitude", "time"],
@@ -357,9 +358,7 @@ class UtilsTester(unittest.TestCase):
             df_weather["time"], format="%Y-%m-%d", errors="coerce"
         )
         nasa_firms = nasa_wildfires.NASAFIRMS_VIIRS()
-        df = merge_by_proximity(
-            nasa_firms, "acq_date", df_weather, "time", "right"
-        )
+        df = merge_by_proximity(nasa_firms, "acq_date", df_weather, "time", "right")
         self.assertIsInstance(df, pd.DataFrame)
 
 

@@ -9,9 +9,6 @@ from pyro_risks import config as cfg
 __all__ = ["NASAFIRMS", "NASAFIRMS_VIIRS"]
 
 from .masks import get_french_geom
-import sys
-
-sys.setrecursionlimit(1500)
 
 
 class NASAFIRMS(pd.DataFrame):
@@ -48,10 +45,10 @@ class NASAFIRMS(pd.DataFrame):
     fmt = "json"
 
     def __init__(
-            self,
-            source_path: Optional[str] = None,
-            fmt: Optional[str] = None,
-            use_cols: Optional[List[str]] = None,
+        self,
+        source_path: Optional[str] = None,
+        fmt: Optional[str] = None,
+        use_cols: Optional[List[str]] = None,
     ) -> None:
         """
         Args:
@@ -156,10 +153,10 @@ class NASAFIRMS_VIIRS(pd.DataFrame):
     fmt = "csv"
 
     def __init__(
-            self,
-            source_path: Optional[str] = None,
-            fmt: Optional[str] = None,
-            use_cols: Optional[List[str]] = None,
+        self,
+        source_path: Optional[str] = None,
+        fmt: Optional[str] = None,
+        use_cols: Optional[List[str]] = None,
     ) -> None:
         """
         Args:

@@ -21,9 +21,6 @@ def main(args):
     print(weather.shape)
     print(nasa_firms.shape)
 
-    print(weather.columns.tolist())
-    print(nasa_firms.columns.tolist())
-
     # Keep only vegetation wildfires and remove thermal anomalies with low confidence
     where = (nasa_firms["confidence"] != "l") & (nasa_firms["type"] == 0)
     nasa_firms = nasa_firms[where]
@@ -82,8 +79,6 @@ def main(args):
     final_data = final_data.drop(to_drop, axis=1)
 
     print(final_data)
-    print(final_data.shape)
-    print(final_data.columns.tolist())
 
 
 def parse_args():

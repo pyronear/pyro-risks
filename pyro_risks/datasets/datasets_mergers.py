@@ -1,6 +1,10 @@
 import pandas as pd
 
-from .utils import find_closest_weather_station, find_closest_location, get_nearest_points
+from .utils import (
+    find_closest_weather_station,
+    find_closest_location,
+    get_nearest_points,
+)
 
 
 def merge_datasets_by_departements(
@@ -168,7 +172,7 @@ def merge_by_proximity(
     time_col_left: str,
     df_right: pd.DataFrame,
     time_col_right: str,
-    how: str
+    how: str,
 ) -> pd.DataFrame:
     """
     Merge df_left and df_right by finding in among all points in df_left, the closest point in df_right.
@@ -210,7 +214,10 @@ def merge_by_proximity(
     dict_idx_lat_lon = {}
     for idx in set(indices):
         df_tmp = df_right[df_right.index == idx]
-        dict_idx_lat_lon[idx] = (df_tmp["latitude"].values[0], df_tmp["longitude"].values[0])
+        dict_idx_lat_lon[idx] = (
+            df_tmp["latitude"].values[0],
+            df_tmp["longitude"].values[0],
+        )
 
     dict_source_idx = dict(zip(source_points, indices))
 
@@ -222,7 +229,7 @@ def merge_by_proximity(
 
     df_left["closest_lat"], df_left["closest_lon"] = (
         df_left["closest_point"].str[0],
-        df_left["closest_point"].str[1]
+        df_left["closest_point"].str[1],
     )
 
     merged_data = pd.merge(
@@ -234,7 +241,6 @@ def merge_by_proximity(
     )
 
     merged_data = merged_data.drop(
-        ["point", "closest_point", "corresponding_index"],
-        axis=1
+        ["point", "closest_point", "corresponding_index"], axis=1
     )
     return merged_data
