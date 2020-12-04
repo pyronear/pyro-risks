@@ -35,6 +35,7 @@ from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
     merge_datasets_by_closest_weather_station,
     merge_datasets_by_closest_weather_point,
+    merge_by_proximity,
 )
 
 
@@ -229,7 +230,6 @@ class UtilsTester(unittest.TestCase):
     @patch("pyro_risks.datasets.utils.url_retrieve")
     def test_download(self, mock_url_retrieve, mock_fname):
         with tempfile.TemporaryDirectory() as destination:
-
             full_path = os.path.join(destination, "client/")
 
             mock_fname.return_value = self._mock_fname("tar.gz")
@@ -323,9 +323,9 @@ class UtilsTester(unittest.TestCase):
         df_weather = pd.DataFrame(
             np.array(
                 [
-                    [5.876, 23.875, '2019-06-24'],
-                    [3.286, 12.978, '2019-10-02'],
-                    [8.564, 10.764, '2019-03-12'],
+                    [5.876, 23.875, "2019-06-24"],
+                    [3.286, 12.978, "2019-10-02"],
+                    [8.564, 10.764, "2019-03-12"],
                 ]
             ),
             columns=["latitude", "longitude", "time"],
@@ -339,6 +339,26 @@ class UtilsTester(unittest.TestCase):
         df = merge_datasets_by_closest_weather_point(
             df_weather, "time", nasa_firms, "acq_date"
         )
+        self.assertIsInstance(df, pd.DataFrame)
+
+    def test_merge_datasets_by_proximity(self):
+        df_weather = pd.DataFrame(
+            np.array(
+                [
+                    [5.876, 23.875, "2019-06-24"],
+                    [3.286, 12.978, "2019-10-02"],
+                    [8.564, 10.764, "2019-03-12"],
+                ]
+            ),
+            columns=["latitude", "longitude", "time"],
+        )
+        df_weather["latitude"] = df_weather["latitude"].astype(float)
+        df_weather["longitude"] = df_weather["longitude"].astype(float)
+        df_weather["time"] = pd.to_datetime(
+            df_weather["time"], format="%Y-%m-%d", errors="coerce"
+        )
+        nasa_firms = nasa_wildfires.NASAFIRMS_VIIRS()
+        df = merge_by_proximity(nasa_firms, "acq_date", df_weather, "time", "right")
         self.assertIsInstance(df, pd.DataFrame)
 
 
@@ -360,8 +380,36 @@ class DatasetsTester(unittest.TestCase):
         ds = wildfires.BDIFFHistory()
         self.assertIsInstance(ds, pd.DataFrame)
 
-    def test_nasafirms(self):
+    def test_nasafirms_json(self):
         ds = nasa_wildfires.NASAFIRMS()
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasafirms_csv(self):
+        ds = nasa_wildfires.NASAFIRMS(
+            source_path=cfg.TEST_FR_FIRMS_CSV_FALLBACK, fmt="csv"
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasafirms_xlsx(self):
+        ds = nasa_wildfires.NASAFIRMS(
+            source_path=cfg.TEST_FR_FIRMS_XLSX_FALLBACK, fmt="xlsx"
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasaviirs_csv(self):
+        ds = nasa_wildfires.NASAFIRMS_VIIRS()
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasaviirs_xlsx(self):
+        ds = nasa_wildfires.NASAFIRMS_VIIRS(
+            source_path=cfg.TEST_FR_VIIRS_XLSX_FALLBACK, fmt="xlsx"
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasaviirs_json(self):
+        ds = nasa_wildfires.NASAFIRMS_VIIRS(
+            source_path=cfg.TEST_FR_VIIRS_JSON_FALLBACK, fmt="json"
+        )
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_gwisfwi(self):
