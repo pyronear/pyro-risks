@@ -153,7 +153,7 @@ class NASAFIRMS_VIIRS(pd.DataFrame):
         "frp",
         "type",
     ]
-    fmt = "json"
+    fmt = "csv"
 
     def __init__(
             self,

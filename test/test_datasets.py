@@ -358,7 +358,7 @@ class UtilsTester(unittest.TestCase):
         )
         nasa_firms = nasa_wildfires.NASAFIRMS_VIIRS()
         df = merge_by_proximity(
-            nasa_firms, "acq_date", df_weather, "time", "left"
+            nasa_firms, "acq_date", df_weather, "time", "right"
         )
         self.assertIsInstance(df, pd.DataFrame)
 

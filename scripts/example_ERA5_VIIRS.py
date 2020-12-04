@@ -57,6 +57,10 @@ def main(args):
             nasa_firms, "acq_date", weather, "time", "right"
         )
         to_drop = [
+            "latitude_x",
+            "longitude_x",
+            "closest_lat",
+            "closest_lon",
             "acq_date",
             "latitude_y",
             "longitude_y",
