@@ -8,7 +8,7 @@ from sklearn.datasets import load_breast_cancer
 from pyro_risks.models import score_v0
 
 
-class UtilsTester(unittest.TestCase):
+class ModelsTester(unittest.TestCase):
     def test_prepare_dataset(self):
         df = pd.DataFrame(
             {'day': ['2019-07-01', '2019-08-02', '2019-06-12'],
@@ -74,3 +74,7 @@ class UtilsTester(unittest.TestCase):
         _, _, preds = score_v0.xgb_model(a, c, b, d)
         self.assertEqual(len(preds), 114)
         self.assertEqual(preds[0].round(3), np.float32(0.865))
+
+
+if __name__ == "__main__":
+    unittest.main()

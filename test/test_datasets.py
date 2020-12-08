@@ -30,7 +30,7 @@ from pyro_risks.datasets import (
     nasa_wildfires,
     fwi,
     ERA5,
-    model_dataset
+    era_fwi_viirs
 )
 from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
@@ -421,8 +421,11 @@ class DatasetsTester(unittest.TestCase):
         ds = ERA5.ERA5Land(source_path=cfg.TEST_FR_ERA5LAND_FALLBACK)
         self.assertIsInstance(ds, pd.DataFrame)
 
-    def test_modeldf(self):
-        ds = model_dataset.ModelDF()
+    def test_MergedEraFwiViirs(self):
+        ds = era_fwi_viirs.MergedEraFwiViirs(
+            era_source_path=cfg.TEST_FR_ERA5_2019,
+            viirs_source_path=None,
+            fwi_source_path=cfg.TEST_FWI_FALLBACK)
         self.assertIsInstance(ds, pd.DataFrame)
 
 
