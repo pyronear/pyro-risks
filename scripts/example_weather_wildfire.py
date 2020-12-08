@@ -13,26 +13,61 @@ def main(args):
     history = history[history.date.isin(date_range)]
 
     # Merge
-    df = merge_datasets_by_departements(weather, 'DATE', 'code', history, 'date', 'Département', 'left')
+    df = merge_datasets_by_departements(
+        weather, "DATE", "code", history, "date", "Département", "left"
+    )
 
     # Label data
     df.Statut = 1 - df.Statut.isna().astype(int)
 
-    df = df.filter(items=['DATE', 'code', 'nom', 'LATITUDE', 'LONGITUDE', 'ELEVATION', 'DEWP', 'DEWP_ATTRIBUTES',
-                          'FRSHTT', 'GUST', 'MAX', 'MIN', 'MXSPD', 'PRCP', 'SLP', 'SLP_ATTRIBUTES',
-                          'SNDP', 'STP', 'STP_ATTRIBUTES', 'TEMP', 'TEMP_ATTRIBUTES',
-                          'VISIB', 'VISIB_ATTRIBUTES', 'WDSP', 'WDSP_ATTRIBUTES', 'Statut'])
+    df = df.filter(
+        items=[
+            "DATE",
+            "code",
+            "nom",
+            "LATITUDE",
+            "LONGITUDE",
+            "ELEVATION",
+            "DEWP",
+            "DEWP_ATTRIBUTES",
+            "FRSHTT",
+            "GUST",
+            "MAX",
+            "MIN",
+            "MXSPD",
+            "PRCP",
+            "SLP",
+            "SLP_ATTRIBUTES",
+            "SNDP",
+            "STP",
+            "STP_ATTRIBUTES",
+            "TEMP",
+            "TEMP_ATTRIBUTES",
+            "VISIB",
+            "VISIB_ATTRIBUTES",
+            "WDSP",
+            "WDSP_ATTRIBUTES",
+            "Statut",
+        ]
+    )
 
     print(df)
 
 
 def parse_args():
     import argparse
-    parser = argparse.ArgumentParser(description='Pyronear weather & wildfire history example',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('--weather', default=None, type=str, help='path or URL of NOAA weather source')
-    parser.add_argument('--wildfire', default=None, type=str, help='path or URL of BDIFF history source')
+    parser = argparse.ArgumentParser(
+        description="Pyronear weather & wildfire history example",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+
+    parser.add_argument(
+        "--weather", default=None, type=str, help="path or URL of NOAA weather source"
+    )
+    parser.add_argument(
+        "--wildfire", default=None, type=str, help="path or URL of BDIFF history source"
+    )
 
     args = parser.parse_args()
 
