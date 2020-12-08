@@ -4,10 +4,10 @@ from pyro_risks.datasets.fwi import GwisFwi
 
 import pandas as pd
 
-__all__ = ["ModelDF"]
+__all__ = ["MergedEraFwiViirs"]
 
 
-class ModelDF(pd.DataFrame):
+class MergedEraFwiViirs(pd.DataFrame):
     """Create dataframe for modeling described in models/score_v0.py.
 
     Get weather, nasafirms viirs fires and fwi datasets, then filter some of the lines corresponding
@@ -20,10 +20,16 @@ class ModelDF(pd.DataFrame):
         pd.DataFrame
     """
 
-    def __init__(self):
-        """Init class."""
-        weather = ERA5Land()
-        nasa_firms = NASAFIRMS_VIIRS()
+    def __init__(self, era_source_path=None, viirs_source_path=None, fwi_source_path=None):
+        """Define the merged era-fwi-viirs dataframe.
+
+        Args:
+            era_source_path (str, optional): Era5 data source path. Defaults to None.
+            viirs_source_path (str, optional): Viirs data source path. Defaults to None.
+            fwi_source_path (str, optional): Fwi data source path. Defaults to None.
+        """
+        weather = ERA5Land(era_source_path)
+        nasa_firms = NASAFIRMS_VIIRS(viirs_source_path)
 
         # Time span selection
         date_range = get_intersection_range(weather.time, nasa_firms.acq_date)
@@ -35,11 +41,14 @@ class ModelDF(pd.DataFrame):
         nasa_firms = nasa_firms[where]
 
         # Get FWI dataset for year 2019 (1st september missing)
-        days = [x.strftime("%Y%m%d") for x in pd.date_range(start="2019-01-01", end="2019-12-31")]
-        days.remove('20190901')
+        if fwi_source_path is None:
+            days = [x.strftime("%Y%m%d") for x in pd.date_range(start="2019-01-01", end="2019-12-31")]
+            days.remove('20190901')
+            fwi_df = GwisFwi(days_list=days)
+        else:
+            fwi_df = pd.read_csv(fwi_source_path)
 
         # Load FWI dataset
-        fwi_df = GwisFwi(days_list=days)
         fwi_df["day"] = pd.to_datetime(fwi_df["day"], format="%Y%m%d", errors="coerce")
 
         # Group fwi dataframe by day and department and compute min, max, mean, std
