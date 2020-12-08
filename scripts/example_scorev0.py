@@ -1,4 +1,4 @@
-from pyro_risks.datasets import ModelDF
+from pyro_risks.datasets import MergedEraFwiViirs
 from pyro_risks.models.score_v0 import (
     add_lags, prepare_dataset, train_random_forest, split_train_test, xgb_model
 )
@@ -9,12 +9,12 @@ SELECTED_DEP = ['Pyrénées-Atlantiques', 'Hautes-Pyrénées', 'Ariège', 'Haute
 
 
 def run():
-    df = ModelDF()
+    df = MergedEraFwiViirs()
     df_lags = add_lags(df, df.drop(['day', 'departement', 'fires'], axis=1).columns)
     X, y = prepare_dataset(df_lags, selected_dep=SELECTED_DEP)
     X_train, X_test, y_train, y_test = split_train_test(X, y)
-    train_random_forest(X_train, X_test, y_train, y_test)
-    xgb_model(X_train, y_train, X_test, y_test)
+    train_random_forest(X_train, X_test, y_train, y_test, ignore_prints=False)
+    xgb_model(X_train, y_train, X_test, y_test, ignore_prints=False)
 
 
 if __name__ == "__main__":
