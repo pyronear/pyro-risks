@@ -423,7 +423,7 @@ class DatasetsTester(unittest.TestCase):
 
     def test_MergedEraFwiViirs(self):
         ds = era_fwi_viirs.MergedEraFwiViirs(
-            era_source_path=cfg.TEST_FR_ERA5_2019,
+            era_source_path=cfg.TEST_FR_ERA5_2019_FALLBACK,
             viirs_source_path=None,
             fwi_source_path=cfg.TEST_FWI_FALLBACK)
         self.assertIsInstance(ds, pd.DataFrame)
