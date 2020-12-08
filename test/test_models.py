@@ -71,9 +71,9 @@ class ModelsTester(unittest.TestCase):
     def test_xgb_model(self):
         data = load_breast_cancer()
         a, b, c, d = score_v0.split_train_test(data['data'], data['target'])
-        _, _, preds = score_v0.xgb_model(a, c, b, d)
+        _, _, preds = score_v0.xgb_model(a, c, b, d, params={'min_child_weight': 5, 'eta': .1})
         self.assertEqual(len(preds), 114)
-        self.assertEqual(preds[0].round(3), np.float32(0.865))
+        self.assertEqual(preds[0].round(3), np.float32(0.996))
 
 
 if __name__ == "__main__":
