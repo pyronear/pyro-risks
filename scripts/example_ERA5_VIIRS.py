@@ -1,7 +1,6 @@
 from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land
 from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
-    merge_datasets_by_closest_weather_point,
     merge_by_proximity,
 )
 from pyro_risks.datasets.utils import get_intersection_range
@@ -47,9 +46,6 @@ def main(args):
     else:
         # drop redundant columns with weather datasets
         nasa_firms = nasa_firms.drop(["code", "nom"], axis=1)
-        # merged_data = merge_datasets_by_closest_weather_point(
-        #     weather, "time", nasa_firms, "acq_date"
-        # )
         merged_data = merge_by_proximity(
             nasa_firms, "acq_date", weather, "time", "right"
         )
@@ -59,8 +55,6 @@ def main(args):
             "closest_lat",
             "closest_lon",
             "acq_date",
-            "latitude_y",
-            "longitude_y",
             "bright_ti4",
             "confidence",
             "bright_ti5",
@@ -77,6 +71,7 @@ def main(args):
 
     # drop unnecessary columns
     final_data = final_data.drop(to_drop, axis=1)
+    final_data = final_data.rename(columns={"latitude_y": "latitude", "longitude_y": "longitude"})
 
     print(final_data)
 
