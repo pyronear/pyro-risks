@@ -71,7 +71,9 @@ def main(args):
 
     # drop unnecessary columns
     final_data = final_data.drop(to_drop, axis=1)
-    final_data = final_data.rename(columns={"latitude_y": "latitude", "longitude_y": "longitude"})
+    final_data = final_data.rename(
+        columns={"latitude_y": "latitude", "longitude_y": "longitude"}
+    )
 
     print(final_data)
 
