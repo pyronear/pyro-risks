@@ -354,7 +354,7 @@ def get_nearest_points(source_points: List[Tuple], candidates: List[Tuple]) -> T
             The distances to the nearest neighbors..
     """
     # Create tree from the candidate points
-    tree = spatial.KDTree(candidates)
+    tree = spatial.cKDTree(candidates)
 
     # Find closest points and distances
     distances, indices = tree.query(source_points, k=1)
