@@ -197,11 +197,9 @@ def merge_by_proximity(
     Returns:
         Merged dataset by point (lat/lon) proximity.
     """
-    df_left = df_left.reset_index(drop=True)
-    df_right = df_right.reset_index(drop=True)
-
     # get all df_right points in adequate format
     df_tmp = df_right.drop_duplicates(subset=["latitude", "longitude"])
+    df_tmp = df_tmp.reset_index(drop=True)
     lat_right = df_tmp["latitude"].values
     lon_right = df_tmp["longitude"].values
     candidates = list(zip(lat_right, lon_right))
@@ -213,10 +211,10 @@ def merge_by_proximity(
 
     dict_idx_lat_lon = {}
     for idx in set(indices):
-        df_tmp = df_right[df_right.index == idx]
+        df_tmp3 = df_tmp[df_tmp.index == idx]
         dict_idx_lat_lon[idx] = (
-            df_tmp["latitude"].values[0],
-            df_tmp["longitude"].values[0],
+            df_tmp3["latitude"].values[0],
+            df_tmp3["longitude"].values[0],
         )
 
     dict_source_idx = dict(zip(source_points, indices))
