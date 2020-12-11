@@ -1,4 +1,3 @@
-import requests
 import joblib
 from urllib.request import urlopen
 
@@ -28,12 +27,7 @@ class PyroRisk(object):
             self.model_path = cfg.RFMODEL_PATH
         elif which == 'XGB':
             self.model_path = cfg.XGBMODEL_PATH
-        print(f"Reading trained {which} pyro-risk model for serving")
         self.model = joblib.load(urlopen(self.model_path))
-
-        #with requests.get(self.model_path) as resp:
-        #    self.model = joblib.load(resp)
-        print("Initialization Complete")
 
     def get_input(self, day):
         """Returns for a given day data to feed into the model.
@@ -62,6 +56,9 @@ class PyroRisk(object):
     def predict(self, day, country='France'):
         """Serves a prediction for the specified day.
 
+        Note that predictions on fwi and era5land data queried from CDS API will return 93 departments
+        instead of 96 for France.
+
         Args:
             day (str): like '2020-05-05'
             country (str, optional): Defaults to 'France'.
@@ -71,4 +68,5 @@ class PyroRisk(object):
         """
         sample = self.get_input(day)
         predictions = self.model.predict_proba(sample.values)
-        return dict(zip(sample.index, predictions[:, 1].round(3)))
+        res = dict(zip(sample.index, predictions[:, 1].round(3)))
+        return {x: {'score': res[x], 'explainability': None} for x in res}
