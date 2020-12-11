@@ -397,7 +397,7 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
 def call_fwi(output_path, year, month, day):
     """Get data from Fire danger indices historical data from the Copernicus Climate Data Store.
 
-    Information on FWI can be found here: 
+    Information on FWI can be found here:
     https://datastore.copernicus-climate.eu/c3s/published-forms/c3sprod/cems-fire-historical/Fire_In_CDS.pdf
 
     Please follow the instructions before using the CDS API: https://cds.climate.copernicus.eu/api-how-to
