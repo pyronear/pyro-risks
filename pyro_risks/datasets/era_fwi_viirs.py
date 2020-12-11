@@ -18,6 +18,7 @@ def process_dataset_to_predict(fwi, era):
         pd.DataFrame: one line per department and day
     """
     weather = era.copy()
+    weather["time"] = pd.to_datetime(weather["time"], format="%Y-%m-%d", errors="coerce")
     fwi_df = fwi.copy()
     fwi_df["day"] = pd.to_datetime(fwi_df["day"], format="%Y-%m-%d", errors="coerce")
 
