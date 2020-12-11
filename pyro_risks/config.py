@@ -20,10 +20,15 @@ TEST_FR_VIIRS_XLSX_FALLBACK: str = f"{DATA_FALLBACK}/test_data_VIIRS.xlsx"
 TEST_FR_VIIRS_JSON_FALLBACK: str = f"{DATA_FALLBACK}/test_data_VIIRS.json"
 TEST_FR_ERA5_2019_FALLBACK: str = f"{DATA_FALLBACK}/test_data_ERA5_2019.nc"
 TEST_FWI_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FWI.csv"
+TEST_FWI_TO_PREDICT: str = f"{DATA_FALLBACK}/fwi_test_to_predict.csv"
+TEST_ERA_TO_PREDICT: str = f"{DATA_FALLBACK}/era_test_to_predict.csv"
 
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(REPO_DIR, ".data/")
+
+CDS_URL = os.getenv('CDS_URL')
+CDS_API_KEY = os.getenv('CDS_API_KEY')
 
 RFMODEL_PATH: str = f"{DATA_FALLBACK}/pyrorisk_rfc_111220.pkl"
 XGBMODEL_PATH: str = f"{DATA_FALLBACK}/pyrorisk_xgb_091220.pkl"
