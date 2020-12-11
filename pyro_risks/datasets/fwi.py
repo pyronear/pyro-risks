@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from netCDF4 import Dataset
+import geopandas as gpd
 
 import requests
 import zipfile
@@ -12,8 +13,11 @@ import tempfile
 
 from shapely.geometry import Point
 from shapely import geometry
+from mpl_toolkits.basemap import addcyclic, shiftgrid
 
 from pyro_risks import config as cfg
+from pyro_risks.datasets.queries_api import call_fwi
+from pyro_risks.datasets.masks import get_french_geom
 
 
 def load_data(output_path):
@@ -48,6 +52,93 @@ def include_department(row, polygons_json):
         if geom.contains(Point((row['longitude'], row['latitude']))):
             return polygons_json['features'][i_dep]['properties']['nom']
     return ""
+
+
+def get_fwi_from_api(date: str):
+    """Call the CDS API and return all fwi variables as a dataframe with geo coordinates and departments.
+
+    When calling the API we get a zip file that must be extracted (in a tmp directory), then handle
+    each queried variable which is in a separate netcdf file. A dataframe is created with all the variables
+    and then finally we join codes and departments with geopandas.
+
+    Args:
+        date (str)
+
+    Returns:
+        pd.DataFrame
+    """
+
+    year, month, day = date.split("-")
+    date_concat = date.replace("-", "")
+    with tempfile.TemporaryDirectory() as tmp:
+        call_fwi(tmp, year, month, day)
+
+        file = zipfile.ZipFile(os.path.join(tmp, f"fwi_{year}_{month}_{day}.zip"))
+        file.extractall(path=os.path.join(tmp, f"fwi_{year}_{month}_{day}"))
+
+        df0 = pd.DataFrame({})
+        for var_name in ["BUI", "DC", "DMC", "DSR", "FFMC", "FWI", "ISI"]:
+            var_path = os.path.join(
+                tmp, f"fwi_{year}_{month}_{day}/ECMWF_FWI_{var_name}_{date_concat}_1200_hr_v3.1_int.nc")
+            nc = Dataset(var_path, 'r')
+            lons = nc.variables['longitude'][:]
+            lats = nc.variables['latitude'][:]
+            var = nc.variables[var_name.lower()][:]
+            nc.close()
+            # Shift longitude from [0, 360] to [-180, 180]
+            var_cyclic, lons_cyclic = addcyclic(var[0], lons)
+            # Harmonize the var grid to longitudes from -180 to 180
+            var_cyclic, lons_cyclic = shiftgrid(180., var_cyclic, lons_cyclic, start=False)
+            # TODO: Fix the strange warnings, var_cyclic = np.hstack([var[0][:, 720:], var[0][:, :721]])
+
+            lon2d, lat2d = np.meshgrid(lons_cyclic, lats)
+            df = pd.DataFrame({
+                'latitude': lat2d.flatten(),
+                'longitude': lon2d.flatten(),
+                var_name.lower(): var_cyclic.flatten(),
+            })
+            df = df.dropna(subset=[var_name.lower()])
+            df = df.reset_index(drop=True)
+            if var_name == 'BUI':
+                df0 = pd.concat([df0, df], axis=1)
+            else:
+                df0 = pd.merge(df0, df, on=['latitude', 'longitude'], how='inner')
+    geo_data = gpd.GeoDataFrame(df0,
+                                geometry=gpd.points_from_xy(df0["longitude"], df0["latitude"]),
+                                crs="EPSG:4326",
+                                )
+    geo_masks = get_french_geom()
+    geo_df = gpd.sjoin(geo_masks, geo_data, how="inner")
+    return geo_df.drop(["index_right", "geometry"], axis=1)
+
+
+def get_fwi_data_for_predict(date: str) -> pd.DataFrame:
+    """Run CDS API queries for dates required by the model and return fwi dataset for predict step.
+
+    This takes care principally of the lags required for the modelling step.
+
+    Args:
+        date (str)
+
+    Returns:
+        pd.DataFrame
+    """
+    data = get_fwi_from_api(date)
+    data['day'] = date
+    # Lag J-1
+    lag = np.datetime64(date) - np.timedelta64(1, "D")
+    dataJ1 = get_fwi_from_api(str(lag))
+    dataJ1['day'] = str(lag)
+    # Lag J-3
+    lag = np.datetime64(date) - np.timedelta64(3, "D")
+    dataJ3 = get_fwi_from_api(str(lag))
+    dataJ3['day'] = str(lag)
+    # Lag J-7
+    lag = np.datetime64(date) - np.timedelta64(7, "D")
+    dataJ7 = get_fwi_from_api(str(lag))
+    dataJ7['day'] = str(lag)
+    merged_data = pd.concat([data, dataJ1, dataJ3, dataJ7], ignore_index=True)
+    return merged_data
 
 
 def get_fwi_data(source_path, day='20190101'):

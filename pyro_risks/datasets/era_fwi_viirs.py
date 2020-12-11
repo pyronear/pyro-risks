@@ -7,6 +7,43 @@ import pandas as pd
 __all__ = ["MergedEraFwiViirs"]
 
 
+def process_dataset_to_predict(fwi, era):
+    """Groupby and merge fwi and era5 datasets for model predictions.
+
+    Args:
+        fwi_df (pd.DataFrame): Fwi dataset
+        era_df (pd.DataFrame): Era5 dataset
+
+    Returns:
+        pd.DataFrame: one line per department and day
+    """
+    weather = era.copy()
+    fwi_df = fwi.copy()
+    fwi_df["day"] = pd.to_datetime(fwi_df["day"], format="%Y-%m-%d", errors="coerce")
+
+    # Group fwi dataframe by day and department and compute min, max, mean, std
+    agg_fwi_df = fwi_df.groupby(['day', 'nom'])[
+        'fwi', 'ffmc', 'dmc', 'dc', 'isi', 'bui', 'dsr'
+    ].agg(['min', 'max', 'mean', 'std']).reset_index()
+    agg_fwi_df.columns = ['day', 'nom'] + \
+        [x[0] + '_' + x[1] for x in agg_fwi_df.columns if x[1] != '']
+
+    # Group weather dataframe by day and department and compute min, max, mean, std
+    agg_wth_df = weather.groupby(['time', 'nom'])[
+        'u10', 'v10', 'd2m', 't2m', 'fal', 'lai_hv', 'lai_lv', 'skt',
+        'asn', 'snowc', 'rsn', 'sde', 'sd', 'sf', 'smlt', 'stl1', 'stl2',
+        'stl3', 'stl4', 'slhf', 'ssr', 'str', 'sp', 'sshf', 'ssrd', 'strd', 'tsn', 'tp'
+    ].agg(['min', 'max', 'mean', 'std']).reset_index()
+    agg_wth_df.columns = ['day', 'nom'] + \
+        [x[0] + '_' + x[1] for x in agg_wth_df.columns if x[1] != '']
+
+    # Merge fwi and weather together
+    res_df = pd.merge(agg_fwi_df, agg_wth_df,
+                      on=['day', 'nom'],
+                      how='inner')
+    return res_df
+
+
 class MergedEraFwiViirs(pd.DataFrame):
     """Create dataframe for modeling described in models/score_v0.py.
 
