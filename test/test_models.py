@@ -5,7 +5,8 @@ import pandas as pd
 from pandas.testing import assert_frame_equal, assert_series_equal
 from sklearn.datasets import load_breast_cancer
 
-from pyro_risks.models import score_v0
+from pyro_risks.models import score_v0, predict
+from pyro_risks import config as cfg
 
 
 class ModelsTester(unittest.TestCase):
@@ -74,6 +75,17 @@ class ModelsTester(unittest.TestCase):
         _, _, preds = score_v0.xgb_model(a, c, b, d, params={'min_child_weight': 5, 'eta': .1})
         self.assertEqual(len(preds), 114)
         self.assertEqual(preds[0].round(3), np.float32(0.996))
+
+    def test_pyrorisk(self):
+        pr = predict.PyroRisk(which='RF')
+        self.assertEqual(pr.model.n_estimators, 500)
+        self.assertEqual(pr.model_path, cfg.RFMODEL_PATH)
+        res = pr.get_input('2020-05-05')
+        self.assertIsInstance(res, pd.DataFrame)
+        self.assertEqual(res.shape, (93, 41))
+        preds = pr.predict('2020-05-05')
+        self.assertEqual(len(preds), 93)
+        self.assertEqual(preds['Ardennes'], {'score': 0.11, 'explainability': None})
 
 
 if __name__ == "__main__":

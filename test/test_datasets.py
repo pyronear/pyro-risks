@@ -31,6 +31,7 @@ from pyro_risks.datasets import (
     fwi,
     ERA5,
     era_fwi_viirs,
+    queries_api,
 )
 from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
@@ -432,6 +433,67 @@ class DatasetsTester(unittest.TestCase):
             fwi_source_path=cfg.TEST_FWI_FALLBACK,
         )
         self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_call_era5land(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            queries_api.call_era5land(tmp, '2020', '07', '15')
+            self.assertTrue(
+                os.path.isfile(
+                    os.path.join(
+                        tmp, 'era5land_2020_07_15.nc')))
+
+    def test_call_era5t(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            queries_api.call_era5t(tmp, '2020', '07', '15')
+            self.assertTrue(
+                os.path.isfile(
+                    os.path.join(
+                        tmp, 'era5t_2020_07_15.nc')))
+
+    def test_call_fwi(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            queries_api.call_fwi(tmp, '2020', '07', '15')
+            self.assertTrue(
+                os.path.isfile(
+                    os.path.join(
+                        tmp, 'fwi_2020_07_15.zip')))
+
+    def test_get_fwi_from_api(self):
+        res = fwi.get_fwi_from_api('2020-07-15')
+        self.assertIsInstance(res, pd.DataFrame)
+        self.assertEqual(len(res), 1039)
+        self.assertEqual(res.iloc[0]['nom'], 'Aisne')
+        self.assertEqual(res.iloc[78]['isi'], np.float32(5.120605))
+
+    def test_get_fwi_data_for_predict(self):
+        res = fwi.get_fwi_data_for_predict('2020-05-05')
+        self.assertTrue(
+            np.array_equal(
+                res.day.unique(),
+                np.array(['2020-05-05', '2020-05-04', '2020-05-02', '2020-04-28'])))
+
+    def test_get_data_era5land_for_predict(self):
+        res = ERA5.get_data_era5land_for_predict('2020-05-05')
+        self.assertTrue(
+            np.array_equal(
+                res.time.unique(),
+                np.array(['2020-05-05', '2020-05-04', '2020-05-02', '2020-04-28'],
+                         dtype='datetime64[ns]')))
+        self.assertTrue('evaow' in res.columns)
+
+    def test_get_data_era5t_for_predict(self):
+        res = ERA5.get_data_era5t_for_predict('2020-07-15')
+        self.assertTrue('u10' in res.columns)
+        self.assertEqual(len(res), 4156)
+
+    def test_process_dataset_to_predict(self):
+        fwi = pd.read_csv(cfg.TEST_FWI_TO_PREDICT)
+        era = pd.read_csv(cfg.TEST_ERA_TO_PREDICT)
+        res = era_fwi_viirs.process_dataset_to_predict(fwi, era)
+        self.assertTrue(
+            np.array_equal(
+                res.loc[res['nom'] == 'Vienne', 'fwi_max'].values,
+                np.array([1.2649848, 0.06888488, 0.74846804, 1.6156918], dtype=np.float64)))
 
 
 if __name__ == "__main__":
