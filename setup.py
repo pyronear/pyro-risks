@@ -45,7 +45,7 @@ requirements = [
     "scipy>=1.5.4",
     "scikit-learn>=0.23.2",
     "xgboost==1.2.1",
-    "xlrd>=1.0.0",
+    "xlrd==1.2.0",
     "docutils>=0.16",
     "sphinx>=3.1.2",
     "numpy>=1.18.5",
