@@ -51,7 +51,6 @@ requirements = [
     "numpy>=1.18.5",
     "setuptools>=49.2.0",
     "cdsapi==0.4.0",
-    "matplotlib==3.3.2"
 ]
 
 setup(

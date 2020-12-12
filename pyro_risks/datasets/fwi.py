@@ -13,7 +13,6 @@ import tempfile
 
 from shapely.geometry import Point
 from shapely import geometry
-from mpl_toolkits.basemap import addcyclic, shiftgrid
 
 from pyro_risks import config as cfg
 from pyro_risks.datasets.queries_api import call_fwi
@@ -81,17 +80,13 @@ def get_fwi_from_api(date: str):
             var_path = os.path.join(
                 tmp, f"fwi_{year}_{month}_{day}/ECMWF_FWI_{var_name}_{date_concat}_1200_hr_v3.1_int.nc")
             nc = Dataset(var_path, 'r')
-            lons = nc.variables['longitude'][:]
             lats = nc.variables['latitude'][:]
             var = nc.variables[var_name.lower()][:]
             nc.close()
-            # Shift longitude from [0, 360] to [-180, 180]
-            var_cyclic, lons_cyclic = addcyclic(var[0], lons)
-            # Harmonize the var grid to longitudes from -180 to 180
-            var_cyclic, lons_cyclic = shiftgrid(180., var_cyclic, lons_cyclic, start=False)
-            # TODO: Fix the strange warnings, var_cyclic = np.hstack([var[0][:, 720:], var[0][:, :721]])
 
-            lon2d, lat2d = np.meshgrid(lons_cyclic, lats)
+            lons = np.arange(-180, 180.25, 0.25)
+            var_cyclic = np.ma.hstack([var[0][:, 720:], var[0][:, :721]])
+            lon2d, lat2d = np.meshgrid(lons, lats)
             df = pd.DataFrame({
                 'latitude': lat2d.flatten(),
                 'longitude': lon2d.flatten(),
