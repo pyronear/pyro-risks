@@ -9,6 +9,7 @@ from pyro_risks.models.score_v0 import add_lags
 
 
 class PyroRisk(object):
+
     """Pyronear risk score for fire danger on French departments.
 
     Load a trained model uploaded on the Pyro-risk Github Release to get predictions for a selected day

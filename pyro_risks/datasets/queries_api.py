@@ -5,8 +5,7 @@ from pyro_risks import config as cfg
 
 
 def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
-    """
-    Call cdpaspi to get ERA5Land data as file nc format for given date.
+    """Call cdpaspi to get ERA5Land data as file nc format for given date.
 
     By default "time" = "14:00". It is not an issue since we get these ERA5 Land data
     with a 2 months delay.
@@ -17,7 +16,7 @@ def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
-    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}")
+    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}", verify=0)
 
     c.retrieve(
         "reanalysis-era5-land",
@@ -91,8 +90,7 @@ def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
 
 
 def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
-    """
-    Call cdpaspi to get ERA5T data as file nc format for given date.
+    """Call cdpaspi to get ERA5T data as file nc format for given date.
 
     Most recent available data is Day -5.
     By default "time" = "14:00". It is not an issue since we get these ERA5T data
@@ -104,7 +102,7 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
-    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}")
+    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}", verify=0)
 
     c.retrieve(
         "reanalysis-era5-single-levels",
@@ -409,7 +407,7 @@ def call_fwi(output_path, year, month, day):
         month: str
         day: str
     """
-    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}")
+    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}", verify=0)
 
     c.retrieve(
         'cems-fire-historical',
