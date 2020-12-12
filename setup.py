@@ -35,17 +35,22 @@ with open("README.md") as f:
     readme = f.read()
 
 requirements = [
-    "pandas>=1.0.0",
+    "pandas>=1.1.4",
     "geopandas>=0.8.1",
     "Rtree>=0.9.4",
-    "shapely>=1.7.1",
+    "Shapely>=1.7.1",
     "netCDF4>=1.5.4",
     "requests>=2.24.0",
     "xarray>=0.16.1",
-    "scipy>=1.4.0",
-    "scikit-learn>=0.23.1",
-    "xgboost>=1.2.1",
-    "xlrd>=1.0.0"
+    "scipy>=1.5.4",
+    "scikit-learn>=0.23.2",
+    "xgboost==1.2.1",
+    "xlrd==1.2.0",
+    "docutils>=0.16",
+    "sphinx>=3.1.2",
+    "numpy>=1.18.5",
+    "setuptools>=49.2.0",
+    "cdsapi==0.4.0",
 ]
 
 setup(
