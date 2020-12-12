@@ -75,7 +75,7 @@ jobs:
 
       - name: Run unittests
         env:
-          CDS_URL: ${{ secrets.CDS_URL }}
+          CDS_UID: ${{ secrets.CDS_UID }}
           CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
         run: |
           coverage run -m unittest discover test/
