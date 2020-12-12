@@ -17,7 +17,7 @@ def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
-    c = cdsapi.Client(url=cfg.CDS_URL, key=cfg.CDS_API_KEY)
+    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}")
 
     c.retrieve(
         "reanalysis-era5-land",
@@ -104,7 +104,7 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
-    c = cdsapi.Client(url=cfg.CDS_URL, key=cfg.CDS_API_KEY)
+    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}")
 
     c.retrieve(
         "reanalysis-era5-single-levels",
@@ -409,7 +409,7 @@ def call_fwi(output_path, year, month, day):
         month: str
         day: str
     """
-    c = cdsapi.Client(url=cfg.CDS_URL, key=cfg.CDS_API_KEY)
+    c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}")
 
     c.retrieve(
         'cems-fire-historical',

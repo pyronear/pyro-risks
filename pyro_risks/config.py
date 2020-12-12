@@ -27,7 +27,8 @@ REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(REPO_DIR, ".data/")
 
-CDS_URL = os.getenv('CDS_URL')
+CDS_URL = "https://cds.climate.copernicus.eu/api/v2"
+CDS_UID = os.getenv('CDS_UID')
 CDS_API_KEY = os.getenv('CDS_API_KEY')
 
 RFMODEL_PATH: str = f"{DATA_FALLBACK}/pyrorisk_rfc_111220.pkl"
