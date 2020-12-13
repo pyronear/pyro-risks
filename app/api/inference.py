@@ -1,7 +1,7 @@
-import pyro_risks
+from pyro_risks.models.predict import PyroRisk
 
 
 __all__ = ['predictor']
 
 
-predictor = pyro_risks.models.predict.PyroRisk(which='RF')
+predictor = PyroRisk(which='RF')
