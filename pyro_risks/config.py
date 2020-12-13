@@ -1,4 +1,9 @@
 import os
+from dotenv import load_dotenv
+
+# If there is an .env, load it
+load_dotenv()
+
 
 FR_GEOJSON: str = "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
 DATA_FALLBACK: str = (
@@ -67,3 +72,7 @@ XGB_PARAMS = {
     'objective': 'binary:logistic',
     'eval_metric': ['logloss', 'aucpr']
 }
+
+CACHE_FOLDER: str = ".cache"
+if not os.path.exists(CACHE_FOLDER):
+    os.makedirs(CACHE_FOLDER)

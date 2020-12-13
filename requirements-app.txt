@@ -1,0 +1,3 @@
+fastapi==0.61.1
+uvicorn>=0.11.1
+pyro_risks

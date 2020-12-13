@@ -1,7 +1,13 @@
 import cdsapi
 import os
+import logging
+import urllib3
 
 from pyro_risks import config as cfg
+
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+logger = logging.getLogger("uvicorn.info")
 
 
 def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
@@ -16,6 +22,12 @@ def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
+    file_path = os.path.join(output_path, f"era5land_{year}_{month}_{day}.nc")
+
+    if os.path.exists(file_path):
+        logger.info(f"Using cached {file_path}")
+        return
+
     c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}", verify=0)
 
     c.retrieve(
@@ -85,7 +97,7 @@ def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
             ],
             "format": "netcdf",
         },
-        os.path.join(output_path, f"era5land_{year}_{month}_{day}.nc"),
+        file_path,
     )
 
 
@@ -102,6 +114,12 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
+    file_path = os.path.join(output_path, f"era5t_{year}_{month}_{day}.nc")
+
+    if os.path.exists(file_path):
+        logger.info(f"Using cached {file_path}")
+        return
+
     c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}", verify=0)
 
     c.retrieve(
@@ -387,7 +405,7 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
             ],
             "format": "netcdf",
         },
-        os.path.join(output_path, f"era5t_{year}_{month}_{day}.nc"),
+        file_path,
     )
     # TODO : take only needed variables for the model
 
@@ -407,6 +425,13 @@ def call_fwi(output_path, year, month, day):
         month: str
         day: str
     """
+
+    file_path = os.path.join(output_path, f"fwi_{year}_{month}_{day}.zip")
+
+    if os.path.exists(file_path):
+        logger.info(f"Using cached {file_path}")
+        return
+
     c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}", verify=0)
 
     c.retrieve(
@@ -430,4 +455,4 @@ def call_fwi(output_path, year, month, day):
             'product_type': 'reanalysis',
             'day': day,
         },
-        os.path.join(output_path, f"fwi_{year}_{month}_{day}.zip"))
+        file_path)
