@@ -48,6 +48,7 @@ requirements = [
     "xlrd==1.2.0",
     "numpy>=1.18.5",
     "cdsapi==0.4.0",
+    "python-dotenv>=0.15.0",
 ]
 
 setup(

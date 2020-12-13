@@ -1,4 +1,9 @@
 import os
+from dotenv import load_dotenv
+
+# If there is an .env, load it
+load_dotenv()
+
 
 FR_GEOJSON: str = "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
 DATA_FALLBACK: str = (
