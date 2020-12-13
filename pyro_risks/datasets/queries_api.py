@@ -389,7 +389,6 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
         },
         os.path.join(output_path, f"era5t_{year}_{month}_{day}.nc"),
     )
-    # TODO : take only needed variables for the model
 
 
 def call_fwi(output_path, year, month, day):

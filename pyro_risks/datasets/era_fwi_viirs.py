@@ -1,10 +1,12 @@
-from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land
+from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land, ERA5T
 from pyro_risks.datasets.utils import get_intersection_range
 from pyro_risks.datasets.fwi import GwisFwi
 
 import pandas as pd
 
 __all__ = ["MergedEraFwiViirs"]
+
+from pyro_risks.models.models_config import ERA5_VARIABLES
 
 
 def process_dataset_to_predict(fwi, era):
@@ -30,11 +32,7 @@ def process_dataset_to_predict(fwi, era):
         [x[0] + '_' + x[1] for x in agg_fwi_df.columns if x[1] != '']
 
     # Group weather dataframe by day and department and compute min, max, mean, std
-    agg_wth_df = weather.groupby(['time', 'nom'])[
-        'u10', 'v10', 'd2m', 't2m', 'fal', 'lai_hv', 'lai_lv', 'skt',
-        'asn', 'snowc', 'rsn', 'sde', 'sd', 'sf', 'smlt', 'stl1', 'stl2',
-        'stl3', 'stl4', 'slhf', 'ssr', 'str', 'sp', 'sshf', 'ssrd', 'strd', 'tsn', 'tp'
-    ].agg(['min', 'max', 'mean', 'std']).reset_index()
+    agg_wth_df = weather.groupby(['time', 'nom'])[ERA5_VARIABLES].agg(['min', 'max', 'mean', 'std']).reset_index()
     agg_wth_df.columns = ['day', 'nom'] + \
         [x[0] + '_' + x[1] for x in agg_wth_df.columns if x[1] != '']
 
@@ -58,7 +56,7 @@ class MergedEraFwiViirs(pd.DataFrame):
         pd.DataFrame
     """
 
-    def __init__(self, era_source_path=None, viirs_source_path=None, fwi_source_path=None):
+    def __init__(self, era_source_path=None, viirs_source_path=None, fwi_source_path=None, weather_data=None):
         """Define the merged era-fwi-viirs dataframe.
 
         Args:
@@ -66,7 +64,12 @@ class MergedEraFwiViirs(pd.DataFrame):
             viirs_source_path (str, optional): Viirs data source path. Defaults to None.
             fwi_source_path (str, optional): Fwi data source path. Defaults to None.
         """
-        weather = ERA5Land(era_source_path)
+        if weather_data is None:
+            self.weather_data_class = ERA5T
+        else:
+            self.weather_data_class = weather_data
+
+        weather = self.weather_data_class(era_source_path)
         nasa_firms = NASAFIRMS_VIIRS(viirs_source_path)
 
         # Time span selection
@@ -97,11 +100,7 @@ class MergedEraFwiViirs(pd.DataFrame):
             [x[0] + '_' + x[1] for x in agg_fwi_df.columns if x[1] != '']
 
         # Group weather dataframe by day and department and compute min, max, mean, std
-        agg_wth_df = weather.groupby(['time', 'nom'])[
-            'u10', 'v10', 'd2m', 't2m', 'fal', 'lai_hv', 'lai_lv', 'skt',
-            'asn', 'snowc', 'rsn', 'sde', 'sd', 'sf', 'smlt', 'stl1', 'stl2',
-            'stl3', 'stl4', 'slhf', 'ssr', 'str', 'sp', 'sshf', 'ssrd', 'strd', 'tsn', 'tp'
-        ].agg(['min', 'max', 'mean', 'std']).reset_index()
+        agg_wth_df = weather.groupby(['time', 'nom'])[ERA5_VARIABLES].agg(['min', 'max', 'mean', 'std']).reset_index()
         agg_wth_df.columns = ['day', 'departement'] + \
             [x[0] + '_' + x[1] for x in agg_wth_df.columns if x[1] != '']
 

@@ -32,7 +32,6 @@ def get_data_era5land_for_predict(date: str) -> pd.DataFrame:
     with tempfile.TemporaryDirectory() as tmp:
         year, month, day = date.split("-")
         call_era5land(tmp, year, month, day)
-        # TODO: make sure that the directory works when on server
         data = ERA5Land(source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc"))
 
         # Lag J-1
@@ -72,7 +71,6 @@ def get_data_era5t_for_predict(date: str) -> pd.DataFrame:
     with tempfile.TemporaryDirectory() as tmp:
         year, month, day = date.split("-")
         call_era5t(tmp, year, month, day)
-        # TODO: make sure that the directory works when on server
         data = ERA5T(source_path=os.path.join(tmp, f"era5t_{year}_{month}_{day}.nc"))
         # Lag J-1
         lag = np.datetime64(f"{year}-{month}-{day}") - np.timedelta64(1, "D")
