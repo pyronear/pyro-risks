@@ -72,7 +72,7 @@ def get_fwi_from_api(date: str):
     with tempfile.TemporaryDirectory() as tmp:
         call_fwi(tmp, year, month, day)
 
-        file = zipfile.ZipFile(os.path.join(tmp, f"fwi_{year}_{month}_{day}.zip"))
+        file = zipfile.ZipFile(os.path.join(cfg.CACHE_FOLDER, f"fwi_{year}_{month}_{day}.zip"))
         file.extractall(path=os.path.join(tmp, f"fwi_{year}_{month}_{day}"))
 
         df0 = pd.DataFrame({})

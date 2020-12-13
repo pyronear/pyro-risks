@@ -67,3 +67,7 @@ XGB_PARAMS = {
     'objective': 'binary:logistic',
     'eval_metric': ['logloss', 'aucpr']
 }
+
+CACHE_FOLDER: str = ".cache"
+if not os.path.exists(CACHE_FOLDER):
+    os.makedirs(CACHE_FOLDER)
