@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-    docker-ready:
+  docker-ready:
     runs-on: ubuntu-latest
     needs: install-deps
     steps:
