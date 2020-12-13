@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+      - ./app/:/usr/src/app/app/
+    ports:
+      - ${PORT}:8000
+    environment:
+      - CDS_UID=${CDS_UID}
+      - CDS_API_KEY=${CDS_API_KEY}
