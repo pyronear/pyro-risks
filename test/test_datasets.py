@@ -30,11 +30,14 @@ from pyro_risks.datasets import (
     nasa_wildfires,
     fwi,
     ERA5,
+    era_fwi_viirs,
+    queries_api,
 )
 from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
     merge_datasets_by_closest_weather_station,
     merge_datasets_by_closest_weather_point,
+    merge_by_proximity,
 )
 
 
@@ -229,7 +232,6 @@ class UtilsTester(unittest.TestCase):
     @patch("pyro_risks.datasets.utils.url_retrieve")
     def test_download(self, mock_url_retrieve, mock_fname):
         with tempfile.TemporaryDirectory() as destination:
-
             full_path = os.path.join(destination, "client/")
 
             mock_fname.return_value = self._mock_fname("tar.gz")
@@ -323,9 +325,9 @@ class UtilsTester(unittest.TestCase):
         df_weather = pd.DataFrame(
             np.array(
                 [
-                    [5.876, 23.875, '2019-06-24'],
-                    [3.286, 12.978, '2019-10-02'],
-                    [8.564, 10.764, '2019-03-12'],
+                    [5.876, 23.875, "2019-06-24"],
+                    [3.286, 12.978, "2019-10-02"],
+                    [8.564, 10.764, "2019-03-12"],
                 ]
             ),
             columns=["latitude", "longitude", "time"],
@@ -339,6 +341,26 @@ class UtilsTester(unittest.TestCase):
         df = merge_datasets_by_closest_weather_point(
             df_weather, "time", nasa_firms, "acq_date"
         )
+        self.assertIsInstance(df, pd.DataFrame)
+
+    def test_merge_datasets_by_proximity(self):
+        df_weather = pd.DataFrame(
+            np.array(
+                [
+                    [5.876, 23.875, "2019-06-24"],
+                    [3.286, 12.978, "2019-10-02"],
+                    [8.564, 10.764, "2019-03-12"],
+                ]
+            ),
+            columns=["latitude", "longitude", "time"],
+        )
+        df_weather["latitude"] = df_weather["latitude"].astype(float)
+        df_weather["longitude"] = df_weather["longitude"].astype(float)
+        df_weather["time"] = pd.to_datetime(
+            df_weather["time"], format="%Y-%m-%d", errors="coerce"
+        )
+        nasa_firms = nasa_wildfires.NASAFIRMS_VIIRS()
+        df = merge_by_proximity(nasa_firms, "acq_date", df_weather, "time", "right")
         self.assertIsInstance(df, pd.DataFrame)
 
 
@@ -360,8 +382,36 @@ class DatasetsTester(unittest.TestCase):
         ds = wildfires.BDIFFHistory()
         self.assertIsInstance(ds, pd.DataFrame)
 
-    def test_nasafirms(self):
+    def test_nasafirms_json(self):
         ds = nasa_wildfires.NASAFIRMS()
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasafirms_csv(self):
+        ds = nasa_wildfires.NASAFIRMS(
+            source_path=cfg.TEST_FR_FIRMS_CSV_FALLBACK, fmt="csv"
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasafirms_xlsx(self):
+        ds = nasa_wildfires.NASAFIRMS(
+            source_path=cfg.TEST_FR_FIRMS_XLSX_FALLBACK, fmt="xlsx"
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasaviirs_csv(self):
+        ds = nasa_wildfires.NASAFIRMS_VIIRS()
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasaviirs_xlsx(self):
+        ds = nasa_wildfires.NASAFIRMS_VIIRS(
+            source_path=cfg.TEST_FR_VIIRS_XLSX_FALLBACK, fmt="xlsx"
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_nasaviirs_json(self):
+        ds = nasa_wildfires.NASAFIRMS_VIIRS(
+            source_path=cfg.TEST_FR_VIIRS_JSON_FALLBACK, fmt="json"
+        )
         self.assertIsInstance(ds, pd.DataFrame)
 
     def test_gwisfwi(self):
@@ -371,6 +421,79 @@ class DatasetsTester(unittest.TestCase):
     def test_era5land(self):
         ds = ERA5.ERA5Land(source_path=cfg.TEST_FR_ERA5LAND_FALLBACK)
         self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_era5t(self):
+        ds = ERA5.ERA5T(source_path=cfg.TEST_FR_ERA5LAND_FALLBACK)
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_MergedEraFwiViirs(self):
+        ds = era_fwi_viirs.MergedEraFwiViirs(
+            era_source_path=cfg.TEST_FR_ERA5_2019_FALLBACK,
+            viirs_source_path=None,
+            fwi_source_path=cfg.TEST_FWI_FALLBACK,
+        )
+        self.assertIsInstance(ds, pd.DataFrame)
+
+    def test_call_era5land(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            queries_api.call_era5land(tmp, '2020', '07', '15')
+            self.assertTrue(
+                os.path.isfile(
+                    os.path.join(
+                        tmp, 'era5land_2020_07_15.nc')))
+
+    def test_call_era5t(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            queries_api.call_era5t(tmp, '2020', '07', '15')
+            self.assertTrue(
+                os.path.isfile(
+                    os.path.join(
+                        tmp, 'era5t_2020_07_15.nc')))
+
+    def test_call_fwi(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            queries_api.call_fwi(tmp, '2020', '07', '15')
+            self.assertTrue(
+                os.path.isfile(
+                    os.path.join(
+                        tmp, 'fwi_2020_07_15.zip')))
+
+    def test_get_fwi_from_api(self):
+        res = fwi.get_fwi_from_api('2020-07-15')
+        self.assertIsInstance(res, pd.DataFrame)
+        self.assertEqual(len(res), 1039)
+        self.assertEqual(res.iloc[0]['nom'], 'Aisne')
+        self.assertEqual(res.iloc[78]['isi'], np.float32(5.120605))
+
+    def test_get_fwi_data_for_predict(self):
+        res = fwi.get_fwi_data_for_predict('2020-05-05')
+        self.assertTrue(
+            np.array_equal(
+                res.day.unique(),
+                np.array(['2020-05-05', '2020-05-04', '2020-05-02', '2020-04-28'])))
+
+    def test_get_data_era5land_for_predict(self):
+        res = ERA5.get_data_era5land_for_predict('2020-05-05')
+        self.assertTrue(
+            np.array_equal(
+                res.time.unique(),
+                np.array(['2020-05-05', '2020-05-04', '2020-05-02', '2020-04-28'],
+                         dtype='datetime64[ns]')))
+        self.assertTrue('evaow' in res.columns)
+
+    def test_get_data_era5t_for_predict(self):
+        res = ERA5.get_data_era5t_for_predict('2020-07-15')
+        self.assertTrue('u10' in res.columns)
+        self.assertEqual(len(res), 4156)
+
+    def test_process_dataset_to_predict(self):
+        fwi = pd.read_csv(cfg.TEST_FWI_TO_PREDICT)
+        era = pd.read_csv(cfg.TEST_ERA_TO_PREDICT)
+        res = era_fwi_viirs.process_dataset_to_predict(fwi, era)
+        self.assertTrue(
+            np.array_equal(
+                res.loc[res['nom'] == 'Vienne', 'fwi_max'].values,
+                np.array([1.2649848, 0.06888488, 0.74846804, 1.6156918], dtype=np.float64)))
 
 
 if __name__ == "__main__":
