@@ -47,7 +47,16 @@ pip install git+git://github.com/pyronear/pyro-risks
 
 ## Usage
 
-### datasets
+Beforehand, you will need to set a few environment variables either manually or by writing an `.env` file in the root directory of this project, like in the example below:
+
+```
+CDS_UID=my_secret_uid
+CDS_API_KEY=my_very_secret_key
+```
+Those values will allow your web server to connect to CDS [API](https://github.com/ecmwf/cdsapi), which is mandatory for your datasets access to be fully operational.
+
+
+### pyro_risks.datasets
 
 Access all pyro-risks datasets. 
 
@@ -56,6 +65,17 @@ from pyro_risks.datasets import NASAFIRMS, NOAAWeather
 firms = NASAFIRMS()
 noaa = NOAAWeather()
 ```
+
+### Web server
+
+To be able to expose model inference, you can run a web server using docker containers with this command:
+
+```bash
+PORT=8003 docker-compose up -d --build
+```
+
+Once completed, you will notice that you have a docker container running on the port you selected, which can process requests just like any web server.
+
 
 ## Examples
 
