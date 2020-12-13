@@ -1,6 +1,5 @@
 import os
 import secrets
-from typing import Optional
 
 
 PROJECT_NAME: str = 'PyroRisk'
