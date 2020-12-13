@@ -19,7 +19,7 @@ def call_era5land(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
-    file_path = os.path.join(cfg.CACHE_FOLDER, f"era5land_{year}_{month}_{day}.nc")
+    file_path = os.path.join(output_path, f"era5land_{year}_{month}_{day}.nc")
 
     if os.path.exists(file_path):
         logger.info(f"Using cached {file_path}")
@@ -111,7 +111,7 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
         month: str
         day: str
     """
-    file_path = os.path.join(cfg.CACHE_FOLDER, f"era5t_{year}_{month}_{day}.nc")
+    file_path = os.path.join(output_path, f"era5t_{year}_{month}_{day}.nc")
 
     if os.path.exists(file_path):
         logger.info(f"Using cached {file_path}")
@@ -423,7 +423,7 @@ def call_fwi(output_path, year, month, day):
         day: str
     """
 
-    file_path = os.path.join(cfg.CACHE_FOLDER, f"fwi_{year}_{month}_{day}.zip")
+    file_path = os.path.join(output_path, f"fwi_{year}_{month}_{day}.zip")
 
     if os.path.exists(file_path):
         logger.info(f"Using cached {file_path}")
