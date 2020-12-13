@@ -4,7 +4,7 @@ import logging
 
 from pyro_risks import config as cfg
 
-logger = logging.getLogger("uvicorn.warning")
+logger = logging.getLogger("uvicorn.info")
 
 
 def call_era5land(output_path: str, year: str, month: str, day: str) -> None:

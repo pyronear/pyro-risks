@@ -1,10 +1,14 @@
+import logging
+import pandas as pd
+
 from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land
 from pyro_risks.datasets.utils import get_intersection_range
 from pyro_risks.datasets.fwi import GwisFwi
 
-import pandas as pd
-
 __all__ = ["MergedEraFwiViirs"]
+
+
+logger = logging.getLogger("uvicorn.info")
 
 
 def process_dataset_to_predict(fwi, era):
@@ -29,6 +33,8 @@ def process_dataset_to_predict(fwi, era):
     agg_fwi_df.columns = ['day', 'nom'] + \
         [x[0] + '_' + x[1] for x in agg_fwi_df.columns if x[1] != '']
 
+    logger.info("Finished aggregationg of FWI")
+
     # Group weather dataframe by day and department and compute min, max, mean, std
     agg_wth_df = weather.groupby(['time', 'nom'])[
         'u10', 'v10', 'd2m', 't2m', 'fal', 'lai_hv', 'lai_lv', 'skt',
@@ -38,10 +44,13 @@ def process_dataset_to_predict(fwi, era):
     agg_wth_df.columns = ['day', 'nom'] + \
         [x[0] + '_' + x[1] for x in agg_wth_df.columns if x[1] != '']
 
+    logger.info("Finished aggregationg of weather data")
+
     # Merge fwi and weather together
     res_df = pd.merge(agg_fwi_df, agg_wth_df,
                       on=['day', 'nom'],
                       how='inner')
+    logger.info("Finished merging")
     return res_df
 
 
