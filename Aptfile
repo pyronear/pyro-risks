@@ -1,1 +1,2 @@
-libspatialindex-dev python3-rtree
+libspatialindex-dev
+python3-rtree
