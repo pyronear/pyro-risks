@@ -7,7 +7,7 @@ from app.api.schemas import RegionRisk
 router = APIRouter()
 
 
-@router.get("/{country}/{date}", response_model=List[RegionRisk], summary="Computes the wildfire risk for the given country")
+@router.get("/{country}/{date}", response_model=List[RegionRisk], summary="Computes the wildfire risk")
 async def get_pyrorisk(country: str, date: str):
     """Using the country identifier, this will compute the wildfire risk for all known subregions"""
     preds = predictor.predict(date)
