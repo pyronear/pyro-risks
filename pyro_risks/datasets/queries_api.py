@@ -1,9 +1,12 @@
 import cdsapi
 import os
 import logging
+import urllib3
 
 from pyro_risks import config as cfg
 
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logger = logging.getLogger("uvicorn.info")
 
 
