@@ -24,6 +24,7 @@ TEST_FR_FIRMS_XLSX_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FIRMS.xlsx"
 TEST_FR_VIIRS_XLSX_FALLBACK: str = f"{DATA_FALLBACK}/test_data_VIIRS.xlsx"
 TEST_FR_VIIRS_JSON_FALLBACK: str = f"{DATA_FALLBACK}/test_data_VIIRS.json"
 TEST_FR_ERA5_2019_FALLBACK: str = f"{DATA_FALLBACK}/test_data_ERA5_2019.nc"
+TEST_FR_ERA5T_FALLBACK: str = f"{DATA_FALLBACK}/test_era5t_to_merge.nc"
 TEST_FWI_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FWI.csv"
 TEST_FWI_TO_PREDICT: str = f"{DATA_FALLBACK}/fwi_test_to_predict.csv"
 TEST_ERA_TO_PREDICT: str = f"{DATA_FALLBACK}/era_test_to_predict.csv"
@@ -37,7 +38,30 @@ CDS_UID = os.getenv('CDS_UID')
 CDS_API_KEY = os.getenv('CDS_API_KEY')
 
 RFMODEL_PATH: str = f"{DATA_FALLBACK}/pyrorisk_rfc_111220.pkl"
+RFMODEL_ERA5T_PATH: str = f"{DATA_FALLBACK}/pyrorisk_rfc_era5t_151220.pkl"
 XGBMODEL_PATH: str = f"{DATA_FALLBACK}/pyrorisk_xgb_091220.pkl"
+XGBMODEL_ERA5T_PATH: str = f"{DATA_FALLBACK}/pyrorisk_xgb_era5t_151220.pkl"
+
+FWI_VARS = ['fwi', 'ffmc', 'dmc', 'dc', 'isi', 'bui', 'dsr']
+WEATHER_VARS = [
+    'u10', 'v10', 'd2m', 't2m', 'fal', 'lai_hv', 'lai_lv', 'skt',
+    'asn', 'snowc', 'rsn', 'sde', 'sd', 'sf', 'smlt', 'stl1', 'stl2',
+    'stl3', 'stl4', 'slhf', 'ssr', 'str', 'sp', 'sshf', 'ssrd', 'strd', 'tsn', 'tp'
+]
+WEATHER_ERA5T_VARS = ['asn', 'd2m', 'e', 'es', 'fal', 'lai_hv', 'lai_lv', 'lblt',
+                      'licd', 'lict', 'lmld', 'lmlt', 'lshf', 'ltlt', 'pev', 'ro', 'rsn', 'sd', 'sf', 'skt',
+                      'slhf', 'smlt', 'sp', 'src', 'sro', 'sshf', 'ssr', 'ssrd', 'ssro', 'stl1', 'stl2', 'stl3',
+                      'stl4', 'str', 'strd', 'swvl1', 'swvl2', 'swvl3', 'swvl4', 't2m', 'tp', 'tsn', 'u10', 'v10']
+
+MODEL_ERA5T_VARS = ['str_max', 'str_mean', 'ffmc_min', 'str_min', 'ffmc_mean',
+                    'str_mean_lag1', 'str_max_lag1', 'str_min_lag1', 'isi_min',
+                    'ffmc_min_lag1', 'isi_mean', 'ffmc_mean_lag1', 'ffmc_std', 'ffmc_max',
+                    'isi_min_lag1', 'isi_mean_lag1', 'ffmc_max_lag1', 'asn_std', 'strd_max',
+                    'ssrd_min', 'strd_mean', 'isi_max', 'strd_min', 'd2m_min', 'asn_min',
+                    'ssr_min', 'ffmc_min_lag3', 'ffmc_std_lag1', 'lai_hv_mean_lag7',
+                    'str_max_lag3', 'str_mean_lag3', 'rsn_std_lag1', 'fwi_mean', 'ssr_mean',
+                    'ssrd_mean', 'swvl1_mean', 'rsn_std_lag3', 'isi_max_lag1', 'd2m_mean',
+                    'rsn_std']
 
 MODEL_VARIABLES = ['ffmc_min', 'str_mean', 'str_min', 'str_max', 'ffmc_mean', 'isi_min',
                    'ffmc_min_lag1', 'strd_mean', 'isi_mean', 'strd_min', 'strd_max',
@@ -48,6 +72,7 @@ MODEL_VARIABLES = ['ffmc_min', 'str_mean', 'str_min', 'str_max', 'ffmc_mean', 'i
                    'strd_min_lag1', 'ffmc_min_lag3', 'ffmc_std_lag1', 'strd_mean_lag1',
                    'rsn_mean_lag1', 'fwi_mean', 'isi_max_lag1', 'sd_max', 'strd_max_lag1',
                    'rsn_mean', 'snowc_std_lag7', 'stl1_std_lag3']
+
 TRAIN_SELECTED_DEP = ['Aisne', 'Alpes-Maritimes', 'Ardèche', 'Ariège', 'Aude', 'Aveyron',
                       'Cantal', 'Eure', 'Eure-et-Loir', 'Gironde', 'Haute-Corse', 'Hautes-Pyrénées',
                       'Hérault', 'Indre', 'Landes', 'Loiret', 'Lozère', 'Marne', 'Oise',
