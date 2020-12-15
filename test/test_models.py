@@ -67,7 +67,7 @@ class ModelsTester(unittest.TestCase):
                 "fwi_mean_lag7": {3: 1.1, 2: np.nan, 1: np.nan, 0: np.nan},
             }
         )
-        assert_frame_equal(res, score_v0.add_lags(df, ["fwi_mean"]))
+        assert_frame_equal(res, score_v0.add_lags_to_predict(df, ["fwi_mean"]))
 
     def test_add_lags(self):
         df = pd.DataFrame(
