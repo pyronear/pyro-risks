@@ -43,7 +43,7 @@ class ModelsTester(unittest.TestCase):
             score_v0.target_correlated_features(X, y), ["str_mean", "isi_mean"]
         )
 
-    def test_add_lags(self):
+    def test_add_lags_to_predict(self):
         df = pd.DataFrame(
             {
                 "day": ["2019-07-01", "2019-07-04", "2019-07-07", "2019-07-08"],
@@ -65,6 +65,32 @@ class ModelsTester(unittest.TestCase):
                 "fwi_mean_lag1": {3: 0.9, 2: 13.3, 1: 1.1, 0: np.nan},
                 "fwi_mean_lag3": {3: 13.3, 2: 1.1, 1: np.nan, 0: np.nan},
                 "fwi_mean_lag7": {3: 1.1, 2: np.nan, 1: np.nan, 0: np.nan},
+            }
+        )
+        assert_frame_equal(res, score_v0.add_lags(df, ["fwi_mean"]))
+
+    def test_add_lags(self):
+        df = pd.DataFrame(
+            {
+                "day": ["2019-07-01", "2019-07-04", "2019-07-07", "2019-07-08"],
+                "departement": ["Cantal", "Cantal", "Cantal", "Cantal"],
+                "fwi_mean": [1.1, 13.3, 0.9, 2.5],
+            }
+        )
+        df["day"] = pd.to_datetime(df["day"])
+        res = pd.DataFrame(
+            {
+                "day": {
+                    0: np.datetime64("2019-07-01"),
+                    1: np.datetime64("2019-07-04"),
+                    2: np.datetime64("2019-07-07"),
+                    3: np.datetime64("2019-07-08"),
+                },
+                "departement": {0: "Cantal", 1: "Cantal", 2: "Cantal", 3: "Cantal"},
+                "fwi_mean": {0: 1.1, 1: 13.3, 2: 0.9, 3: 2.5},
+                "fwi_mean_lag1": {0: np.nan, 1: np.nan, 2: np.nan, 3: 0.9},
+                "fwi_mean_lag3": {0: np.nan, 1: 1.1, 2: 13.3, 3: np.nan},
+                "fwi_mean_lag7": {0: np.nan, 1: np.nan, 2: np.nan, 3: 1.1},
             }
         )
         assert_frame_equal(res, score_v0.add_lags(df, ["fwi_mean"]))
