@@ -1,9 +1,10 @@
 import logging
 import pandas as pd
 
-from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land
+from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land, ERA5T
 from pyro_risks.datasets.utils import get_intersection_range
 from pyro_risks.datasets.fwi import GwisFwi
+from pyro_risks import config as cfg
 
 __all__ = ["MergedEraFwiViirs"]
 
@@ -28,8 +29,7 @@ def process_dataset_to_predict(fwi, era):
 
     # Group fwi dataframe by day and department and compute min, max, mean, std
     agg_fwi_df = fwi_df.groupby(['day', 'nom'])[
-        'fwi', 'ffmc', 'dmc', 'dc', 'isi', 'bui', 'dsr'
-    ].agg(['min', 'max', 'mean', 'std']).reset_index()
+        cfg.FWI_VARS].agg(['min', 'max', 'mean', 'std']).reset_index()
     agg_fwi_df.columns = ['day', 'nom'] + \
         [x[0] + '_' + x[1] for x in agg_fwi_df.columns if x[1] != '']
 
@@ -37,10 +37,7 @@ def process_dataset_to_predict(fwi, era):
 
     # Group weather dataframe by day and department and compute min, max, mean, std
     agg_wth_df = weather.groupby(['time', 'nom'])[
-        'u10', 'v10', 'd2m', 't2m', 'fal', 'lai_hv', 'lai_lv', 'skt',
-        'asn', 'snowc', 'rsn', 'sde', 'sd', 'sf', 'smlt', 'stl1', 'stl2',
-        'stl3', 'stl4', 'slhf', 'ssr', 'str', 'sp', 'sshf', 'ssrd', 'strd', 'tsn', 'tp'
-    ].agg(['min', 'max', 'mean', 'std']).reset_index()
+        cfg.WEATHER_ERA5T_VARS].agg(['min', 'max', 'mean', 'std']).reset_index()
     agg_wth_df.columns = ['day', 'nom'] + \
         [x[0] + '_' + x[1] for x in agg_wth_df.columns if x[1] != '']
 
@@ -75,7 +72,7 @@ class MergedEraFwiViirs(pd.DataFrame):
             viirs_source_path (str, optional): Viirs data source path. Defaults to None.
             fwi_source_path (str, optional): Fwi data source path. Defaults to None.
         """
-        weather = ERA5Land(era_source_path)
+        weather = ERA5T(era_source_path)  # ERA5Land(era_source_path)
         nasa_firms = NASAFIRMS_VIIRS(viirs_source_path)
 
         # Time span selection
@@ -100,17 +97,13 @@ class MergedEraFwiViirs(pd.DataFrame):
 
         # Group fwi dataframe by day and department and compute min, max, mean, std
         agg_fwi_df = fwi_df.groupby(['day', 'departement'])[
-            'fwi', 'ffmc', 'dmc', 'dc', 'isi', 'bui', 'dsr'
-        ].agg(['min', 'max', 'mean', 'std']).reset_index()
+            cfg.FWI_VARS].agg(['min', 'max', 'mean', 'std']).reset_index()
         agg_fwi_df.columns = ['day', 'departement'] + \
             [x[0] + '_' + x[1] for x in agg_fwi_df.columns if x[1] != '']
 
         # Group weather dataframe by day and department and compute min, max, mean, std
         agg_wth_df = weather.groupby(['time', 'nom'])[
-            'u10', 'v10', 'd2m', 't2m', 'fal', 'lai_hv', 'lai_lv', 'skt',
-            'asn', 'snowc', 'rsn', 'sde', 'sd', 'sf', 'smlt', 'stl1', 'stl2',
-            'stl3', 'stl4', 'slhf', 'ssr', 'str', 'sp', 'sshf', 'ssrd', 'strd', 'tsn', 'tp'
-        ].agg(['min', 'max', 'mean', 'std']).reset_index()
+            cfg.WEATHER_ERA5T_VARS].agg(['min', 'max', 'mean', 'std']).reset_index()
         agg_wth_df.columns = ['day', 'departement'] + \
             [x[0] + '_' + x[1] for x in agg_wth_df.columns if x[1] != '']
 
