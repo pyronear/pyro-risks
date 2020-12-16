@@ -142,7 +142,6 @@ def add_lags_to_predict(df, cols):
         df[f"{feature}_lag7"] = df[feature].shift(-3)
     return df
 
-
 def add_lags(df, cols):
     """Add lags to dataframe df of the selected columns.
 
@@ -160,13 +159,19 @@ def add_lags(df, cols):
             tmp = df[df["departement"] == dep][["day", var]].set_index("day")
             tmp1 = tmp.copy()
             tmp1 = tmp1.join(
-                tmp.shift(periods=1, freq="D"), rsuffix="_lag1", how="left"
+                tmp.shift(periods=1, freq=np.timedelta64(1, "D")),
+                rsuffix="_lag1",
+                how="left",
             )
             tmp1 = tmp1.join(
-                tmp.shift(periods=3, freq="D"), rsuffix="_lag3", how="left"
+                tmp.shift(periods=3, freq=np.timedelta64(1, "D")),
+                rsuffix="_lag3",
+                how="left",
             )
             tmp1 = tmp1.join(
-                tmp.shift(periods=7, freq="D"), rsuffix="_lag7", how="left"
+                tmp.shift(periods=7, freq=np.timedelta64(1, "D")),
+                rsuffix="_lag7",
+                how="left",
             )
             new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
             df.loc[df["departement"] == dep, new_vars] = tmp1[new_vars].values

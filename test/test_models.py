@@ -136,13 +136,13 @@ class ModelsTester(unittest.TestCase):
         pr = predict.PyroRisk(which="RF")
         self.assertEqual(pr.model.n_estimators, 500)
         self.assertEqual(pr.model_path, cfg.RFMODEL_ERA5T_PATH)
-        res = pr.get_input('2020-05-05')
+        res = pr.get_input("2020-05-05")
         self.assertIsInstance(res, pd.DataFrame)
         self.assertEqual(res.shape, (93, 40))
-        preds = pr.predict('2020-05-05')
+        preds = pr.predict("2020-05-05")
         self.assertEqual(len(preds), 93)
-        self.assertEqual(preds['Ardennes'], {'score': 0.246, 'explainability': None})
+        self.assertEqual(preds["Ardennes"], {"score": 0.246, "explainability": None})
 
-        
+
 if __name__ == "__main__":
     unittest.main()

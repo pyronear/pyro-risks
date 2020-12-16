@@ -6,7 +6,7 @@ from pyro_risks import config as cfg
 from pyro_risks.datasets.fwi import get_fwi_data_for_predict
 from pyro_risks.datasets.ERA5 import get_data_era5land_for_predict, get_data_era5t_for_predict
 from pyro_risks.datasets.era_fwi_viirs import process_dataset_to_predict
-from pyro_risks.models.score_v0 import add_lags_to_predict
+from pyro_risks.models.score_v0 import add_lags_to_predict, add_lags
 
 __all__ = ["PyroRisk"]
 
@@ -55,7 +55,7 @@ class PyroRisk(object):
         res_test = res_test.rename({'nom': 'departement'}, axis=1)
         # Add lags only for columns on which model was trained on
         cols_lags = ['_'.join(x.split('_')[:-1]) for x in cfg.MODEL_ERA5T_VARS if '_lag' in x]
-        res_lags = add_lags(res_test, cols_lags)
+        res_lags = add_lags_to_predict(res_test, cols_lags)
         # Select only rows corresponding to day
         to_predict = res_lags.loc[res_lags['day'] == day]
         to_predict = to_predict.drop('day', axis=1).set_index('departement')
