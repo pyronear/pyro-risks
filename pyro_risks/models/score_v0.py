@@ -6,7 +6,6 @@ import xgboost as xgb
 import pandas as pd
 import numpy as np
 
-
 __all__ = [
     "prepare_dataset",
     "target_correlated_features",
@@ -15,7 +14,6 @@ __all__ = [
     "train_random_forest",
     "xgb_model",
 ]
-
 
 SELECTED_DEP = [
     "Aisne",
@@ -43,7 +41,6 @@ SELECTED_DEP = [
     "Somme",
     "Yonne",
 ]
-
 
 RF_PARAMS = {
     "n_estimators": 500,
@@ -141,6 +138,7 @@ def add_lags_to_predict(df, cols):
         # therefore J-7 data is at the 3rd position
         df[f"{feature}_lag7"] = df[feature].shift(-3)
     return df
+
 
 def add_lags(df, cols):
     """Add lags to dataframe df of the selected columns.
