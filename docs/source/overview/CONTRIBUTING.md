@@ -1,14 +1,16 @@
-# Contributing to the pyro-risks repository
+# Contributing to the pyro-risks project
 
 Everything you need to know to contribute efficiently to the project.
 
-## Codebase structure
+## Project structure and conventions
+
+### Codebase structure
 
 -   [pyro-risks](https://github.com/pyronear/pyro-risks/tree/master/pyro_risks) - the pyro-risks library
 -   [examples](https://github.com/pyronear/pyro-risks/tree/master/scripts) - examples scripts
 -   [test](https://github.com/pyronear/pyro-vision/blob/master/test) - python unit tests
 
-## Continuous Integration
+### Continuous Integration
 
 This project uses the following integrations to ensure proper codebase maintenance:
 
@@ -18,7 +20,7 @@ This project uses the following integrations to ensure proper codebase maintenan
 
 As a contributor, you will only have to ensure coverage of your code by adding appropriate unit testing of your code.
 
-## Style conventions
+### Style conventions
 
 -   **Code**:
     -   Setup the `__all__` special variable for each module
@@ -28,11 +30,8 @@ As a contributor, you will only have to ensure coverage of your code by adding a
 
 -   **Commit message**: please follow [Udacity guide](http://udacity.github.io/git-styleguide/)
 
-## Issues
 
-Use Github [issues](https://github.com/pyronear/pyro-risks/issues) for feature requests, or bug reporting. When doing so, use issue templates whenever possible and provide enough information for other contributors to jump in.
-
-## Code contribution
+## Contributing to the project 
 
 In order to contribute to project, you will first need to **set up your *pyro-risks* development environment** and then follow the **contributing workflow** and the **code & commit guidelines**.
 
@@ -185,3 +184,7 @@ Once the project is well set up, we are going to detail step by step a usual con
     ```
 
 6.  When satisfied with your branch, open a [PR](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork) from your fork in order to integrate your contribution to original project.
+
+## Opening an issue
+
+Use Github [issues](https://github.com/pyronear/pyro-risks/issues) for feature requests, or bug reporting. When doing so, use issue templates whenever possible and provide enough information for other contributors to jump in.
