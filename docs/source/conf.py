@@ -91,7 +91,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_theme_options = {
     'collapse_navigation': False,
     'display_version': True,
-    'logo_only': False,
+    'logo_only': True,
     'analytics_id': '',
 }
 
@@ -105,6 +105,7 @@ html_css_files = [
     'css/my_theme.css'
 ]
 
+html_logo = '_static/img/pyronear-logo-dark.png'
 
 # -- A patch that prevents Sphinx from cross-referencing ivar tags -------
 # See http://stackoverflow.com/a/41184353/3343043

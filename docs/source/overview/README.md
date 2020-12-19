@@ -17,17 +17,23 @@ pip install git+https://github.com/pyronear/pyro-risks
 
 ## Importing publicly available datasets
 
-Access all pyro-risks datasets. 
+Access the main pyro-risks datasets. 
 
 ```python
-from pyro_risks.datasets import NASAFIRMS, NOAAWeather
-firms = NASAFIRMS()
-noaa = NOAAWeather()
+from pyro_risks.datasets import NASAFIRMS, NASAFIRMS_VIIRS, GwisFwi, ERA5T, ERALand
+
+modis = NASAFIRMS()
+viirs = NASAFIRMS_VIIRS()
+
+fdi = GwisFwi()
+
+era = ERA5T()
+era_land = ERA5Land()
 ```
 
 ## Running examples scripts
 
-You are free to merge the datasets however you want and to implement any zonal statistic you want, but some are already provided for reference. In order to use them check the example scripts options as follows:
+You are free to merge the datasets however you want and to implement any relevant zonal statistic, but some are already provided for reference. In order to use them check the example scripts options as follows:
 
 ```shell
 python scripts/example_ERA5_FIRMS.py --help
