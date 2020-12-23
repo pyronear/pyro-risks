@@ -23,7 +23,7 @@ Algorithm description and initial assessment." Remote Sensing of Environment 143
 ***NASA FIRMS:*** 
   - You can download MODIS and VIIRS Active Fire Data for the last **24, 48 hours and 7 days (.shp, .kml, .csv)** from NASA Fire Information For Resource Management System [here](https://firms.modaps.eosdis.nasa.gov/active_fire/#firms-txt).
 
-  - **Archive downloads for active fire/hotspot** information older than the last 7 days are accessible [here](https://firms.modaps.eosdis.nasa.gov/active_fire/#firms-kml) (**country yearly summaries**).
+  - **Archive downloads for active fire/hotspot** information older than the last 7 days are accessible [here](https://firms.modaps.eosdis.nasa.gov/download/) (**country yearly summaries**).
 
 
 ***EFFIS:*** You can access the Modis and VIIRS Active Fire Data via the EFFIS data request for: [https://effis.jrc.ec.europa.eu/static/data.request.form/](https://effis.jrc.ec.europa.eu/static/data.request.form/)

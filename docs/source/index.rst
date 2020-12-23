@@ -16,7 +16,7 @@ Pyronear Wildfire Risk Forcasting Documentation
             <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
       </p>
 
-The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildifire risk forcasting capibility.
+The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildfire forecasting capability.
 The :mod:`pyro_risks` package aggregates pre-processing pipelines and models for wildfire forecasting.
 
 
