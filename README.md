@@ -2,17 +2,10 @@
 <p align="center">
     <a href="LICENSE" alt="License">
         <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
-<<<<<<< HEAD
-      <a href="https://github.com/pyronear/pyro-vision/actions?query=workflow%3Apython-package">
-        <img src="https://github.com/pyronear/pyro-risks/workflows/python-package/badge.svg" /></a>
-   <a href="https://www.codacy.com/gh/pyronear/pyro-risks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pyronear/pyro-risks&amp;utm_campaign=Badge_Grade">
-      <img src="" /></a>
-=======
-    <a href="https://github.com/pyronear/pyro-vision/actions?query=workflow%3Apython-package">
+    <a href="https://github.com/pyronear/pyro-risks/actions?query=workflow%3Apython-package">
         <img src="https://github.com/pyronear/pyro-risks/workflows/python-package/badge.svg" /></a>
    <a href="https://www.codacy.com/gh/pyronear/pyro-risks/dashboard?utm_source=github.com&utm_medium=referral&utm_content=pyronear/pyro-risks&utm_campaign=Badge_Grade">
         <img src="https://camo.githubusercontent.com/6361a174bbd36acd5ee8c24b0ef27ba6a84803c2ac9354d57d60d1264d78a31a/68747470733a2f2f6170702e636f646163792e636f6d2f70726f6a6563742f62616467652f47726164652f6532623936393836356539663439633561623934343435643765346132613637" /></a>
->>>>>>> upstream/master
     <a href="https://codecov.io/gh/pyronear/pyro-risks">
   		<img src="https://codecov.io/gh/pyronear/pyro-risks/branch/master/graph/badge.svg" /></a>
     <a href="https://github.com/psf/black">
@@ -21,10 +14,6 @@
   		<img src="https://img.shields.io/badge/docs-available-blue.svg" /></a>
 </p>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildifire risk forcasting capibility. 
 
 ## Table of Contents
@@ -41,43 +30,37 @@ The pyro-risks project aims at providing the pyronear-platform with a machine le
 - [Credits](#credits)
 - [License](#license)
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> upstream/master
 ## Getting started
 
 ### Prerequisites
 
-<<<<<<< HEAD
-- Python 3.6 (or more recent)
-- [pip](https://pip.pypa.io/en/stable/)
-=======
 -   Python 3.6 (or more recent)
 -   [pip](https://pip.pypa.io/en/stable/)
->>>>>>> upstream/master
-
 ### Installation
 
 You can install the package from github as follows:
 
 ```shell
-pip install git+git://github.com/pyronear/pyro-risks
+pip install git+https://github.com/pyronear/pyro-risks
 ```
 
 ## Usage
 
 ### datasets
 
-Access all pyro-risks datasets. 
+Access the main pyro-risks datasets. 
 
 ```python
-from pyro_risks.datasets import NASAFIRMS, NOAAWeather
-firms = NASAFIRMS()
-noaa = NOAAWeather()
-```
+from pyro_risks.datasets import NASAFIRMS, NASAFIRMS_VIIRS, GwisFwi, ERA5T, ERALand
 
+modis = NASAFIRMS()
+viirs = NASAFIRMS_VIIRS()
+
+fdi = GwisFwi()
+
+era = ERA5T()
+era_land = ERA5Land()
+```
 ## Examples
 
 You are free to merge the datasets however you want and to implement any zonal statistic you want, but some are already provided for reference. In order to use them check the example scripts options as follows:
@@ -96,18 +79,10 @@ python scripts/example_ERA5_FIRMS.py --type_of_merged departements
 
 The full package documentation is available [here](https://pyronear.org/pyro-risks/) for detailed specifications. The documentation was built with [Sphinx](https://www.sphinx-doc.org) using a [theme](https://github.com/readthedocs/sphinx_rtd_theme) provided by [Read the Docs](https://readthedocs.org).
 
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 ## Contributing
 
 Please refer to the [`CONTRIBUTING`](./CONTRIBUTING.md) guide if you wish to contribute to this project.
 
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 ## Credits
 
 This project is developed and maintained by the repo owner and volunteers from [Data for Good](https://dataforgood.fr/).
