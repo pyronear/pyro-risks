@@ -1,9 +1,9 @@
 pyro\_risks.datasets
 ====================
 
-The nn subpackage contains definitions of modules and functions for Deep Learning architectures.
+The datasets subpackage contains definitions of modules and functions for downloading and processing publicly available weather and fire datasets.
 
-The following models are available:
+The following modules are available:
 
 
 .. toctree::

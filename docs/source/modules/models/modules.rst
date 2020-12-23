@@ -1,8 +1,8 @@
 pyro\_risks.models
 ==================
 
-The nn subpackage contains definitions of modules and functions for Deep Learning architectures.
-The following models are available:
+The models subpackage contains definitions of modules and functions for the Scoring Pipeline.
+The following modules are available:
 
 .. toctree::
    :maxdepth: 4
