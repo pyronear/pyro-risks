@@ -7,6 +7,10 @@ import pandas as pd
 import numpy as np
 
 
+__all__ = ['prepare_dataset', 'target_correlated_features', 'split_train_test', 'add_lags', 'train_random_forest',
+           'xgb_model']
+
+
 SELECTED_DEP = ['Aisne',
                 'Alpes-Maritimes',
                 'Ardèche',

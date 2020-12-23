@@ -46,11 +46,9 @@ requirements = [
     "scikit-learn>=0.23.2",
     "xgboost==1.2.1",
     "xlrd==1.2.0",
-    "docutils>=0.16",
-    "sphinx>=3.1.2",
     "numpy>=1.18.5",
-    "setuptools>=49.2.0",
     "cdsapi==0.4.0",
+    "python-dotenv>=0.15.0",
 ]
 
 setup(

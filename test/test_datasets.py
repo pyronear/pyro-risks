@@ -428,11 +428,12 @@ class DatasetsTester(unittest.TestCase):
 
     def test_MergedEraFwiViirs(self):
         ds = era_fwi_viirs.MergedEraFwiViirs(
-            era_source_path=cfg.TEST_FR_ERA5_2019_FALLBACK,
+            era_source_path=cfg.TEST_FR_ERA5T_FALLBACK,
             viirs_source_path=None,
             fwi_source_path=cfg.TEST_FWI_FALLBACK,
         )
         self.assertIsInstance(ds, pd.DataFrame)
+        self.assertTrue(len(ds) > 0)
 
     def test_call_era5land(self):
         with tempfile.TemporaryDirectory() as tmp:
