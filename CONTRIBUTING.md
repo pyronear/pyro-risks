@@ -30,7 +30,6 @@ As a contributor, you will only have to ensure coverage of your code by adding a
 
 -   **Commit message**: please follow [Udacity guide](http://udacity.github.io/git-styleguide/)
 
-
 ## Contributing to the project 
 
 In order to contribute to project, you will first need to **set up your *pyro-risks* development environment** and then follow the **contributing workflow** and the **code & commit guidelines**.

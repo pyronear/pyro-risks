@@ -1,4 +1,4 @@
-Pyronear Wildfire Risk Forcasting Documentation
+Pyronear Wildfire Risk Forecasting Documentation
 ===============================================
 
 .. raw:: html

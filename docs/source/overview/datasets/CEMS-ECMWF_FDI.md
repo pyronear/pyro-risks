@@ -3,7 +3,7 @@
 ![](https://pbs.twimg.com/media/D9KxVa4WkAAGhC0.jpg)
 
 
-The ***Fire Danger Indices*** dataset is produced by the European Center for Medium Range Weather Forcast (ECMWF) for the European Forest Fire Information System (EFFIS) on behalf of the Copernicus Emergency Management Service (CEMS). 
+The ***Fire Danger Indices*** dataset is produced by the European Center for Medium Range Weather forecast (ECMWF) for the European Forest Fire Information System (EFFIS) on behalf of the Copernicus Emergency Management Service (CEMS). 
 
 The Copernicus program distributes the ***Fire Danger Indices*** via the Copernicus [Climate Data Store](https://cds.climate.copernicus.eu/cdsapp#!/home).
 
