@@ -4,12 +4,15 @@ import xgboost
 
 from pyro_risks import config as cfg
 from pyro_risks.datasets.fwi import get_fwi_data_for_predict
-from pyro_risks.datasets.ERA5 import get_data_era5land_for_predict, get_data_era5t_for_predict
+from pyro_risks.datasets.ERA5 import (
+    get_data_era5land_for_predict,
+    get_data_era5t_for_predict,
+)
 from pyro_risks.datasets.era_fwi_viirs import process_dataset_to_predict
 from pyro_risks.models.score_v0 import add_lags
 
 
-__all__ = ['PyroRisk']
+__all__ = ["PyroRisk"]
 
 
 class PyroRisk(object):
@@ -22,15 +25,15 @@ class PyroRisk(object):
         object ([type])
     """
 
-    def __init__(self, which='RF'):
+    def __init__(self, which="RF"):
         """Load from Github release the trained model. For the moment only RF and XGB are available.
 
         Args:
             which (str, optional): Can be 'RF' for random forest or 'XGB' for xgboost. Defaults to 'RF'.
         """
-        if which == 'RF':
+        if which == "RF":
             self.model_path = cfg.RFMODEL_ERA5T_PATH
-        elif which == 'XGB':
+        elif which == "XGB":
             self.model_path = cfg.XGBMODEL_ERA5T_PATH
         else:
             raise ValueError("Model can be only of type RF or XGB")
@@ -53,18 +56,20 @@ class PyroRisk(object):
         fwi = get_fwi_data_for_predict(day)
         era = get_data_era5t_for_predict(day)
         res_test = process_dataset_to_predict(fwi, era)
-        res_test = res_test.rename({'nom': 'departement'}, axis=1)
+        res_test = res_test.rename({"nom": "departement"}, axis=1)
         # Add lags only for columns on which model was trained on
-        cols_lags = ['_'.join(x.split('_')[:-1]) for x in cfg.MODEL_ERA5T_VARS if '_lag' in x]
+        cols_lags = [
+            "_".join(x.split("_")[:-1]) for x in cfg.MODEL_ERA5T_VARS if "_lag" in x
+        ]
         res_lags = add_lags(res_test, cols_lags)
         # Select only rows corresponding to day
-        to_predict = res_lags.loc[res_lags['day'] == day]
-        to_predict = to_predict.drop('day', axis=1).set_index('departement')
+        to_predict = res_lags.loc[res_lags["day"] == day]
+        to_predict = to_predict.drop("day", axis=1).set_index("departement")
         # Some NaN due to the aggregations on departments with only one line (variables with std)
         to_predict = to_predict.fillna(0)
         return to_predict[model_cols]
 
-    def predict(self, day, country='France'):
+    def predict(self, day, country="France"):
         """Serves a prediction for the specified day.
 
         Note that predictions on fwi and era5land data queried from CDS API will return 93 departments
@@ -80,10 +85,10 @@ class PyroRisk(object):
             respectively
         """
         sample = self.get_input(day)
-        if self._model_type == 'RF':
+        if self._model_type == "RF":
             predictions = self.model.predict_proba(sample.values)
             res = dict(zip(sample.index, predictions[:, 1].round(3)))
-        elif self._model_type == 'XGB':
+        elif self._model_type == "XGB":
             predictions = self.model.predict(xgboost.DMatrix(sample))
             res = dict(zip(sample.index, predictions.round(3)))
-        return {x: {'score': res[x], 'explainability': None} for x in res}
+        return {x: {"score": res[x], "explainability": None} for x in res}

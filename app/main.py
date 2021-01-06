@@ -6,7 +6,12 @@ from app import config as cfg
 from app.api.routes import risk
 
 
-app = FastAPI(title=cfg.PROJECT_NAME, description=cfg.PROJECT_DESCRIPTION, debug=cfg.DEBUG, version=cfg.VERSION)
+app = FastAPI(
+    title=cfg.PROJECT_NAME,
+    description=cfg.PROJECT_DESCRIPTION,
+    debug=cfg.DEBUG,
+    version=cfg.VERSION,
+)
 
 # Routing
 app.include_router(risk.router, prefix="/risk", tags=["risk"])
