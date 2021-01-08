@@ -1,5 +1,5 @@
 Pyronear Wildfire Risk Forecasting Documentation
-===============================================
+================================================
 
 .. raw:: html
 
