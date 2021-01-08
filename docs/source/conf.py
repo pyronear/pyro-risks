@@ -13,11 +13,18 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
 import pyro_risks
 import sphinx_rtd_theme
 from datetime import datetime
 
+from docutils import nodes
+from sphinx.util.docfields import TypedField
+from sphinx import addnodes
 
+
+sys.path.insert(0, os.path.abspath("../../pyro_risks"))
 # -- Project information -----------------------------------------------------
 
 master_doc = "index"
@@ -45,16 +52,28 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.coverage",
     "sphinx.ext.mathjax",
+    "myst_parser",
 ]
 
 napoleon_use_ivar = True
-source_suffix = ".rst"
+# source_suffix = '.rst'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+myst_enable_extensions = [
+    "dollarmath",
+    "amsmath",
+    "deflist",
+    "html_image",
+    "colon_fence",
+    "smartquotes",
+    "replacements",
+    "linkify",
+    "substitution",
+]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
@@ -64,6 +83,7 @@ highlight_language = "python3"
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
+
 #
 html_theme = "sphinx_rtd_theme"
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
@@ -75,7 +95,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_theme_options = {
     "collapse_navigation": False,
     "display_version": True,
-    "logo_only": False,
+    "logo_only": True,
     "analytics_id": "",
 }
 
@@ -86,13 +106,10 @@ html_static_path = ["_static"]
 
 html_css_files = ["https://fonts.googleapis.com/css?family=Lato", "css/my_theme.css"]
 
+html_logo = "_static/img/pyronear-logo-dark.png"
 
 # -- A patch that prevents Sphinx from cross-referencing ivar tags -------
 # See http://stackoverflow.com/a/41184353/3343043
-
-from docutils import nodes
-from sphinx.util.docfields import TypedField
-from sphinx import addnodes
 
 
 def patched_make_field(self, types, domain, items, **kw):

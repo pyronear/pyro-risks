@@ -2,7 +2,7 @@
 <p align="center">
     <a href="LICENSE" alt="License">
         <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
-    <a href="https://github.com/pyronear/pyro-vision/actions?query=workflow%3Apython-package">
+    <a href="https://github.com/pyronear/pyro-risks/actions?query=workflow%3Apython-package">
         <img src="https://github.com/pyronear/pyro-risks/workflows/python-package/badge.svg" /></a>
    <a href="https://www.codacy.com/gh/pyronear/pyro-risks/dashboard?utm_source=github.com&utm_medium=referral&utm_content=pyronear/pyro-risks&utm_campaign=Badge_Grade">
         <img src="https://camo.githubusercontent.com/6361a174bbd36acd5ee8c24b0ef27ba6a84803c2ac9354d57d60d1264d78a31a/68747470733a2f2f6170702e636f646163792e636f6d2f70726f6a6563742f62616467652f47726164652f6532623936393836356539663439633561623934343435643765346132613637" /></a>
@@ -14,7 +14,7 @@
   		<img src="https://img.shields.io/badge/docs-available-blue.svg" /></a>
 </p>
 
-The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildifire risk forcasting capibility. 
+The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildfire forecasting capability. 
 
 ## Table of Contents
 
@@ -23,8 +23,10 @@ The pyro-risks project aims at providing the pyronear-platform with a machine le
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
-  - [datasets](#datasets)
+  - [Web server](#web-server)
 - [Examples](#examples)
+  - [datasets](#datasets)
+  - [Scripts](#scripts)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Credits](#credits)
@@ -36,13 +38,12 @@ The pyro-risks project aims at providing the pyronear-platform with a machine le
 
 -   Python 3.6 (or more recent)
 -   [pip](https://pip.pypa.io/en/stable/)
-
 ### Installation
 
 You can install the package from github as follows:
 
 ```shell
-pip install git+git://github.com/pyronear/pyro-risks
+pip install git+https://github.com/pyronear/pyro-risks
 ```
 
 ## Usage
@@ -55,17 +56,6 @@ CDS_API_KEY=my_very_secret_key
 ```
 Those values will allow your web server to connect to CDS [API](https://github.com/ecmwf/cdsapi), which is mandatory for your datasets access to be fully operational.
 
-
-### pyro_risks.datasets
-
-Access all pyro-risks datasets. 
-
-```python
-from pyro_risks.datasets import NASAFIRMS, NOAAWeather
-firms = NASAFIRMS()
-noaa = NOAAWeather()
-```
-
 ### Web server
 
 To be able to expose model inference, you can run a web server using docker containers with this command:
@@ -76,8 +66,23 @@ PORT=8003 docker-compose up -d --build
 
 Once completed, you will notice that you have a docker container running on the port you selected, which can process requests just like any web server.
 
-
 ## Examples
+### datasets
+
+Access the main pyro-risks datasets locally. 
+
+```python
+from pyro_risks.datasets import NASAFIRMS, NASAFIRMS_VIIRS, GwisFwi, ERA5T, ERALand
+
+modis = NASAFIRMS()
+viirs = NASAFIRMS_VIIRS()
+
+fdi = GwisFwi()
+
+era = ERA5T()
+era_land = ERA5Land()
+```
+### Scripts
 
 You are free to merge the datasets however you want and to implement any zonal statistic you want, but some are already provided for reference. In order to use them check the example scripts options as follows:
 
