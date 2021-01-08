@@ -5,7 +5,7 @@ from typing import Optional
 from pyro_risks import config as cfg
 
 
-__all__ = ['get_french_geom']
+__all__ = ["get_french_geom"]
 
 
 def get_french_geom(path: Optional[str] = None) -> gpd.GeoDataFrame:

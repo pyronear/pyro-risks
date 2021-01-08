@@ -2,10 +2,10 @@ import os
 import secrets
 
 
-PROJECT_NAME: str = 'PyroRisk'
-PROJECT_DESCRIPTION: str = 'Wildfire risk estimation'
+PROJECT_NAME: str = "PyroRisk"
+PROJECT_DESCRIPTION: str = "Wildfire risk estimation"
 VERSION: str = "0.1.0a0"
-DEBUG: bool = os.environ.get('DEBUG', '') != 'False'
+DEBUG: bool = os.environ.get("DEBUG", "") != "False"
 LOGO_URL: str = "https://pyronear.org/img/logo_letters.png"
 
 

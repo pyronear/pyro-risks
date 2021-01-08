@@ -435,24 +435,25 @@ def call_fwi(output_path, year, month, day):
     c = cdsapi.Client(url=cfg.CDS_URL, key=f"{cfg.CDS_UID}:{cfg.CDS_API_KEY}", verify=0)
 
     c.retrieve(
-        'cems-fire-historical',
+        "cems-fire-historical",
         {
-            'format': 'zip',
-            'dataset': 'Intermediate dataset',
-            'year': year,
-            'month': month,
-            'version': '3.1',
-            'variable': [
-                'build_up_index',
-                'danger_risk',
-                'drought_code',
-                'duff_moisture_code',
-                'fine_fuel_moisture_code',
-                'fire_daily_severity_rating',
-                'fire_weather_index',
-                'initial_fire_spread_index',
+            "format": "zip",
+            "dataset": "Intermediate dataset",
+            "year": year,
+            "month": month,
+            "version": "3.1",
+            "variable": [
+                "build_up_index",
+                "danger_risk",
+                "drought_code",
+                "duff_moisture_code",
+                "fine_fuel_moisture_code",
+                "fire_daily_severity_rating",
+                "fire_weather_index",
+                "initial_fire_spread_index",
             ],
-            'product_type': 'reanalysis',
-            'day': day,
+            "product_type": "reanalysis",
+            "day": day,
         },
-        file_path)
+        file_path,
+    )
