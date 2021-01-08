@@ -132,3 +132,10 @@ jobs:
       - name: Build documentation
         run: |
           sphinx-build docs/source docs/build -a -v
+
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: psf/black@stable

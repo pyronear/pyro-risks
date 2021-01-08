@@ -19,39 +19,47 @@ __all__ = ["ERA5Land", "ERA5T"]
 
 def get_data_era5land_for_predict(date: str) -> pd.DataFrame:
     """
-    Get ERA5Land dataframe for given date using call to cdsapi
-    and appropriate class.
-​
-    Args:
-        date: str
-    Date with the following format: "YEAR-MONTH-DAY" eg. "2020-05-12"
-​
-    Returns: pd.DataFrame
-        Dataframe containing ERA5 Land data for the requested day.
+        Get ERA5Land dataframe for given date using call to cdsapi
+        and appropriate class.
+    ​
+        Args:
+            date: str
+        Date with the following format: "YEAR-MONTH-DAY" eg. "2020-05-12"
+    ​
+        Returns: pd.DataFrame
+            Dataframe containing ERA5 Land data for the requested day.
     """
     with tempfile.TemporaryDirectory() as tmp:
         year, month, day = date.split("-")
         call_era5land(tmp, year, month, day)
         # TODO: make sure that the directory works when on server
-        data = ERA5Land(source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc"))
+        data = ERA5Land(
+            source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc")
+        )
 
         # Lag J-1
         lag = np.datetime64(date) - np.timedelta64(1, "D")
         year, month, day = str(lag).split("-")
         call_era5land(tmp, year, month, day)
-        dataJ1 = ERA5Land(source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc"))
+        dataJ1 = ERA5Land(
+            source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc")
+        )
 
         # Lag J-3
         lag = np.datetime64(date) - np.timedelta64(3, "D")
         year, month, day = str(lag).split("-")
         call_era5land(tmp, year, month, day)
-        dataJ3 = ERA5Land(source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc"))
+        dataJ3 = ERA5Land(
+            source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc")
+        )
 
         # Lag J-7
         lag = np.datetime64(date) - np.timedelta64(7, "D")
         year, month, day = str(lag).split("-")
         call_era5land(tmp, year, month, day)
-        dataJ7 = ERA5Land(source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc"))
+        dataJ7 = ERA5Land(
+            source_path=os.path.join(tmp, f"era5land_{year}_{month}_{day}.nc")
+        )
 
         merged_data = pd.concat([data, dataJ1, dataJ3, dataJ7], ignore_index=True)
         return merged_data
@@ -59,15 +67,15 @@ def get_data_era5land_for_predict(date: str) -> pd.DataFrame:
 
 def get_data_era5t_for_predict(date: str) -> pd.DataFrame:
     """
-    Get ERA5T dataframe for given date using call to cdsapi
-    and appropriate class.
-​
-    Args:
-        date: str
-    Date with the following format: "YEAR-MONTH-DAY" eg. "2020-05-12"
-​
-    Returns: pd.DataFrame
-        Dataframe containing ERA5T data for the requested day.
+        Get ERA5T dataframe for given date using call to cdsapi
+        and appropriate class.
+    ​
+        Args:
+            date: str
+        Date with the following format: "YEAR-MONTH-DAY" eg. "2020-05-12"
+    ​
+        Returns: pd.DataFrame
+            Dataframe containing ERA5T data for the requested day.
     """
     with tempfile.TemporaryDirectory() as tmp:
         year, month, day = date.split("-")
