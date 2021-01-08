@@ -19,8 +19,12 @@ import pyro_risks
 import sphinx_rtd_theme
 from datetime import datetime
 
+from docutils import nodes
+from sphinx.util.docfields import TypedField
+from sphinx import addnodes
 
-sys.path.insert(0, os.path.abspath('../../pyro_risks'))
+
+sys.path.insert(0, os.path.abspath("../../pyro_risks"))
 # -- Project information -----------------------------------------------------
 
 master_doc = "index"
@@ -39,20 +43,20 @@ release = pyro_risks.__version__ + "-git"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
-    'myst_parser'
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.doctest",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.todo",
+    "sphinx.ext.coverage",
+    "sphinx.ext.mathjax",
+    "myst_parser",
 ]
 
 napoleon_use_ivar = True
-#source_suffix = '.rst'
+# source_suffix = '.rst'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -89,10 +93,10 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # documentation.
 #
 html_theme_options = {
-    'collapse_navigation': False,
-    'display_version': True,
-    'logo_only': True,
-    'analytics_id': '',
+    "collapse_navigation": False,
+    "display_version": True,
+    "logo_only": True,
+    "analytics_id": "",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -102,14 +106,10 @@ html_static_path = ["_static"]
 
 html_css_files = ["https://fonts.googleapis.com/css?family=Lato", "css/my_theme.css"]
 
-html_logo = '_static/img/pyronear-logo-dark.png'
+html_logo = "_static/img/pyronear-logo-dark.png"
 
 # -- A patch that prevents Sphinx from cross-referencing ivar tags -------
 # See http://stackoverflow.com/a/41184353/3343043
-
-from docutils import nodes
-from sphinx.util.docfields import TypedField
-from sphinx import addnodes
 
 
 def patched_make_field(self, types, domain, items, **kw):
