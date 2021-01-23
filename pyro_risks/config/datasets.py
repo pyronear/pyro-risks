@@ -4,11 +4,9 @@ from dotenv import load_dotenv
 # If there is an .env, load it
 load_dotenv()
 
-
 FR_GEOJSON: str = "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
 DATA_FALLBACK: str = (
-    "https://github.com/pyronear/pyro-risks/releases/download/v0.1.0-data"
-)
+    "https://github.com/pyronear/pyro-risks/releases/download/v0.1.0-data")
 FR_GEOJSON_FALLBACK: str = f"{DATA_FALLBACK}/departements.geojson"
 FR_FIRES_FALLBACK: str = f"{DATA_FALLBACK}/export_BDIFF_incendies_20201027.csv"
 FR_WEATHER_FALLBACK: str = f"{DATA_FALLBACK}/noaa_weather_20201025.csv"
@@ -119,140 +117,6 @@ WEATHER_ERA5T_VARS = [
     "u10",
     "v10",
 ]
-
-MODEL_ERA5T_VARS = [
-    "str_max",
-    "str_mean",
-    "ffmc_min",
-    "str_min",
-    "ffmc_mean",
-    "str_mean_lag1",
-    "str_max_lag1",
-    "str_min_lag1",
-    "isi_min",
-    "ffmc_min_lag1",
-    "isi_mean",
-    "ffmc_mean_lag1",
-    "ffmc_std",
-    "ffmc_max",
-    "isi_min_lag1",
-    "isi_mean_lag1",
-    "ffmc_max_lag1",
-    "asn_std",
-    "strd_max",
-    "ssrd_min",
-    "strd_mean",
-    "isi_max",
-    "strd_min",
-    "d2m_min",
-    "asn_min",
-    "ssr_min",
-    "ffmc_min_lag3",
-    "ffmc_std_lag1",
-    "lai_hv_mean_lag7",
-    "str_max_lag3",
-    "str_mean_lag3",
-    "rsn_std_lag1",
-    "fwi_mean",
-    "ssr_mean",
-    "ssrd_mean",
-    "swvl1_mean",
-    "rsn_std_lag3",
-    "isi_max_lag1",
-    "d2m_mean",
-    "rsn_std",
-]
-
-MODEL_VARIABLES = [
-    "ffmc_min",
-    "str_mean",
-    "str_min",
-    "str_max",
-    "ffmc_mean",
-    "isi_min",
-    "ffmc_min_lag1",
-    "strd_mean",
-    "isi_mean",
-    "strd_min",
-    "strd_max",
-    "rsn_max",
-    "ffmc_mean_lag1",
-    "rsn_max_lag1",
-    "str_mean_lag1",
-    "str_min_lag1",
-    "ffmc_std",
-    "ffmc_max",
-    "rsn_std",
-    "str_max_lag1",
-    "rsn_std_lag1",
-    "rsn_max_lag3",
-    "isi_min_lag1",
-    "isi_mean_lag1",
-    "ffmc_max_lag1",
-    "rsn_std_lag3",
-    "stl1_std_lag1",
-    "stl1_std",
-    "isi_max",
-    "strd_min_lag1",
-    "ffmc_min_lag3",
-    "ffmc_std_lag1",
-    "strd_mean_lag1",
-    "rsn_mean_lag1",
-    "fwi_mean",
-    "isi_max_lag1",
-    "sd_max",
-    "strd_max_lag1",
-    "rsn_mean",
-    "snowc_std_lag7",
-    "stl1_std_lag3",
-]
-
-TRAIN_SELECTED_DEP = [
-    "Aisne",
-    "Alpes-Maritimes",
-    "Ardèche",
-    "Ariège",
-    "Aude",
-    "Aveyron",
-    "Cantal",
-    "Eure",
-    "Eure-et-Loir",
-    "Gironde",
-    "Haute-Corse",
-    "Hautes-Pyrénées",
-    "Hérault",
-    "Indre",
-    "Landes",
-    "Loiret",
-    "Lozère",
-    "Marne",
-    "Oise",
-    "Pyrénées-Atlantiques",
-    "Pyrénées-Orientales",
-    "Sarthe",
-    "Somme",
-    "Yonne",
-]
-
-RF_PARAMS = {
-    "n_estimators": 500,
-    "min_samples_leaf": 10,
-    "max_features": "sqrt",
-    "class_weight": "balanced",
-    "criterion": "gini",
-    "random_state": 10,
-    "n_jobs": -1,
-}
-
-XGB_PARAMS = {
-    "max_depth": 10,
-    "min_child_weight": 10,
-    "eta": 0.01,
-    "subsample": 0.8,
-    "colsample_bytree": 0.8,
-    "objective": "binary:logistic",
-    "eval_metric": ["logloss", "aucpr"],
-}
 
 CACHE_FOLDER: str = ".cache"
 if not os.path.exists(CACHE_FOLDER):
