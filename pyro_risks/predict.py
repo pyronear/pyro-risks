@@ -9,14 +9,12 @@ from pyro_risks.datasets.ERA5 import (
     get_data_era5t_for_predict,
 )
 from pyro_risks.datasets.era_fwi_viirs import process_dataset_to_predict
-from pyro_risks.models.score_v0 import add_lags
-
+from .score_v0 import add_lags
 
 __all__ = ["PyroRisk"]
 
 
 class PyroRisk(object):
-
     """Pyronear risk score for fire danger on French departments.
 
     Load a trained model uploaded on the Pyro-risk Github Release to get predictions for a selected day
@@ -59,7 +57,9 @@ class PyroRisk(object):
         res_test = res_test.rename({"nom": "departement"}, axis=1)
         # Add lags only for columns on which model was trained on
         cols_lags = [
-            "_".join(x.split("_")[:-1]) for x in cfg.MODEL_ERA5T_VARS if "_lag" in x
+            "_".join(x.split("_")[:-1])
+            for x in cfg.MODEL_ERA5T_VARS
+            if "_lag" in x
         ]
         res_lags = add_lags(res_test, cols_lags)
         # Select only rows corresponding to day

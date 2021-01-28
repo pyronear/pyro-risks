@@ -6,7 +6,8 @@ load_dotenv()
 
 FR_GEOJSON: str = "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
 DATA_FALLBACK: str = (
-    "https://github.com/pyronear/pyro-risks/releases/download/v0.1.0-data")
+    "https://github.com/pyronear/pyro-risks/releases/download/v0.1.0-data"
+)
 FR_GEOJSON_FALLBACK: str = f"{DATA_FALLBACK}/departements.geojson"
 FR_FIRES_FALLBACK: str = f"{DATA_FALLBACK}/export_BDIFF_incendies_20201027.csv"
 FR_WEATHER_FALLBACK: str = f"{DATA_FALLBACK}/noaa_weather_20201025.csv"
@@ -27,9 +28,10 @@ TEST_FWI_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FWI.csv"
 TEST_FWI_TO_PREDICT: str = f"{DATA_FALLBACK}/fwi_test_to_predict.csv"
 TEST_ERA_TO_PREDICT: str = f"{DATA_FALLBACK}/era_test_to_predict.csv"
 
-REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 DATA_PATH = os.path.join(REPO_DIR, ".data/")
+MODEL_REGISTRY = os.path.join(REPO_DIR, ".model_registry/")
 
 CDS_URL = "https://cds.climate.copernicus.eu/api/v2"
 CDS_UID = os.getenv("CDS_UID")
@@ -41,6 +43,7 @@ XGBMODEL_PATH: str = f"{DATA_FALLBACK}/pyrorisk_xgb_091220.pkl"
 XGBMODEL_ERA5T_PATH: str = f"{DATA_FALLBACK}/pyrorisk_xgb_era5t_151220.pkl"
 
 FWI_VARS = ["fwi", "ffmc", "dmc", "dc", "isi", "bui", "dsr"]
+
 WEATHER_VARS = [
     "u10",
     "v10",
