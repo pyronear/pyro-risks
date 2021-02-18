@@ -41,11 +41,11 @@ class HeadersTester(unittest.TestCase):
                 # Compare it
                 self.assertTrue(
                     any(
-                        "".join(current_header[:min(len(option), len(current_header))])
+                        "".join(current_header[: min(len(option), len(current_header))])
                         == "".join(option)
                         for option in self.headers
                     ),
-                    msg=f"Invalid header in {source_path}"
+                    msg=f"Invalid header in {source_path}",
                 )
 
 
