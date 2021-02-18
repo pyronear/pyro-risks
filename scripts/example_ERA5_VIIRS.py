@@ -1,3 +1,8 @@
+# Copyright (C) 2021, Pyronear contributors.
+
+# This program is licensed under the GNU Affero General Public License version 3.
+# See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
+
 from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land
 from pyro_risks.datasets.datasets_mergers import (
     merge_datasets_by_departements,
