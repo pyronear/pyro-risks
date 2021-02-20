@@ -102,7 +102,7 @@ SELECTED_DEP = [
     "Yonne",
 ]
 
-LAG_ERA5T_VARS = [x for x in MODEL_ERA5T_VARS if "_lag" in x]
+LAG_ERA5T_VARS = ["_".join(x.split("_")[:-1]) for x in MODEL_ERA5T_VARS if "_lag" in x]
 
 TEST_SIZE = 0.2
 
@@ -116,14 +116,24 @@ RF_PARAMS = {
     "criterion": "gini",
     "random_state": 10,
     "n_jobs": -1,
+    "verbose": 3,
 }
 
 XGB_PARAMS = {
+    "n_estimators": 1000,
     "max_depth": 10,
+    "learning_rate": 0.01,
     "min_child_weight": 10,
-    "eta": 0.01,
     "subsample": 0.8,
     "colsample_bytree": 0.8,
     "objective": "binary:logistic",
+    "random_state": 10,
+    "n_jobs": -1,
+    "verbosity": 2,
+}
+
+
+XGB_FIT_PARAMS = {
+    "early_stopping_rounds": 50,
     "eval_metric": ["logloss", "aucpr"],
 }

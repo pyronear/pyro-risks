@@ -55,7 +55,7 @@ class TransformersTester(unittest.TestCase):
         assert_series_equal(yr, y[X["departement"].isin(["Aisne", "Cantal"])])
 
     def test_imputer(self):
-        imp = Imputer(strategy="median")
+        imp = Imputer(strategy="median", columns=["fwi_mean"])
         df = pd.DataFrame(
             {
                 "fires": [0, 5, 10],
@@ -69,14 +69,14 @@ class TransformersTester(unittest.TestCase):
 
         imp.fit(X, y)
 
-        Xr = imp.transform(X)
+        XT = imp.transform(X)
 
         assert_frame_equal(
-            Xr,
+            XT,
             pd.DataFrame(
                 {
                     "fwi_mean": [13.3, 7.9, 2.5],
-                    "ffmc_max": [23, 66.0, 109.0],
+                    "ffmc_max": [23, np.nan, 109.0],
                 }
             ),
         )

@@ -2,7 +2,7 @@ from typing import List, Union, Optional, Dict, Tuple
 import pandas as pd
 import numpy as np
 
-__all__ = ["check_xy", "check_x"]
+__all__ = ["check_xy", "check_x", "discretizer"]
 
 
 def check_xy(X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.Series]:
@@ -22,8 +22,10 @@ def check_xy(X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.Series]:
         X = X.copy()
         y = y.copy()
     else:
-        raise TypeError('Transformer methods expect pd.DataFrame\
-                and pd.Series as inputs.')
+        raise TypeError(
+            "Transformer methods expect pd.DataFrame\
+                and pd.Series as inputs."
+        )
     return X, y
 
 
@@ -42,5 +44,17 @@ def check_x(X: pd.DataFrame) -> pd.DataFrame:
     if isinstance(X, pd.DataFrame):
         X = X.copy()
     else:
-        raise TypeError('Transformer methods expect pd.DataFrame as inputs')
+        raise TypeError("Transformer methods expect pd.DataFrame as inputs")
     return X
+
+
+def discretizer(x: float) -> int:
+    """Discretize values.
+
+    Args:
+        x (float): value to be discretized
+
+    Returns:
+        int: discretized value
+    """
+    return 1 if x > 0 else 0

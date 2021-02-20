@@ -6,6 +6,8 @@ from .transformers import (
     LagTransformer,
     FeatureSubsetter,
 )
+from .utils import discretizer
+
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 
@@ -22,19 +24,19 @@ base_steps = [
     (
         "add_lags",
         LagTransformer(
-            date_column=cfg.DATE_VARS,
+            date_column=cfg.DATE_VAR,
             zone_column=cfg.ZONE_VAR,
             columns=cfg.LAG_ERA5T_VARS,
         ),
     ),
-    ("imputer", Imputer(columns=cfg.LAG_ERA5T_VARS, fill_value=-1)),
-    ("binarize_target", TargetDiscretizer(discretizer=lambda x: 1 if x > 0 else 0)),
+    ("imputer", Imputer(columns=cfg.MODEL_ERA5T_VARS, strategy="median")),
+    ("binarize_target", TargetDiscretizer(discretizer=discretizer)),
     ("subset_features", FeatureSubsetter(columns=cfg.MODEL_ERA5T_VARS)),
 ]
 
 # Add estimator to base step lists
-xgb_steps = [*base_steps, ("xgboost", XGBClassifier(cfg.XGB_PARAMS))]
-rf_steps = [*base_steps, ("random_forest", RandomForestClassifier(cfg.RF_PARAMS))]
+xgb_steps = [*base_steps, ("xgboost", XGBClassifier(**cfg.XGB_PARAMS))]
+rf_steps = [*base_steps, ("random_forest", RandomForestClassifier(**cfg.RF_PARAMS))]
 
 # Define sklearn / imblearn pipelines
 xgb_pipeline = Pipeline(xgb_steps)

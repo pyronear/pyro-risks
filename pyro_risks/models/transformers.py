@@ -166,9 +166,10 @@ class Imputer(SimpleImputer):
                 Transformed training dataset.
         """
 
-        X = check_x(X[self.columns])
+        X = check_x(X)
+        XS = check_x(X[self.columns])
 
-        X[X.columns] = super().transform(X)
+        X[self.columns] = super().transform(XS)
 
         return X
 
