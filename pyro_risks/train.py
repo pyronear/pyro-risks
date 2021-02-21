@@ -78,7 +78,7 @@ def save_pipeline(
     joblib.dump(pipeline, os.path.join(registry, pipeline_fname))
 
     if not ignore_html:
-        with open(html_fname, "w") as f:
+        with open(registry + "/" + html_fname, "w") as f:
             f.write(estimator_html_repr(pipeline))
 
 
