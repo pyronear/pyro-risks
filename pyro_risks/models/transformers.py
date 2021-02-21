@@ -1,3 +1,8 @@
+# Copyright (C) 2021, Pyronear contributors.
+
+# This program is licensed under the GNU Affero General Public License version 3.
+# See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
+
 from typing import List, Union, Optional, Dict, Tuple
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer

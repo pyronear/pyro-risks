@@ -1,3 +1,8 @@
+# Copyright (C) 2021, Pyronear contributors.
+
+# This program is licensed under the GNU Affero General Public License version 3.
+# See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
+
 import joblib
 from urllib.request import urlopen
 import xgboost
@@ -57,9 +62,7 @@ class PyroRisk(object):
         res_test = res_test.rename({"nom": "departement"}, axis=1)
         # Add lags only for columns on which model was trained on
         cols_lags = [
-            "_".join(x.split("_")[:-1])
-            for x in cfg.MODEL_ERA5T_VARS
-            if "_lag" in x
+            "_".join(x.split("_")[:-1]) for x in cfg.MODEL_ERA5T_VARS if "_lag" in x
         ]
         res_lags = add_lags(res_test, cols_lags)
         # Select only rows corresponding to day
