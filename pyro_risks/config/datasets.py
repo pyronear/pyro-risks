@@ -32,6 +32,7 @@ TEST_FR_ERA5T_FALLBACK: str = f"{DATA_FALLBACK}/test_era5t_to_merge.nc"
 TEST_FWI_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FWI.csv"
 TEST_FWI_TO_PREDICT: str = f"{DATA_FALLBACK}/fwi_test_to_predict.csv"
 TEST_ERA_TO_PREDICT: str = f"{DATA_FALLBACK}/era_test_to_predict.csv"
+TEST_ERA5T_VIIRS_PIPELINE: str = f"{DATA_FALLBACK}/merged_era_viirs.csv"
 
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))

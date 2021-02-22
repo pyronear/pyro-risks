@@ -11,8 +11,13 @@ import os
 
 import numpy as np
 import pandas as pd
+import pyro_risks.config as cfg
+
+from datetime import datetime
+from imblearn.pipeline import Pipeline
+from sklearn.dummy import DummyClassifier
 from pyro_risks.models import xgb_pipeline, rf_pipeline
-from pyro_risks.train import calibrate_pipeline, save_pipeline
+from pyro_risks.train import calibrate_pipeline, save_pipeline, train_pipeline
 
 
 class TrainTester(unittest.TestCase):
@@ -69,6 +74,51 @@ class TrainTester(unittest.TestCase):
             html_files = glob.glob(destination + registry + html_pattern)
             self.assertTrue(any(["XGBOOST_0-35" in file for file in model_files]))
             self.assertTrue(any(["XGBOOST_0-35" in file for file in html_files]))
+
+    def test_train_pipeline(self):
+        usecols = [cfg.DATE_VAR, cfg.ZONE_VAR, cfg.TARGET] + cfg.PIPELINE_ERA5T_VARS
+        pipeline_vars = [cfg.DATE_VAR, cfg.ZONE_VAR] + cfg.PIPELINE_ERA5T_VARS
+        df = pd.read_csv(cfg.TEST_ERA5T_VIIRS_PIPELINE, usecols=usecols)
+        df["day"] = df["day"].apply(
+            lambda x: datetime.strptime(str(x), "%Y-%m-%d") if not pd.isnull(x) else x
+        )
+        X = df[pipeline_vars]
+        y = df[cfg.TARGET]
+        pattern = "/*.joblib"
+
+        dummy_pipeline = Pipeline(
+            [("dummy_classifier", DummyClassifier(strategy="constant", constant=0))]
+        )
+        with tempfile.TemporaryDirectory() as destination:
+            train_pipeline(
+                X=X,
+                y=y,
+                model="XGBOOST",
+                destination=destination,
+                ignore_prints=True,
+                ignore_html=True,
+            )
+            train_pipeline(
+                X=X,
+                y=y,
+                model="RF",
+                destination=destination,
+                ignore_prints=True,
+                ignore_html=True,
+            )
+            train_pipeline(
+                X=X,
+                y=y,
+                model="DUMMY",
+                pipeline=dummy_pipeline,
+                destination=destination,
+                ignore_prints=True,
+                ignore_html=True,
+            )
+            files = glob.glob(destination + pattern)
+            self.assertTrue(any(["RF_0-4184" in file for file in files]))
+            self.assertTrue(any(["XGBOOST_0-1809" in file for file in files]))
+            self.assertTrue(any(["DUMMY_0-0" in file for file in files]))
 
 
 if __name__ == "__main__":
