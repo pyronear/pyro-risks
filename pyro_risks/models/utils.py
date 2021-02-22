@@ -10,7 +10,8 @@ __all__ = ["check_xy", "check_x", "discretizer"]
 
 
 def check_xy(X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.Series]:
-    """Validate inputs for transformers.
+    """
+    Validate inputs for transformers.
 
     Args:
         X: Training dataset features pd.DataFrame.
@@ -34,7 +35,8 @@ def check_xy(X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.Series]:
 
 
 def check_x(X: pd.DataFrame) -> pd.DataFrame:
-    """Validate inputs for tranformers.
+    """
+    Validate inputs for tranformers.
 
     Args:
         X: Training dataset features pd.DataFrame.
@@ -53,7 +55,8 @@ def check_x(X: pd.DataFrame) -> pd.DataFrame:
 
 
 def discretizer(x: float) -> int:
-    """Discretize values.
+    """
+    Discretize values.
 
     Args:
         x (float): value to be discretized

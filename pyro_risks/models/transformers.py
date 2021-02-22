@@ -147,7 +147,8 @@ class Imputer(SimpleImputer):
         self.columns = columns
 
     def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
-        """Fit the imputer on X.
+        """
+        Fit the imputer on X.
 
         Args:
             X: Training dataset features.
@@ -162,7 +163,8 @@ class Imputer(SimpleImputer):
         return self
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
-        """Impute X missing values.
+        """
+        Impute X missing values.
 
         Args:
             X: Training dataset features.
@@ -196,7 +198,8 @@ class LagTransformer(BaseEstimator, TransformerMixin):
         self.columns = columns
 
     def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
-        """Fit the imputer on X.
+        """
+        Fit the imputer on X.
 
         Args:
             X: Training dataset features.
@@ -210,7 +213,8 @@ class LagTransformer(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
-        """Create lag features.
+        """
+        Create lag features.
 
         Args:
             X: Training dataset features.
@@ -292,7 +296,8 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
-        """Select lag features.
+        """
+        Select lag features.
 
         Args:
             X: Training dataset features.
@@ -341,7 +346,8 @@ class FeatureSubsetter(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
-        """Select columns.
+        """
+        Select columns.
 
         Args:
             X: Training dataset features.

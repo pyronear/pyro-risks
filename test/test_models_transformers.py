@@ -59,6 +59,7 @@ class TransformersTester(unittest.TestCase):
         assert_frame_equal(Xr, X[X["departement"].isin(["Aisne", "Cantal"])])
         assert_series_equal(yr, y[X["departement"].isin(["Aisne", "Cantal"])])
 
+    # pylint: disable=R0201
     def test_imputer(self):
         imp = Imputer(strategy="median", columns=["fwi_mean"])
         df = pd.DataFrame(
@@ -149,6 +150,7 @@ class TransformersTester(unittest.TestCase):
             ),
         )
 
+    # pylint: disable=R0201
     def test_feature_selector(self):
         fs = FeatureSelector(
             exclude=["date", "department"], method="pearson", threshold=0.15
@@ -185,6 +187,7 @@ class TransformersTester(unittest.TestCase):
 
         assert_frame_equal(res, X)
 
+    # pylint: disable=R0201
     def test_feature_subsetter(self):
         fs = FeatureSubsetter(columns=["date", "departement", "str_mean"])
         df = pd.DataFrame(

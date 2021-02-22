@@ -29,7 +29,8 @@ def calibrate_pipeline(
     y_scores: Union[pd.Series, np.ndarray],
     ignore_prints: Optional[bool] = False,
 ) -> np.float64:
-    """Calibrate Classification Pipeline.
+    """
+    Calibrate Classification Pipeline.
 
     Args:
         y_test: Binary test target.
@@ -56,7 +57,8 @@ def save_pipeline(
     destination: Optional[str] = None,
     ignore_html: Optional[bool] = False,
 ):
-    """Serialize pipeline.
+    """
+    Serialize pipeline.
 
     Args:
         pipeline: imbalanced-learn preprocessing pipeline.
@@ -90,7 +92,8 @@ def train_pipeline(
     ignore_prints: Optional[bool] = False,
     ignore_html: Optional[bool] = False,
 ):
-    """Train a classification pipeline.
+    """
+    Train a classification pipeline.
 
     Args:
         X: Training dataset features pd.DataFrame.
