@@ -14,6 +14,7 @@ from datetime import datetime
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg
 
+import sys
 import pandas as pd
 import numpy as np
 
@@ -176,7 +177,7 @@ def main(args):
     )
 
 
-if __name__ == "__main__":
+def parse_args(args):
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -193,13 +194,35 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--ignore_prints",
-        default=False,
+        dest="ignore_prints",
+        action="store_true",
         help="Whether to print results. Defaults to False.",
     )
     parser.add_argument(
+        "--prints",
+        dest="ignore_prints",
+        action="store_false",
+        help="Whether to print results. Defaults to False.",
+    )
+    parser.set_defaults(ignore_prints=True)
+
+    parser.add_argument(
         "--ignore_html",
-        default=True,
+        dest="ignore_html",
+        action="store_true",
         help="Persist pipeline html description. Defaults to False.",
     )
-    args = parser.parse_args()
+    parser.add_argument(
+        "--html",
+        dest="ignore_html",
+        action="store_false",
+        help="Persist pipeline html description. Defaults to False.",
+    )
+    parser.set_defaults(ignore_html=True)
+    return parser.parse_args(args)
+
+
+if __name__ == "__main__":
+
+    args = parse_args(sys.argv[1:])
     main(args)

@@ -18,7 +18,13 @@ from datetime import datetime
 from imblearn.pipeline import Pipeline
 from sklearn.dummy import DummyClassifier
 from pyro_risks.models import xgb_pipeline, rf_pipeline
-from pyro_risks.train import calibrate_pipeline, save_pipeline, train_pipeline, main
+from pyro_risks.train import (
+    calibrate_pipeline,
+    save_pipeline,
+    train_pipeline,
+    main,
+    parse_args,
+)
 
 
 class TrainTester(unittest.TestCase):
@@ -131,6 +137,34 @@ class TrainTester(unittest.TestCase):
             main(args)
             files = glob.glob(destination + pattern)
             self.assertTrue(any(["RF" in file for file in files]))
+
+    def test_parse_args(self):
+        args = parse_args(
+            [
+                "--model",
+                "XGBOOST",
+                "--destination",
+                "./model_registry",
+                "--ignore_prints",
+                "--ignore_html",
+            ]
+        )
+        self.assertEqual(args.model, "XGBOOST")
+        self.assertEqual(args.destination, "./model_registry")
+        self.assertEqual(args.ignore_prints, True)
+        self.assertEqual(args.ignore_html, True)
+        args = parse_args(
+            [
+                "--model",
+                "XGBOOST",
+                "--destination",
+                "./model_registry",
+                "--prints",
+                "--html",
+            ]
+        )
+        self.assertEqual(args.ignore_prints, False)
+        self.assertEqual(args.ignore_html, False)
 
 
 if __name__ == "__main__":
