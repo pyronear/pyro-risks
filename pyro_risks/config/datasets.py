@@ -22,6 +22,7 @@ FR_FWI_2019_FALLBACK: str = f"{DATA_FALLBACK}/JRC_FWI_2019.zip"
 FR_FWI_2020_FALLBACK: str = f"{DATA_FALLBACK}/JRC_FWI_2020.zip"
 FR_ERA5LAND_FALLBACK: str = f"{DATA_FALLBACK}/ERA5_2019.nc"
 FR_ERA5T_FALLBACK: str = f"{DATA_FALLBACK}/era5t_2019.nc"
+ERA5T_VIIRS_PIPELINE: str = f"{DATA_FALLBACK}/merged_era_viirs.csv"
 TEST_FR_ERA5LAND_FALLBACK: str = f"{DATA_FALLBACK}/test_data_ERA5_2018.nc"
 TEST_FR_FIRMS_CSV_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FIRMS.csv"
 TEST_FR_FIRMS_XLSX_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FIRMS.xlsx"
@@ -32,7 +33,7 @@ TEST_FR_ERA5T_FALLBACK: str = f"{DATA_FALLBACK}/test_era5t_to_merge.nc"
 TEST_FWI_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FWI.csv"
 TEST_FWI_TO_PREDICT: str = f"{DATA_FALLBACK}/fwi_test_to_predict.csv"
 TEST_ERA_TO_PREDICT: str = f"{DATA_FALLBACK}/era_test_to_predict.csv"
-TEST_ERA5T_VIIRS_PIPELINE: str = f"{DATA_FALLBACK}/merged_era_viirs.csv"
+
 
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))

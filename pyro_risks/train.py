@@ -10,6 +10,7 @@ from sklearn.utils import estimator_html_repr
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
 from pyro_risks.datasets import MergedEraFwiViirs
 
+from datetime import datetime
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg
 
@@ -157,16 +158,20 @@ def train_pipeline(
 
 
 def main(args):
-    df = MergedEraFwiViirs()
+    usecols = [cfg.DATE_VAR, cfg.ZONE_VAR, cfg.TARGET] + cfg.PIPELINE_ERA5T_VARS
     pipeline_vars = [cfg.DATE_VAR, cfg.ZONE_VAR] + cfg.PIPELINE_ERA5T_VARS
+    df = pd.read_csv(cfg.ERA5T_VIIRS_PIPELINE, usecols=usecols)
+    df["day"] = df["day"].apply(
+        lambda x: datetime.strptime(str(x), "%Y-%m-%d") if not pd.isnull(x) else x
+    )
     X = df[pipeline_vars]
     y = df[cfg.TARGET]
     train_pipeline(
         X=X,
         y=y,
         model=args.model,
-        destination=arg.destination,
-        ignore_prints=args.ignore_html,
+        destination=args.destination,
+        ignore_prints=args.ignore_prints,
         ignore_html=args.ignore_html,
     )
 

@@ -4,6 +4,7 @@
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
 import unittest
+from collections import namedtuple
 from unittest.mock import patch
 import tempfile
 import glob
@@ -17,7 +18,7 @@ from datetime import datetime
 from imblearn.pipeline import Pipeline
 from sklearn.dummy import DummyClassifier
 from pyro_risks.models import xgb_pipeline, rf_pipeline
-from pyro_risks.train import calibrate_pipeline, save_pipeline, train_pipeline
+from pyro_risks.train import calibrate_pipeline, save_pipeline, train_pipeline, main
 
 
 class TrainTester(unittest.TestCase):
@@ -78,7 +79,7 @@ class TrainTester(unittest.TestCase):
     def test_train_pipeline(self):
         usecols = [cfg.DATE_VAR, cfg.ZONE_VAR, cfg.TARGET] + cfg.PIPELINE_ERA5T_VARS
         pipeline_vars = [cfg.DATE_VAR, cfg.ZONE_VAR] + cfg.PIPELINE_ERA5T_VARS
-        df = pd.read_csv(cfg.TEST_ERA5T_VIIRS_PIPELINE, usecols=usecols)
+        df = pd.read_csv(cfg.ERA5T_VIIRS_PIPELINE, usecols=usecols)
         df["day"] = df["day"].apply(
             lambda x: datetime.strptime(str(x), "%Y-%m-%d") if not pd.isnull(x) else x
         )
@@ -116,9 +117,20 @@ class TrainTester(unittest.TestCase):
                 ignore_html=True,
             )
             files = glob.glob(destination + pattern)
-            self.assertTrue(any(["RF_0-4184" in file for file in files]))
-            self.assertTrue(any(["XGBOOST_0-1809" in file for file in files]))
-            self.assertTrue(any(["DUMMY_0-0" in file for file in files]))
+            self.assertTrue(any(["RF" in file for file in files]))
+            self.assertTrue(any(["XGBOOST" in file for file in files]))
+            self.assertTrue(any(["DUMMY" in file for file in files]))
+
+    def test_main(self):
+        Args = namedtuple(
+            "args", ["model", "destination", "ignore_prints", "ignore_html"]
+        )
+        pattern = "/*.joblib"
+        with tempfile.TemporaryDirectory() as destination:
+            args = Args("RF", destination, True, True)
+            main(args)
+            files = glob.glob(destination + pattern)
+            self.assertTrue(any(["RF" in file for file in files]))
 
 
 if __name__ == "__main__":
