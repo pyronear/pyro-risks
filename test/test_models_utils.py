@@ -6,9 +6,6 @@
 import unittest
 
 import numpy as np
-import pandas as pd
-from pandas.testing import assert_frame_equal, assert_series_equal
-
 from pyro_risks.models import check_xy, check_x, discretizer
 
 

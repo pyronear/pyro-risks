@@ -3,12 +3,11 @@
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
-from typing import List, Union, Optional, Dict, Tuple
+from typing import Union, Optional
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_curve
 from sklearn.utils import estimator_html_repr
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
-from pyro_risks.datasets import MergedEraFwiViirs
 
 from datetime import datetime
 import imblearn.pipeline as pp
@@ -40,7 +39,6 @@ def calibrate_pipeline(
     Returns:
         Threshold maximizing the f1-score.
     """
-
     precision, recall, thresholds = precision_recall_curve(y_test, y_scores[:, 1])
     fscore = (2 * precision * recall) / (precision + recall)
     ix = np.argmax(fscore)
@@ -67,7 +65,6 @@ def save_pipeline(
         destination: folder where the pipeline should be saved. Defaults to 'cfg.MODEL_REGISTRY'.
         ignore_html: Persist pipeline html description. Defaults to False.
     """
-
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     optimal_threshold = str(round(optimal_threshold, 4)).replace(".", "-")
     registry = cfg.MODEL_REGISTRY if destination is None else destination
@@ -104,7 +101,6 @@ def train_pipeline(
         ignore_prints: Whether to print results. Defaults to False.
         ignore_html: Persist pipeline html description. Defaults to False.
     """
-
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=cfg.TEST_SIZE, random_state=cfg.RANDOM_STATE
     )

@@ -5,10 +5,9 @@
 
 import unittest
 from collections import namedtuple
-from unittest.mock import patch
 import tempfile
 import glob
-import os
+
 
 import numpy as np
 import pandas as pd
