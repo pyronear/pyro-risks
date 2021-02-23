@@ -49,6 +49,7 @@ requirements = [
     "xarray>=0.16.1",
     "scipy>=1.5.4",
     "scikit-learn>=0.23.2",
+    "imbalanced-learn>=0.7.0",
     "xgboost==1.2.1",
     "xlrd==1.2.0",
     "numpy>=1.18.5",

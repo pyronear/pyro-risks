@@ -14,14 +14,12 @@ from pyro_risks.datasets.ERA5 import (
     get_data_era5t_for_predict,
 )
 from pyro_risks.datasets.era_fwi_viirs import process_dataset_to_predict
-from pyro_risks.models.score_v0 import add_lags
-
+from .score_v0 import add_lags
 
 __all__ = ["PyroRisk"]
 
 
 class PyroRisk(object):
-
     """Pyronear risk score for fire danger on French departments.
 
     Load a trained model uploaded on the Pyro-risk Github Release to get predictions for a selected day

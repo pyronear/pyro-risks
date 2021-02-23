@@ -10,7 +10,7 @@ import pandas as pd
 from pandas.testing import assert_frame_equal, assert_series_equal
 from sklearn.datasets import load_breast_cancer
 
-from pyro_risks.models import score_v0, predict
+from pyro_risks import score_v0, predict
 from pyro_risks import config as cfg
 
 
