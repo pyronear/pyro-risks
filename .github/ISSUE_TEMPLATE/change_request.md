@@ -1,13 +1,15 @@
----
+* * *
+
 name: Change request
 about: Want to suggest improvements? Let us know! ✨
 title: ''
 labels: ''
 assignees: ''
 
----
+* * *
 
 ## 🚀 Change
+
 <!-- A clear and concise description of the proposed change -->
 
 ## Motivation

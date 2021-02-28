@@ -1,11 +1,12 @@
----
+* * *
+
 name: Bug report
 about: Found a bug? Let us know! 🐛
 title: ''
 labels: ''
 assignees: ''
 
----
+* * *
 
 ## 🐛 Bug
 
@@ -23,10 +24,9 @@ Steps to reproduce the behavior:
 
 ## Environment
 
- - OS (e.g., Linux):
- - Python version:
- - Any other relevant information:
-
+-   OS (e.g., Linux):
+-   Python version:
+-   Any other relevant information:
 
 ## Additional context
 
