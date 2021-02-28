@@ -1,4 +1,4 @@
-* * *
+---
 
 name: Bug report
 about: Found a bug? Let us know! 🐛
@@ -6,7 +6,7 @@ title: ''
 labels: ''
 assignees: ''
 
-* * *
+---
 
 ## 🐛 Bug
 

@@ -1,4 +1,4 @@
-* * *
+---
 
 name: Feature request
 about: Want to suggest a new feature? Let us know! 🚀
@@ -6,7 +6,7 @@ title: ''
 labels: ''
 assignees: ''
 
-* * *
+---
 
 ## 🚀 Feature
 

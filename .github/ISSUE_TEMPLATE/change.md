@@ -1,4 +1,4 @@
-* * *
+---
 
 name: Change request
 about: Want to suggest improvements? Let us know! ✨
@@ -6,7 +6,7 @@ title: ''
 labels: ''
 assignees: ''
 
-* * *
+---
 
 ## 🚀 Change
 
