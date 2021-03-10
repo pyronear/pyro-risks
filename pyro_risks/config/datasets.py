@@ -128,6 +128,6 @@ WEATHER_ERA5T_VARS = [
     "v10",
 ]
 
-CACHE_FOLDER: str = ".cache"
+CACHE_FOLDER: str = os.path.expanduser('~/.cache/pyro_risks')
 if not os.path.exists(CACHE_FOLDER):
     os.makedirs(CACHE_FOLDER)
