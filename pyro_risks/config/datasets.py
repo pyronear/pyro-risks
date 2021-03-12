@@ -34,11 +34,9 @@ TEST_FWI_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FWI.csv"
 TEST_FWI_TO_PREDICT: str = f"{DATA_FALLBACK}/fwi_test_to_predict.csv"
 TEST_ERA_TO_PREDICT: str = f"{DATA_FALLBACK}/era_test_to_predict.csv"
 
-
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
-DATA_PATH = os.path.join(REPO_DIR, ".data/")
-MODEL_REGISTRY = os.path.join(REPO_DIR, ".model_registry/")
+
 
 CDS_URL = "https://cds.climate.copernicus.eu/api/v2"
 CDS_UID = os.getenv("CDS_UID")
@@ -81,6 +79,7 @@ WEATHER_VARS = [
     "tsn",
     "tp",
 ]
+
 WEATHER_ERA5T_VARS = [
     "asn",
     "d2m",
@@ -128,6 +127,12 @@ WEATHER_ERA5T_VARS = [
     "v10",
 ]
 
-CACHE_FOLDER: str = os.path.expanduser('~/.cache/pyro_risks')
-if not os.path.exists(CACHE_FOLDER):
-    os.makedirs(CACHE_FOLDER)
+CACHE_FOLDER: str = os.path.expanduser("~/.cache/pyro_risks")
+DATA_REGISTRY = os.path.join(CACHE_FOLDER, "data_registry/")
+MODEL_REGISTRY = os.path.join(CACHE_FOLDER, "model_registry/")
+METADATA_REGISTRY = os.path.join(CACHE_FOLDER, "metadata_registry/")
+
+os.makedirs(CACHE_FOLDER, exist_ok=True)
+os.makedirs(DATA_REGISTRY, exist_ok=True)
+os.makedirs(MODEL_REGISTRY, exist_ok=True)
+os.makedirs(METADATA_REGISTRY, exist_ok=True)

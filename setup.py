@@ -55,6 +55,7 @@ requirements = [
     "numpy>=1.18.5",
     "cdsapi==0.4.0",
     "python-dotenv>=0.15.0",
+    "plot-metric==0.0.6",
 ]
 
 setup(

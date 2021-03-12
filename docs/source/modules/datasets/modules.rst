@@ -1,7 +1,7 @@
 pyro\_risks.datasets
 ====================
 
-The datasets subpackage contains definitions of modules and functions for downloading and processing publicly available weather and fire datasets.
+The datasets subpackage contains modules defining functions for downloading and processing publicly available weather and fire datasets.
 
 The following modules are available:
 
