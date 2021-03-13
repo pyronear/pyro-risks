@@ -136,7 +136,7 @@ def evaluate_pipeline(
 
     def predict(x):
         return 1 if x > threshold else 0
-        
+
     vpredict = np.vectorize(predict)
     vdiscretizer = np.vectorize(discretizer)
 
