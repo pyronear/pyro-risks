@@ -1,11 +1,12 @@
 pyro\_risks.models
 ==================
 
-The models subpackage contains definitions of modules and functions for the Scoring Pipeline.
+The models subpackage contains modules defining preprocessing steps and scoring pipelines.
 The following modules are available:
 
 .. toctree::
    :maxdepth: 4
 
-   predict
-   score_v0
+   pipelines
+   transformers
+   utils
