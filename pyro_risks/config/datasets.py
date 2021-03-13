@@ -128,6 +128,7 @@ WEATHER_ERA5T_VARS = [
 ]
 
 CACHE_FOLDER: str = os.path.expanduser("~/.cache/pyro_risks")
+
 DATA_REGISTRY = os.path.join(CACHE_FOLDER, "data_registry/")
 MODEL_REGISTRY = os.path.join(CACHE_FOLDER, "model_registry/")
 METADATA_REGISTRY = os.path.join(CACHE_FOLDER, "metadata_registry/")
