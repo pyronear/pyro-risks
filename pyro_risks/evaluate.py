@@ -134,7 +134,9 @@ def evaluate_pipeline(
 
     y_proba = pipeline.predict_proba(X_test)
 
-    predict = lambda x: 1 if x > threshold else 0
+    def predict(x):
+        return 1 if x > threshold else 0
+        
     vpredict = np.vectorize(predict)
     vdiscretizer = np.vectorize(discretizer)
 
