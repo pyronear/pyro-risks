@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from plot_metric.functions import BinaryClassification
 from pyro_risks.models import discretizer
+from pyro_risks.load import load_dataset
 import sys
 import os
 import json
@@ -157,14 +158,7 @@ def evaluate_pipeline(
 
 
 def main(args):
-    usecols = [cfg.DATE_VAR, cfg.ZONE_VAR, cfg.TARGET] + cfg.PIPELINE_ERA5T_VARS
-    pipeline_vars = [cfg.DATE_VAR, cfg.ZONE_VAR] + cfg.PIPELINE_ERA5T_VARS
-    df = pd.read_csv(cfg.ERA5T_VIIRS_PIPELINE, usecols=usecols)
-    df["day"] = df["day"].apply(
-        lambda x: datetime.strptime(str(x), "%Y-%m-%d") if not pd.isnull(x) else x
-    )
-    X = df[pipeline_vars]
-    y = df[cfg.TARGET]
+    X, y = load_dataset()
     evaluate_pipeline(
         X=X,
         y=y,
