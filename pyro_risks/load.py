@@ -43,12 +43,3 @@ def load_dataset() -> Tuple[pd.DataFrame, pd.Series]:
     X = df[pipeline_vars]
     y = df[cfg.TARGET]
     return X, y
-
-
-if __name__ == "__main__":
-    download(
-        url=cfg.ERA5T_VIIRS_PIPELINE,
-        default_extension="csv",
-        unzip=False,
-        destination=cfg.DATA_REGISTRY,
-    )

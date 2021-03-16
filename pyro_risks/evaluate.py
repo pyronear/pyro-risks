@@ -189,9 +189,3 @@ def parse_args(args):
         "--destination", default=None, help="Folder where the report should be saved."
     )
     return parser.parse_args(args)
-
-
-if __name__ == "__main__":
-
-    args = parse_args(sys.argv[1:])
-    main(args)

@@ -210,9 +210,3 @@ def parse_args(args):
     )
     parser.set_defaults(ignore_html=True)
     return parser.parse_args(args)
-
-
-if __name__ == "__main__":
-
-    args = parse_args(sys.argv[1:])
-    main(args)
