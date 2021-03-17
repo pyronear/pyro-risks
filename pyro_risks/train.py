@@ -9,11 +9,10 @@ from sklearn.metrics import precision_recall_curve
 from sklearn.utils import estimator_html_repr
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
 from pyro_risks.load import load_dataset
-from datetime import datetime
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg
 
-import sys
+
 import pandas as pd
 import numpy as np
 
