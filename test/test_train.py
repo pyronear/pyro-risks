@@ -126,45 +126,6 @@ class TrainTester(unittest.TestCase):
             self.assertTrue(any(["XGBOOST" in file for file in files]))
             self.assertTrue(any(["DUMMY" in file for file in files]))
 
-    def test_main(self):
-        Args = namedtuple(
-            "args", ["model", "destination", "ignore_prints", "ignore_html"]
-        )
-        pattern = "/*.joblib"
-        with tempfile.TemporaryDirectory() as destination:
-            args = Args("RF", destination, True, True)
-            main(args)
-            files = glob.glob(destination + pattern)
-            self.assertTrue(any(["RF" in file for file in files]))
-
-    def test_parse_args(self):
-        args = parse_args(
-            [
-                "--model",
-                "XGBOOST",
-                "--destination",
-                "./model_registry",
-                "--ignore_prints",
-                "--ignore_html",
-            ]
-        )
-        self.assertEqual(args.model, "XGBOOST")
-        self.assertEqual(args.destination, "./model_registry")
-        self.assertEqual(args.ignore_prints, True)
-        self.assertEqual(args.ignore_html, True)
-        args = parse_args(
-            [
-                "--model",
-                "XGBOOST",
-                "--destination",
-                "./model_registry",
-                "--prints",
-                "--html",
-            ]
-        )
-        self.assertEqual(args.ignore_prints, False)
-        self.assertEqual(args.ignore_html, False)
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -4,11 +4,13 @@
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
 from typing import Union, Optional
+from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from plot_metric.functions import BinaryClassification
 from pyro_risks.models import discretizer
 from pyro_risks.load import load_dataset
+import sys
 import os
 import json
 import joblib
@@ -154,36 +156,3 @@ def evaluate_pipeline(
         destination=destination,
     )
 
-
-def main(args):
-    X, y = load_dataset()
-    evaluate_pipeline(
-        X=X,
-        y=y,
-        pipeline=args.pipeline,
-        threshold=args.threshold,
-        prefix=args.prefix,
-        destination=args.destination,
-    )
-
-
-def parse_args(args):
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        description="Pyrorisks Classification Pipeline Evaluation",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument("--pipeline", help="Pipeline location path.")
-    parser.add_argument(
-        "--threshold", type=float, help="Classification pipeline optimal threshold."
-    )
-    parser.add_argument(
-        "--prefix",
-        default=None,
-        help="Classification reports prefix i.e. pipeline name.",
-    )
-    parser.add_argument(
-        "--destination", default=None, help="Folder where the report should be saved."
-    )
-    return parser.parse_args(args)

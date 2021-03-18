@@ -9,10 +9,11 @@ from sklearn.metrics import precision_recall_curve
 from sklearn.utils import estimator_html_repr
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
 from pyro_risks.load import load_dataset
+from datetime import datetime
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg
 
-
+import sys
 import pandas as pd
 import numpy as np
 
@@ -69,7 +70,7 @@ def save_pipeline(
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     optimal_threshold = str(round(optimal_threshold, 4)).replace(".", "-")
     registry = cfg.MODEL_REGISTRY if destination is None else destination
-    pipeline_fname = f"{model}_{optimal_threshold}_{timestamp}.joblib"
+    pipeline_fname = f"{model}.joblib"
     html_fname = f"{model}_{optimal_threshold}_{timestamp}.html"
 
     if not os.path.exists(registry):
@@ -152,60 +153,3 @@ def train_pipeline(
             destination=destination,
             ignore_html=ignore_html,
         )
-
-
-def main(args):
-    X, y = load_dataset()
-    train_pipeline(
-        X=X,
-        y=y,
-        model=args.model,
-        destination=args.destination,
-        ignore_prints=args.ignore_prints,
-        ignore_html=args.ignore_html,
-    )
-
-
-def parse_args(args):
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        description="Pyrorisks Classification Pipeline Training",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument(
-        "--model", default="RF", help="Classification Pipeline name RF or XGBOOST."
-    )
-    parser.add_argument(
-        "--destination",
-        default=None,
-        help="Destination folder for persisting pipeline.",
-    )
-    parser.add_argument(
-        "--ignore_prints",
-        dest="ignore_prints",
-        action="store_true",
-        help="Whether to print results. Defaults to False.",
-    )
-    parser.add_argument(
-        "--prints",
-        dest="ignore_prints",
-        action="store_false",
-        help="Whether to print results. Defaults to False.",
-    )
-    parser.set_defaults(ignore_prints=True)
-
-    parser.add_argument(
-        "--ignore_html",
-        dest="ignore_html",
-        action="store_true",
-        help="Persist pipeline html description. Defaults to False.",
-    )
-    parser.add_argument(
-        "--html",
-        dest="ignore_html",
-        action="store_false",
-        help="Persist pipeline html description. Defaults to False.",
-    )
-    parser.set_defaults(ignore_html=True)
-    return parser.parse_args(args)

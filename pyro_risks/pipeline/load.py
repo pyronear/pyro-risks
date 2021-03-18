@@ -43,3 +43,4 @@ def load_dataset() -> Tuple[pd.DataFrame, pd.Series]:
     X = df[pipeline_vars]
     y = df[cfg.TARGET]
     return X, y
+

@@ -80,58 +80,6 @@ class EvaluateTester(unittest.TestCase):
             self.assertTrue(any([".json" in file for file in files]))
             self.assertTrue(any([".csv" in file for file in files]))
 
-    def test_main(self):
-        usecols = [cfg.DATE_VAR, cfg.ZONE_VAR, cfg.TARGET] + cfg.PIPELINE_ERA5T_VARS
-        pipeline_vars = [cfg.DATE_VAR, cfg.ZONE_VAR] + cfg.PIPELINE_ERA5T_VARS
-        df = pd.read_csv(cfg.ERA5T_VIIRS_PIPELINE, usecols=usecols)
-        df["day"] = df["day"].apply(
-            lambda x: datetime.strptime(str(x), "%Y-%m-%d") if not pd.isnull(x) else x
-        )
-        X = df[pipeline_vars]
-        y = df[cfg.TARGET]
-
-        dummy_pipeline = Pipeline(
-            [("dummy_classifier", DummyClassifier(strategy="constant", constant=0))]
-        )
-
-        Args = namedtuple("args", ["pipeline", "threshold", "prefix", "destination"])
-
-        with tempfile.TemporaryDirectory() as destination:
-            train_pipeline(
-                X=X,
-                y=y,
-                model="DUMMY",
-                pipeline=dummy_pipeline,
-                destination=destination,
-                ignore_prints=True,
-                ignore_html=True,
-            )
-            pipeline_path = glob.glob(destination + "/*.joblib")
-            args = Args(pipeline_path[0], 0, "DUMMY", destination)
-            main(args)
-            files = glob.glob(destination + "/*")
-            self.assertTrue(any([".png" in file for file in files]))
-            self.assertTrue(any([".json" in file for file in files]))
-            self.assertTrue(any([".csv" in file for file in files]))
-
-    def test_parse_args(self):
-        args = parse_args(
-            [
-                "--pipeline",
-                "./model_registry/RF.joblib",
-                "--threshold",
-                "0.4184",
-                "--prefix",
-                "RF",
-                "--destination",
-                "./metadata_registry",
-            ]
-        )
-        self.assertEqual(args.pipeline, "./model_registry/RF.joblib")
-        self.assertEqual(args.threshold, 0.4184)
-        self.assertEqual(args.prefix, "RF")
-        self.assertEqual(args.destination, "./metadata_registry")
-
 
 if __name__ == "__main__":
     unittest.main()
