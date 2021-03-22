@@ -17,12 +17,11 @@ from datetime import datetime
 from imblearn.pipeline import Pipeline
 from sklearn.dummy import DummyClassifier
 from pyro_risks.models import xgb_pipeline, rf_pipeline
-from pyro_risks.train import (
+from pyro_risks.pipeline import (
     calibrate_pipeline,
     save_pipeline,
     train_pipeline,
-    main,
-    parse_args,
+    load_dataset,
 )
 
 
@@ -58,8 +57,8 @@ class TrainTester(unittest.TestCase):
             )
             model_files = glob.glob(destination + model_pattern)
             html_files = glob.glob(destination + html_pattern)
-            self.assertTrue(any(["RF_0-35" in file for file in model_files]))
-            self.assertTrue(any(["RF_0-35" in file for file in html_files]))
+            self.assertTrue(any(["RF" in file for file in model_files]))
+            self.assertTrue(any(["RF" in file for file in html_files]))
 
         with tempfile.TemporaryDirectory() as destination:
             save_pipeline(
@@ -78,18 +77,11 @@ class TrainTester(unittest.TestCase):
             )
             model_files = glob.glob(destination + registry + model_pattern)
             html_files = glob.glob(destination + registry + html_pattern)
-            self.assertTrue(any(["XGBOOST_0-35" in file for file in model_files]))
-            self.assertTrue(any(["XGBOOST_0-35" in file for file in html_files]))
+            self.assertTrue(any(["XGBOOST" in file for file in model_files]))
+            self.assertTrue(any(["XGBOOST" in file for file in html_files]))
 
     def test_train_pipeline(self):
-        usecols = [cfg.DATE_VAR, cfg.ZONE_VAR, cfg.TARGET] + cfg.PIPELINE_ERA5T_VARS
-        pipeline_vars = [cfg.DATE_VAR, cfg.ZONE_VAR] + cfg.PIPELINE_ERA5T_VARS
-        df = pd.read_csv(cfg.ERA5T_VIIRS_PIPELINE, usecols=usecols)
-        df["day"] = df["day"].apply(
-            lambda x: datetime.strptime(str(x), "%Y-%m-%d") if not pd.isnull(x) else x
-        )
-        X = df[pipeline_vars]
-        y = df[cfg.TARGET]
+        X, y = load_dataset()
         pattern = "/*.joblib"
 
         dummy_pipeline = Pipeline(

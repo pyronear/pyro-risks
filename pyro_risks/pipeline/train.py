@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_curve
 from sklearn.utils import estimator_html_repr
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
-from pyro_risks.load import load_dataset
+from pyro_risks.pipeline.load import load_dataset
 from datetime import datetime
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg
@@ -19,6 +19,7 @@ import numpy as np
 
 import os
 import time
+import json
 import joblib
 
 __all__ = ["calibrate_pipeline", "save_pipeline", "train_pipeline"]
@@ -67,20 +68,23 @@ def save_pipeline(
         destination: folder where the pipeline should be saved. Defaults to 'cfg.MODEL_REGISTRY'.
         ignore_html: Persist pipeline html description. Defaults to False.
     """
-    timestamp = time.strftime("%Y%m%d-%H%M%S")
-    optimal_threshold = str(round(optimal_threshold, 4)).replace(".", "-")
+    threshold = {"threshold": float(optimal_threshold)}
     registry = cfg.MODEL_REGISTRY if destination is None else destination
     pipeline_fname = f"{model}.joblib"
-    html_fname = f"{model}_{optimal_threshold}_{timestamp}.html"
+    threshold_fname = f"{model}_threshold.json"
+    html_fname = f"{model}_pipeline.html"
 
     if not os.path.exists(registry):
         os.makedirs(registry)
 
     joblib.dump(pipeline, os.path.join(registry, pipeline_fname))
 
+    with open(registry + "/" + threshold_fname, "w") as file:
+        json.dump(threshold, file)
+
     if not ignore_html:
-        with open(registry + "/" + html_fname, "w") as f:
-            f.write(estimator_html_repr(pipeline))
+        with open(registry + "/" + html_fname, "w") as file:
+            file.write(estimator_html_repr(pipeline))
 
 
 def train_pipeline(

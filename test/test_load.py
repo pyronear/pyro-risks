@@ -3,7 +3,7 @@
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
-from pyro_risks.load import load_dataset
+from pyro_risks.pipeline import load_dataset
 from unittest import mock
 
 import pyro_risks.config as cfg

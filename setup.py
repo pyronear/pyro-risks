@@ -68,10 +68,7 @@ setup(
     url="https://github.com/pyronear/pyro-risks",
     download_url="https://github.com/pyronear/pyro-risks/tags",
     license="GPLv3",
-    entry_points={
-        'console_scripts': [
-            'pyrorisks = pyro_risks.main:main',
-        ],
+    entry_points={"console_scripts": ["pyrorisks = pyro_risks.main:main"]},
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",

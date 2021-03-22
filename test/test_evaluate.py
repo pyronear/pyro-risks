@@ -9,13 +9,11 @@ from imblearn.pipeline import Pipeline
 from sklearn.dummy import DummyClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_classification
-from pyro_risks.train import train_pipeline
-from pyro_risks.evaluate import (
+from pyro_risks.pipeline import train_pipeline, save_pipeline
+from pyro_risks.pipeline import (
     save_classification_reports,
     save_classification_plots,
     evaluate_pipeline,
-    main,
-    parse_args,
 )
 
 
@@ -67,11 +65,18 @@ class EvaluateTester(unittest.TestCase):
         dummy_pipeline.fit(X_train, y_train)
 
         with tempfile.TemporaryDirectory() as destination:
+            threshold = destination + "/DUMMY_threshold.json"
+            save_pipeline(
+                pipeline=dummy_pipeline,
+                model="DUMMY",
+                optimal_threshold=0,
+                destination=destination,
+            )
             evaluate_pipeline(
                 X=X,
                 y=y,
                 pipeline=dummy_pipeline,
-                threshold=0.3,
+                threshold=threshold,
                 prefix="DUMMY",
                 destination=destination,
             )

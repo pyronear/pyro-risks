@@ -9,11 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from plot_metric.functions import BinaryClassification
 from pyro_risks.models import discretizer
-from pyro_risks.load import load_dataset
-import sys
-import os
-import json
-import joblib
+from pyro_risks.pipeline.load import load_dataset
 
 import matplotlib.pyplot as plt
 import imblearn.pipeline as pp
@@ -21,6 +17,11 @@ import pyro_risks.config as cfg
 
 import pandas as pd
 import numpy as np
+
+import sys
+import os
+import json
+import joblib
 
 __all__ = [
     "save_classification_reports",
@@ -109,8 +110,8 @@ def save_classification_plots(
 def evaluate_pipeline(
     X: pd.DataFrame,
     y: pd.Series,
-    pipeline: Optional[Union[pp.Pipeline, str]],
-    threshold: np.float64,
+    pipeline: Union[pp.Pipeline, str],
+    threshold: str,
     prefix: Optional[str] = None,
     destination: Optional[str] = None,
 ):
@@ -120,8 +121,8 @@ def evaluate_pipeline(
     Args:
         X: Training dataset features pd.DataFrame.
         y: Training dataset target pd.Series.
-        pipeline: imbalanced-learn preprocessing pipeline or path to pipeline. Defaults to None.
-        threshold: Classification pipeline optimal threshold.
+        pipeline: imbalanced-learn preprocessing pipeline or path to pipeline.
+        threshold: Classification pipeline optimal threshold path.
         prefix: Classification reports prefix i.e. pipeline name. Defaults to None.
         destination: Folder where the report should be saved. Defaults to ``METADATA_REGISTRY``.
     """
@@ -135,8 +136,11 @@ def evaluate_pipeline(
 
     y_proba = pipeline.predict_proba(X_test)
 
+    with open(threshold, "r") as file:
+        optimal_threshold = json.load(file)
+
     def predict(x):
-        return 1 if x > threshold else 0
+        return 1 if x > optimal_threshold["threshold"] else 0
 
     vpredict = np.vectorize(predict)
     vdiscretizer = np.vectorize(discretizer)
@@ -151,7 +155,7 @@ def evaluate_pipeline(
     save_classification_plots(
         y_true=y_test,
         y_proba=y_proba[:, 1],
-        threshold=threshold,
+        threshold=optimal_threshold["threshold"],
         prefix=prefix,
         destination=destination,
     )
