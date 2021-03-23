@@ -159,4 +159,3 @@ def evaluate_pipeline(
         prefix=prefix,
         destination=destination,
     )
-

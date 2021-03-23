@@ -62,4 +62,3 @@ def load_dataset(
     X = df[pipeline_cols]
     y = df[cfg.TARGET]
     return X, y
-
