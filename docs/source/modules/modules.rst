@@ -8,5 +8,6 @@ The following modules are available:
    :maxdepth: 4
 
    train
+   evaluate
    predict
    score_v0

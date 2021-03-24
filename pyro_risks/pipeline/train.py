@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_curve
 from sklearn.utils import estimator_html_repr
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
-
+from pyro_risks.pipeline.load import load_dataset
 from datetime import datetime
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg
@@ -19,6 +19,7 @@ import numpy as np
 
 import os
 import time
+import json
 import joblib
 
 __all__ = ["calibrate_pipeline", "save_pipeline", "train_pipeline"]
@@ -67,20 +68,23 @@ def save_pipeline(
         destination: folder where the pipeline should be saved. Defaults to 'cfg.MODEL_REGISTRY'.
         ignore_html: Persist pipeline html description. Defaults to False.
     """
-    timestamp = time.strftime("%Y%m%d-%H%M%S")
-    optimal_threshold = str(round(optimal_threshold, 4)).replace(".", "-")
+    threshold = {"threshold": float(optimal_threshold)}
     registry = cfg.MODEL_REGISTRY if destination is None else destination
-    pipeline_fname = f"{model}_{optimal_threshold}_{timestamp}.joblib"
-    html_fname = f"{model}_{optimal_threshold}_{timestamp}.html"
+    pipeline_fname = f"{model}.joblib"
+    threshold_fname = f"{model}_threshold.json"
+    html_fname = f"{model}_pipeline.html"
 
     if not os.path.exists(registry):
         os.makedirs(registry)
 
     joblib.dump(pipeline, os.path.join(registry, pipeline_fname))
 
+    with open(registry + "/" + threshold_fname, "w") as file:
+        json.dump(threshold, file)
+
     if not ignore_html:
-        with open(registry + "/" + html_fname, "w") as f:
-            f.write(estimator_html_repr(pipeline))
+        with open(registry + "/" + html_fname, "w") as file:
+            file.write(estimator_html_repr(pipeline))
 
 
 def train_pipeline(
@@ -126,9 +130,7 @@ def train_pipeline(
 
     elif model == "XGBOOST":
         xgb_pipeline.fit(
-            X_train,
-            y_train,
-            xgboost__eval_metric=cfg.XGB_FIT_PARAMS["eval_metric"],
+            X_train, y_train, xgboost__eval_metric=cfg.XGB_FIT_PARAMS["eval_metric"]
         )
         y_scores = xgb_pipeline.predict_proba(X_test)
         optimal_threshold = calibrate_pipeline(
@@ -155,73 +157,3 @@ def train_pipeline(
             destination=destination,
             ignore_html=ignore_html,
         )
-
-
-def main(args):
-    usecols = [cfg.DATE_VAR, cfg.ZONE_VAR, cfg.TARGET] + cfg.PIPELINE_ERA5T_VARS
-    pipeline_vars = [cfg.DATE_VAR, cfg.ZONE_VAR] + cfg.PIPELINE_ERA5T_VARS
-    df = pd.read_csv(cfg.ERA5T_VIIRS_PIPELINE, usecols=usecols)
-    df["day"] = df["day"].apply(
-        lambda x: datetime.strptime(str(x), "%Y-%m-%d") if not pd.isnull(x) else x
-    )
-    X = df[pipeline_vars]
-    y = df[cfg.TARGET]
-    train_pipeline(
-        X=X,
-        y=y,
-        model=args.model,
-        destination=args.destination,
-        ignore_prints=args.ignore_prints,
-        ignore_html=args.ignore_html,
-    )
-
-
-def parse_args(args):
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        description="Pyrorisks Classification Pipeline Training",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument(
-        "--model", default="RF", help="Classification Pipeline name RF or XGBOOST."
-    )
-    parser.add_argument(
-        "--destination",
-        default=None,
-        help="Destination folder for persisting pipeline.",
-    )
-    parser.add_argument(
-        "--ignore_prints",
-        dest="ignore_prints",
-        action="store_true",
-        help="Whether to print results. Defaults to False.",
-    )
-    parser.add_argument(
-        "--prints",
-        dest="ignore_prints",
-        action="store_false",
-        help="Whether to print results. Defaults to False.",
-    )
-    parser.set_defaults(ignore_prints=True)
-
-    parser.add_argument(
-        "--ignore_html",
-        dest="ignore_html",
-        action="store_true",
-        help="Persist pipeline html description. Defaults to False.",
-    )
-    parser.add_argument(
-        "--html",
-        dest="ignore_html",
-        action="store_false",
-        help="Persist pipeline html description. Defaults to False.",
-    )
-    parser.set_defaults(ignore_html=True)
-    return parser.parse_args(args)
-
-
-if __name__ == "__main__":
-
-    args = parse_args(sys.argv[1:])
-    main(args)

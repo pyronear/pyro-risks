@@ -22,6 +22,7 @@ FR_FWI_2019_FALLBACK: str = f"{DATA_FALLBACK}/JRC_FWI_2019.zip"
 FR_FWI_2020_FALLBACK: str = f"{DATA_FALLBACK}/JRC_FWI_2020.zip"
 FR_ERA5LAND_FALLBACK: str = f"{DATA_FALLBACK}/ERA5_2019.nc"
 FR_ERA5T_FALLBACK: str = f"{DATA_FALLBACK}/era5t_2019.nc"
+DATASET: str = "merged_era_viirs.csv"
 ERA5T_VIIRS_PIPELINE: str = f"{DATA_FALLBACK}/merged_era_viirs.csv"
 TEST_FR_ERA5LAND_FALLBACK: str = f"{DATA_FALLBACK}/test_data_ERA5_2018.nc"
 TEST_FR_FIRMS_CSV_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FIRMS.csv"
@@ -34,11 +35,9 @@ TEST_FWI_FALLBACK: str = f"{DATA_FALLBACK}/test_data_FWI.csv"
 TEST_FWI_TO_PREDICT: str = f"{DATA_FALLBACK}/fwi_test_to_predict.csv"
 TEST_ERA_TO_PREDICT: str = f"{DATA_FALLBACK}/era_test_to_predict.csv"
 
-
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
-DATA_PATH = os.path.join(REPO_DIR, ".data/")
-MODEL_REGISTRY = os.path.join(REPO_DIR, ".model_registry/")
+
 
 CDS_URL = "https://cds.climate.copernicus.eu/api/v2"
 CDS_UID = os.getenv("CDS_UID")
@@ -130,5 +129,12 @@ WEATHER_ERA5T_VARS = [
 ]
 
 CACHE_FOLDER: str = os.path.expanduser("~/.cache/pyro_risks")
-if not os.path.exists(CACHE_FOLDER):
-    os.makedirs(CACHE_FOLDER)
+
+DATA_REGISTRY = os.path.join(CACHE_FOLDER, "data_registry/")
+MODEL_REGISTRY = os.path.join(CACHE_FOLDER, "model_registry/")
+METADATA_REGISTRY = os.path.join(CACHE_FOLDER, "metadata_registry/")
+
+os.makedirs(CACHE_FOLDER, exist_ok=True)
+os.makedirs(DATA_REGISTRY, exist_ok=True)
+os.makedirs(MODEL_REGISTRY, exist_ok=True)
+os.makedirs(METADATA_REGISTRY, exist_ok=True)
