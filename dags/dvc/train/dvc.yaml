@@ -31,5 +31,6 @@ stages:
       - pyro_risks/pipeline/train.py
       - .cache/model_registry/XGBOOST.joblib
       - .cache/model_registry/RF.joblib
-    outs:
-      - .cache/metadata_registry/
+    metrics:
+      - .cache/metadata_registry/XGBOOST_classification_report.json
+      - .cahce/metadata_registry/RF_classification_report.json
