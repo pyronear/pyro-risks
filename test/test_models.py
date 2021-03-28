@@ -117,7 +117,7 @@ class ModelsTester(unittest.TestCase):
     @patch("pyro_risks.datasets.ERA5.get_data_era5t_for_predict")
     def test_pyrorisk(self, mock_era5, mock_fwi):
         mock_fwi.return_value.get_fwi_from_api.return_value.call_fwi.return_value = Mock()
-        mock_era5.return_value.call_era5t.return_value = Mock()
+        mock_era5.return_value.call_era5t.return_value.ERA5T.return_value = Mock()
 
         fwi_dataset = pd.DataFrame(np.arange(1116).reshape((93, 12)), columns=['code', 'nom', 'latitude', 'longitude', 'bui', 'dc', 'dmc', 'dsr','ffmc', 'fwi', 'isi', 'day'])
         fwi_dataset.nom = ['Aisne', 'Aube', 'Calvados', 'Cantal', 'Eure-et-Loir','Ille-et-Vilaine', 'Jura', 'Landes', 'Loire', 'Loiret','Lot-et-Garonne', 'Meuse', 'Orne', 'Pas-de-Calais', 'Puy-de-Dôme','Bas-Rhin', 'Haut-Rhin', 'Seine-Maritime', 'Yonne','Alpes-de-Haute-Provence', 'Hautes-Alpes', 'Ardèche', 'Ardennes','Ariège', 'Charente-Maritime', 'Corrèze', 'Dordogne', 'Eure','Indre-et-Loire', 'Lozère', 'Nièvre', 'Oise','Pyrénées-Atlantiques', 'Rhône', 'Saône-et-Loire', 'Yvelines','Tarn', 'Tarn-et-Garonne', 'Var', 'Vendée', 'Haute-Vienne','Vosges', 'Allier', 'Alpes-Maritimes', 'Aude', 'Corse-du-Sud',"Côtes-d'Armor", 'Creuse', 'Doubs', 'Finistère', 'Gard', 'Gironde','Indre', 'Isère', 'Marne', 'Haute-Marne', 'Moselle','Hautes-Pyrénées', 'Pyrénées-Orientales', 'Savoie', 'Haute-Savoie','Seine-et-Marne', 'Vaucluse', 'Vienne', 'Val-de-Marne', 'Ain','Aveyron', 'Bouches-du-Rhône', 'Charente', 'Cher', 'Haute-Corse',"Côte-d'Or", 'Drôme', 'Haute-Garonne', 'Gers', 'Hérault','Haute-Loire', 'Loire-Atlantique', 'Lot', 'Maine-et-Loire','Manche', 'Morbihan', 'Nord', 'Haute-Saône', 'Sarthe', 'Somme','Essonne', "Val-d'Oise", 'Loir-et-Cher', 'Mayenne','Meurthe-et-Moselle', 'Deux-Sèvres', 'Territoire de Belfort']
@@ -136,12 +136,9 @@ class ModelsTester(unittest.TestCase):
         pr = predict.PyroRisk(which="RF")
         self.assertEqual(pr.model.n_estimators, 500)
         self.assertEqual(pr.model_path, cfg.RFMODEL_ERA5T_PATH)
-        #pr.get_input = Mock()
-        #pr.get_input.return_value.get_fwi_data_for_predict.return_value.get_fwi_from_api.return_value.call_fwi.return_value = Mock()
-        #pr.get_input.return_value.get_data_era5t_for_predict.return_value.call_era5t.return_value = Mock()
 
         res = pr.get_input("2020-05-05")
-        #res.to_csv("./res.csv")
+
         self.assertIsInstance(res, pd.DataFrame)
         self.assertEqual(res.shape, (93, 40))
         preds = pr.predict("2020-05-05")
