@@ -1,0 +1,33 @@
+name: train-my-model
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  continous-training:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: iterative/setup-cml@v1
+      - uses: iterative/setup-dvc@v1
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: cml
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install -r requirements.txt
+          dvc repro -R dags
+
+          # Build report
+
+          dvc metrics show --show-md
+
+          # Compare metrics to master
+          git fetch --prune 
+          dvc metrics diff --show-md master >> report.md
+          cml-publish 
+          cml-send-comment report.md
