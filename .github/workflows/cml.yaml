@@ -32,3 +32,6 @@ jobs:
           dvc metrics diff --show-md master >> report.md
           cml-publish 
           cml-send-comment report.md
+
+          # Push Artifacts to registry
+          dvc push -r artifacts-registry
