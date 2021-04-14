@@ -9,29 +9,38 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
+      - name: Set up training environment
       - uses: iterative/setup-cml@v1
       - uses: iterative/setup-dvc@v1
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v1
         with:
           python-version: 3.7
-
-      - name: cml
+          architecture: x64
+      - name: Cache python modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pkg-deps-${{ hashFiles('requirements.txt') }}-${{ hashFiles('**/*.py') }}
+          restore-keys: |
+            ${{ runner.os }}-pkg-deps-${{ hashFiles('requirements.txt') }}-
+            ${{ runner.os }}-pkg-deps-
+            ${{ runner.os }}-
+      - name: Install package
+        run: |
+          sudo apt install libspatialindex-dev python3-rtree
+          python -m pip install --upgrade pip
+          pip install -e .
+      - name: CML
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA}}
         run: |
-          pip install -r requirements.txt
           dvc repro -R dags
-
-          # Build report
-
           dvc metrics show --show-md
 
-          # Compare metrics to master
           git fetch --prune 
           dvc metrics diff --show-md master >> report.md
+
           cml-publish 
           cml-send-comment report.md
-
-          # Push Artifacts to registry
           dvc push -r artifacts-registry
