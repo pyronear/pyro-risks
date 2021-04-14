@@ -33,4 +33,4 @@ stages:
       - .cache/model_registry/RF.joblib
     metrics:
       - .cache/metadata_registry/XGBOOST_classification_report.json
-      - .cahce/metadata_registry/RF_classification_report.json
+      - .cache/metadata_registry/RF_classification_report.json
