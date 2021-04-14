@@ -1,0 +1,4 @@
+['remote "artifacts-registry"']
+    url = gdrive://19UyYEJ63lmgHmWViwpW9oO-cGmt0_yJ8
+    gdrive_use_service_account = true
+    gdrive_user_credentials_file = tmp/artifacts-registry-credentials.json
