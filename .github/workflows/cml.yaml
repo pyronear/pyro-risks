@@ -9,7 +9,6 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
-      - name: Set up training environment
       - uses: iterative/setup-cml@v1
       - uses: iterative/setup-dvc@v1
       - uses: actions/setup-python@v1
