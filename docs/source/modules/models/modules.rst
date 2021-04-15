@@ -1,7 +1,7 @@
 pyro\_risks.models
 ==================
 
-The models subpackage contains modules defining preprocessing steps and scoring pipelines.
+The models subpackage contains modules defining steps of the traininig and scoring sklearn pipelines.
 The following modules are available:
 
 .. toctree::

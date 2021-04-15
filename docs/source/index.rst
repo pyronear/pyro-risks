@@ -41,7 +41,7 @@ The :mod:`pyro_risks` package aggregates pre-processing pipelines and models for
 
    modules/datasets/modules
    modules/models/modules
-   modules/modules
+   modules/pipeline/modules
 
 .. automodule:: pyro_risks
    :members:
