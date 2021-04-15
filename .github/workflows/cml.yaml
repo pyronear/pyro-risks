@@ -36,20 +36,18 @@ jobs:
         run: |
           dvc repro -R dags
 
+          echo "# Models" >> report.md
+          echo "## Random Forest" >> report.md
+          cml-publish .cache/metadata_registry/RF_classification_plots.png --md >> report.md
+
+          echo "## XGBOOST" >> report.md
+          cml-publish .cache/metadata_registry/XGBOOST_classification_plots.png --md >> report.md
+          cml-send-comment report.md
+
           echo "# Metrics" >> report.md
           dvc metrics show --show-md >> report.md
           git fetch --prune 
           dvc metrics diff --show-md master >> report.md
-
-          echo "# Models" >> report.md
-          echo "## Random Forest" >> report.md
-          cml-publish .cache/metadata_registry/RF_classification_plots.png --md >> report.md
-          cml-publish .cache/metadata_registry/RF_classification_report.json --md >> report.md
-
-          echo "## XGBOOST" >> report.md
-          cml-publish .cache/metadata_registry/XGBOOST_classification_plots.png --md >> report.md
-          cml-publish .cache/metadata_registry/XGBOOST_classification_report.json --md >> report.md
-          cml-send-comment report.md
 
           echo "$GDRIVE_CREDENTIALS" | cat - | base64 -d > .dvc/tmp/credentials.json
           dvc push -r artifacts-registry
