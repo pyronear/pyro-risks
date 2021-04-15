@@ -32,7 +32,7 @@ jobs:
       - name: CML
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA}}
+          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS}}
         run: |
           dvc repro -R dags
 
@@ -50,4 +50,6 @@ jobs:
           cml-publish .cache/metadata_registry/XGBOOST_classification_plots.png --md >> report.md
           cml-publish .cache/metadata_registry/XGBOOST_classification_report.json --md >> report.md
           cml-send-comment report.md
+
+          echo "$GDRIVE_CREDENTIALS" | cat - | base64 -d > .dvc/tmp/credentials.json
           dvc push -r artifacts-registry
