@@ -35,11 +35,19 @@ jobs:
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA}}
         run: |
           dvc repro -R dags
-          dvc metrics show --show-md
 
+          echo "# Metrics" >> report.md
+          dvc metrics show --show-md >> report.md
           git fetch --prune 
           dvc metrics diff --show-md master >> report.md
 
-          cml-publish 
+          echo "# Models" >> report.md
+          echo "## Random Forest" >> report.md
+          cml-publish .cache/metadata_registry/RF_classification_plots.png --md >> report.md
+          cml-publish .cache/metadata_registry/RF_classification_report.json --md >> report.md
+
+          echo "## XGBOOST" >> report.md
+          cml-publish .cache/metadata_registry/XGBOOST_classification_plots.png --md >> report.md
+          cml-publish .cache/metadata_registry/XGBOOST_classification_report.json --md >> report.md
           cml-send-comment report.md
           dvc push -r artifacts-registry
