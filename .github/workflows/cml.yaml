@@ -42,12 +42,12 @@ jobs:
 
           echo "## XGBOOST" >> report.md
           cml-publish .cache/metadata_registry/XGBOOST_classification_plots.png --md >> report.md
-          cml-send-comment report.md
 
           echo "# Metrics" >> report.md
           dvc metrics show --show-md >> report.md
           git fetch --prune 
           dvc metrics diff --show-md master >> report.md
+          cml-send-comment report.md
 
           echo "$GDRIVE_CREDENTIALS" | cat - | base64 -d > .dvc/tmp/credentials.json
           dvc push -r artifacts-registry
