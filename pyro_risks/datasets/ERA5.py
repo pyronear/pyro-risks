@@ -122,7 +122,7 @@ class ERA5Land(pd.DataFrame):
             Path or URL to your version of the source data
     """
 
-    def __init__(self, source_path: Optional[str] = None):
+    def __init__(self, source_path: Optional[str] = None) -> None:
         """
         Args:
             source_path: Optional[str]
@@ -175,7 +175,7 @@ class ERA5T(pd.DataFrame):
             Path or URL to your version of the source data
     """
 
-    def __init__(self, source_path: Optional[str] = None):
+    def __init__(self, source_path: Optional[str] = None) -> None:
         """
         Args:
             source_path: Optional[str]

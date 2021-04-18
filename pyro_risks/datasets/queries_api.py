@@ -415,7 +415,7 @@ def call_era5t(output_path: str, year: str, month: str, day: str) -> None:
     # TODO : take only needed variables for the model
 
 
-def call_fwi(output_path, year, month, day):
+def call_fwi(output_path: str, year: str, month: str, day: str) -> None:
     """Get data from Fire danger indices historical data from the Copernicus Climate Data Store.
 
     Information on FWI can be found here:

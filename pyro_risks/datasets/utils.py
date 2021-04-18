@@ -217,7 +217,7 @@ def download(
     default_extension: str,
     unzip: Optional[bool] = True,
     destination: Optional[str] = "./tmp",
-):
+) -> None:
     """Helper function for downloading, unzipping and saving compressed file from a given URL.
 
     Args:
@@ -278,7 +278,7 @@ def get_ghcn(
     start_year: Optional[int] = None,
     end_year: Optional[int] = None,
     destination: Optional[str] = "./ghcn",
-):
+) -> None:
     """Download yearly Global Historical Climatology Network - Daily (GHCN-Daily) (.csv) From (NCEI).
 
     Args:
@@ -303,7 +303,7 @@ def get_modis(
     end_year: Optional[int] = None,
     yearly: Optional[bool] = False,
     destination: Optional[str] = "./firms",
-):
+) -> None:
     """Download last 24H or yearly France active fires from the FIRMS NASA.
 
     Args:
