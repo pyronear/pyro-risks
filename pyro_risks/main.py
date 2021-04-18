@@ -76,7 +76,9 @@ def _train_pipeline(
     default=cfg.METADATA_REGISTRY,
     help="Folder where the report should be saved.",
 )
-def _evaluate_pipeline(pipeline: str, threshold: str, prefix: str, destination: str) -> None:
+def _evaluate_pipeline(
+    pipeline: str, threshold: str, prefix: str, destination: str
+) -> None:
     click.echo(f"Evaluate and save pipeline performance metrics in {destination}")
     X, y = load_dataset()
     evaluate_pipeline(

@@ -82,7 +82,7 @@ class MergedEraFwiViirs(pd.DataFrame):
         self,
         era_source_path: Optional[str] = None,
         viirs_source_path: Optional[str] = None,
-        fwi_source_path: Optional[str] = None
+        fwi_source_path: Optional[str] = None,
     ) -> None:
         """Define the merged era-fwi-viirs dataframe.
 

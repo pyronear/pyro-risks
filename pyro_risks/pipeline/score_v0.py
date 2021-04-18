@@ -72,7 +72,9 @@ XGB_PARAMS = {
 }
 
 
-def prepare_dataset(df: pd.DataFrame, selected_dep: Optional[List[str]] = SELECTED_DEP) -> Tuple[pd.DataFrame, pd.Series]:
+def prepare_dataset(
+    df: pd.DataFrame, selected_dep: Optional[List[str]] = SELECTED_DEP
+) -> Tuple[pd.DataFrame, pd.Series]:
     """Filter departments, create target and filter correlated features to target.
 
     Args:
@@ -96,7 +98,9 @@ def prepare_dataset(df: pd.DataFrame, selected_dep: Optional[List[str]] = SELECT
     return X, y
 
 
-def target_correlated_features(X: pd.DataFrame, y: pd.Series, threshold: Optional[float] = 0.15) -> List[str]:
+def target_correlated_features(
+    X: pd.DataFrame, y: pd.Series, threshold: Optional[float] = 0.15
+) -> List[str]:
     """Return features of X correlated to y according to a given threshold.
 
     Args:
@@ -119,7 +123,9 @@ def target_correlated_features(X: pd.DataFrame, y: pd.Series, threshold: Optiona
     return selected_feat
 
 
-def split_train_test(X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+def split_train_test(
+    X: pd.DataFrame, y: pd.Series
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Train test split (sklearn) with fixed test size and random state."""
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
@@ -158,7 +164,12 @@ def add_lags(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
 
 
 def train_random_forest(
-    X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series, params: dict = RF_PARAMS, ignore_prints: Optional[bool] = True
+    X_train: pd.DataFrame,
+    X_test: pd.DataFrame,
+    y_train: pd.Series,
+    y_test: pd.Series,
+    params: dict = RF_PARAMS,
+    ignore_prints: Optional[bool] = True,
 ) -> RandomForestClassifier:
     """Train a random forest classifier on split train/test, get predictions and associated metrics.
 

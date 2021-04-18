@@ -121,8 +121,11 @@ def get_fwi_from_api(date: str) -> gpd.GeoDataFrame:
     max_lat = max(geo_masks.lat_1.max(), geo_masks.lat_2.max())
     geo_masks = geo_masks.drop(columns=["lon_1", "lat_1", "lon_2", "lat_2"])
     geo_data = geo_data.loc[
-        (geo_data.latitude >= min_lat) & (geo_data.latitude <= max_lat) & (geo_data.longitude >= min_lon) & (
-                    geo_data.longitude <= max_lon)]
+        (geo_data.latitude >= min_lat)
+        & (geo_data.latitude <= max_lat)
+        & (geo_data.longitude >= min_lon)
+        & (geo_data.longitude <= max_lon)
+    ]
     geo_df = gpd.sjoin(geo_masks, geo_data, how="inner")
     return geo_df.drop(["index_right", "geometry"], axis=1)
 
