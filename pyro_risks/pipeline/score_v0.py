@@ -3,6 +3,7 @@
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
+from typing import Optional, List, Tuple
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
@@ -71,7 +72,7 @@ XGB_PARAMS = {
 }
 
 
-def prepare_dataset(df, selected_dep=SELECTED_DEP):
+def prepare_dataset(df: pd.DataFrame, selected_dep: Optional[List[str]] = SELECTED_DEP) -> Tuple[pd.DataFrame, pd.Series]:
     """Filter departments, create target and filter correlated features to target.
 
     Args:
@@ -95,12 +96,13 @@ def prepare_dataset(df, selected_dep=SELECTED_DEP):
     return X, y
 
 
-def target_correlated_features(X, y, threshold=0.15):
+def target_correlated_features(X: pd.DataFrame, y: pd.Series, threshold: Optional[float] = 0.15) -> List[str]:
     """Return features of X correlated to y according to a given threshold.
 
     Args:
         X (pd.DataFrame): df with several features
         y (pd.Series): binary target
+        threshold (float): threshold for correlation for feature selection
 
     Returns:
         list of str: features mostly correlated to target
@@ -117,7 +119,7 @@ def target_correlated_features(X, y, threshold=0.15):
     return selected_feat
 
 
-def split_train_test(X, y):
+def split_train_test(X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Train test split (sklearn) with fixed test size and random state."""
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
@@ -125,7 +127,7 @@ def split_train_test(X, y):
     return X_train, X_test, y_train, y_test
 
 
-def add_lags(df, cols):
+def add_lags(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
     """Add lags to dataframe df of the selected columns.
 
     Lags added correspond to day -1, -3 and -7 and are added to each department separately.
@@ -135,7 +137,7 @@ def add_lags(df, cols):
         cols (list of str): columns on which to add lags
 
     Returns:
-        [type]: [description]
+        df (pd.DataFrame): dataframe with lagged columns
     """
     for var in cols:
         for dep in df["departement"].unique():
@@ -156,8 +158,8 @@ def add_lags(df, cols):
 
 
 def train_random_forest(
-    X_train, X_test, y_train, y_test, params=RF_PARAMS, ignore_prints=True
-):
+    X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series, params: dict = RF_PARAMS, ignore_prints: Optional[bool] = True
+) -> RandomForestClassifier:
     """Train a random forest classifier on split train/test, get predictions and associated metrics.
 
     Print classification reports on train and test set as well as best threshold and best F1-score.
@@ -194,14 +196,14 @@ def train_random_forest(
 
 
 def xgb_model(
-    X_train,
-    y_train,
-    X_test,
-    y_test,
-    params=XGB_PARAMS,
-    num_round=1000,
-    ignore_prints=True,
-):
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+    X_test: pd.DataFrame,
+    y_test: pd.Series,
+    params: Optional[dict] = XGB_PARAMS,
+    num_round: Optional[int] = 1000,
+    ignore_prints: Optional[bool] = True,
+) -> Tuple[xgb.Booster, dict, np.ndarray]:
     """Train a xgboost classifier on split train/test, get predictions and associated metrics.
 
     Args:

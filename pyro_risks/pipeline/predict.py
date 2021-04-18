@@ -5,7 +5,9 @@
 
 import joblib
 from urllib.request import urlopen
+import pandas as pd
 import xgboost
+from typing import Optional
 
 from pyro_risks import config as cfg
 from pyro_risks.datasets.fwi import get_fwi_data_for_predict
@@ -28,7 +30,7 @@ class PyroRisk(object):
         object ([type])
     """
 
-    def __init__(self, which="RF"):
+    def __init__(self, which: Optional[str] = "RF") -> None:
         """Load from Github release the trained model. For the moment only RF and XGB are available.
 
         Args:
@@ -43,7 +45,7 @@ class PyroRisk(object):
         self.model = joblib.load(urlopen(self.model_path))
         self._model_type = which
 
-    def get_input(self, day):
+    def get_input(self, day: str) -> pd.DataFrame:
         """Returns for a given day data to feed into the model.
 
         This makes use of the CDS API to query data for the selected day, add lags and select
@@ -72,7 +74,7 @@ class PyroRisk(object):
         to_predict = to_predict.fillna(0)
         return to_predict[model_cols]
 
-    def predict(self, day, country="France"):
+    def predict(self, day: str, country: Optional[str] = "France") -> dict:
         """Serves a prediction for the specified day.
 
         Note that predictions on fwi and era5land data queried from CDS API will return 93 departments

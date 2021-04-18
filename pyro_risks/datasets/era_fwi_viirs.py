@@ -5,6 +5,7 @@
 
 import logging
 import pandas as pd
+from typing import Optional
 
 from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land, ERA5T
 from pyro_risks.datasets.utils import get_intersection_range
@@ -17,12 +18,12 @@ __all__ = ["MergedEraFwiViirs"]
 logger = logging.getLogger("uvicorn.info")
 
 
-def process_dataset_to_predict(fwi, era):
+def process_dataset_to_predict(fwi: pd.DataFrame, era: pd.DataFrame) -> pd.DataFrame:
     """Groupby and merge fwi and era5 datasets for model predictions.
 
     Args:
-        fwi_df (pd.DataFrame): Fwi dataset
-        era_df (pd.DataFrame): Era5 dataset
+        fwi (pd.DataFrame): Fwi dataset
+        era (pd.DataFrame): Era5 dataset
 
     Returns:
         pd.DataFrame: one line per department and day
@@ -78,8 +79,11 @@ class MergedEraFwiViirs(pd.DataFrame):
     """
 
     def __init__(
-        self, era_source_path=None, viirs_source_path=None, fwi_source_path=None
-    ):
+        self,
+        era_source_path: Optional[str] = None,
+        viirs_source_path: Optional[str] = None,
+        fwi_source_path: Optional[str] = None
+    ) -> None:
         """Define the merged era-fwi-viirs dataframe.
 
         Args:

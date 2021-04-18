@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 from netCDF4 import Dataset
 import geopandas as gpd
+from typing import Optional, List
 
 import requests
 import zipfile
@@ -24,7 +25,7 @@ from pyro_risks.datasets.queries_api import call_fwi
 from pyro_risks.datasets.masks import get_french_geom
 
 
-def load_data(output_path):
+def load_data(output_path: str) -> None:
     """Load FWI zipped data from github repo and unzip data in folder output_path.
 
     Args:
@@ -40,7 +41,7 @@ def load_data(output_path):
     file.extractall(path=os.path.join(output_path, "fwi_unzipped"))
 
 
-def include_department(row, polygons_json):
+def include_department(row: pd.Series, polygons_json: json) -> str:
     """Given a row of a dataframe containing longitude and latitude returns name of french department.
 
     This function makes use of shapely to return if a polygon contains a point.
@@ -58,7 +59,7 @@ def include_department(row, polygons_json):
     return ""
 
 
-def get_fwi_from_api(date: str):
+def get_fwi_from_api(date: str) -> gpd.GeoDataFrame:
     """Call the CDS API and return all fwi variables as a dataframe with geo coordinates and departments.
 
     When calling the API we get a zip file that must be extracted (in a tmp directory), then handle
@@ -155,7 +156,7 @@ def get_fwi_data_for_predict(date: str) -> pd.DataFrame:
     return merged_data
 
 
-def get_fwi_data(source_path, day="20190101"):
+def get_fwi_data(source_path: str, day: Optional[str] = "20190101") -> pd.DataFrame:
     """Load and handle netcdf data for selected day.
 
     Return pandas dataframe with longitude, latitude, day and fwi indices
@@ -207,7 +208,7 @@ def get_fwi_data(source_path, day="20190101"):
     return df
 
 
-def create_departement_df(day_data):
+def create_departement_df(day_data: pd.DataFrame) -> pd.DataFrame:
     """Create dataframe with lon, lat coordinates and corresponding departments.
 
     Load json with the department polygons and run function include_department to get the
@@ -234,7 +235,7 @@ def create_departement_df(day_data):
 class GwisFwi(pd.DataFrame):
     """GWIS FWI dataframe (8 km resolution) on French territory based on 2019-2020 data."""
 
-    def __init__(self, days_list=["20190101"]):
+    def __init__(self, days_list: List[str] = ["20190101"]) -> None:
         """Create dataframe with fwi indices data corresponding to days_list and join french department.
 
         Args:
