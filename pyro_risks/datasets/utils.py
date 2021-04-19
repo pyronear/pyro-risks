@@ -167,7 +167,7 @@ def url_retrieve(url: str, timeout: Optional[float] = None) -> bytes:
     return response.content
 
 
-def get_fname(url: str) -> Tuple[str, str, str]:
+def get_fname(url: str) -> Tuple[str, Optional[str], Optional[str]]:
     """Find file name, extension and compression of an archive located by an URL.
 
     Args:
@@ -216,7 +216,7 @@ def download(
     url: str,
     default_extension: str,
     unzip: Optional[bool] = True,
-    destination: Optional[str] = "./tmp",
+    destination: str = "./tmp",
 ) -> None:
     """Helper function for downloading, unzipping and saving compressed file from a given URL.
 
@@ -277,7 +277,7 @@ def download(
 def get_ghcn(
     start_year: Optional[int] = None,
     end_year: Optional[int] = None,
-    destination: Optional[str] = "./ghcn",
+    destination: str = "./ghcn",
 ) -> None:
     """Download yearly Global Historical Climatology Network - Daily (GHCN-Daily) (.csv) From (NCEI).
 
@@ -302,7 +302,7 @@ def get_modis(
     start_year: Optional[int] = None,
     end_year: Optional[int] = None,
     yearly: Optional[bool] = False,
-    destination: Optional[str] = "./firms",
+    destination: str = "./firms",
 ) -> None:
     """Download last 24H or yearly France active fires from the FIRMS NASA.
 
@@ -331,9 +331,7 @@ def get_modis(
 
     else:
         if start_year is not None:
-            raise warnings.warn(
-                "The active fires from the last 24H of the MODIS Satellite will be download."
-            )
+            raise warnings.warn("The active fires from the last 24H of the MODIS Satellite will be download.")  # type: ignore
         else:
             url = "https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/MODIS_C6_Europe_24h.csv"
             download(

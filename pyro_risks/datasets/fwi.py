@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from netCDF4 import Dataset
 import geopandas as gpd
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 import requests
 import zipfile
@@ -41,13 +41,13 @@ def load_data(output_path: str) -> None:
     file.extractall(path=os.path.join(output_path, "fwi_unzipped"))
 
 
-def include_department(row: pd.Series, polygons_json: json) -> str:
+def include_department(row: pd.Series, polygons_json: Dict[str, Any]) -> str:
     """Given a row of a dataframe containing longitude and latitude returns name of french department.
 
     This function makes use of shapely to return if a polygon contains a point.
     Args:
         row (pd.Series): row of dataframe
-        polygons_json (json): json with polygons of the departments
+        polygons_json (dict): dict with polygons of the departments
 
     Returns:
         str: name of department or empty string

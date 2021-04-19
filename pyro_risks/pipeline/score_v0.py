@@ -3,7 +3,7 @@
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
-from typing import Optional, List, Tuple
+from typing import Optional, List, Tuple, Dict
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
@@ -233,7 +233,7 @@ def xgb_model(
     dtrain = xgb.DMatrix(X_train, label=y_train)
     dtest = xgb.DMatrix(X_test, label=y_test)
 
-    progress = dict()
+    progress: Dict[str, Dict[str, List[float]]] = dict()
 
     model = xgb.train(
         params=params,

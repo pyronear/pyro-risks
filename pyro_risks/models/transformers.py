@@ -3,7 +3,7 @@
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
-from typing import List, Union, Optional, Tuple
+from typing import List, Union, Optional, Tuple, Callable
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer
 from .utils import check_xy, check_x
@@ -23,7 +23,7 @@ class TargetDiscretizer(BaseEstimator):
         discretizer: user defined function.
     """
 
-    def __init__(self, discretizer: callable) -> None:
+    def __init__(self, discretizer: Callable) -> None:
 
         if callable(discretizer):
             self.discretizer = discretizer
@@ -262,7 +262,7 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
     """
 
     def __init__(
-        self, exclude: List[str], method: str = "pearson", threshold: int = 0.15
+        self, exclude: List[str], method: str = "pearson", threshold: float = 0.15
     ) -> None:
 
         self.exclude = exclude
