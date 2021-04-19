@@ -57,7 +57,7 @@ def save_pipeline(
     optimal_threshold: np.float64,
     destination: Optional[str] = None,
     ignore_html: Optional[bool] = False,
-):
+) -> None:
     """
     Serialize pipeline.
 
@@ -95,7 +95,7 @@ def train_pipeline(
     destination: Optional[str] = None,
     ignore_prints: Optional[bool] = False,
     ignore_html: Optional[bool] = False,
-):
+) -> None:
     """
     Train a classification pipeline.
 
