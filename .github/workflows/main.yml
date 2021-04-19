@@ -103,6 +103,20 @@ jobs:
           flake8 --version
           flake8 ./
 
+  mypy:
+    runs-on: ubuntu-latest
+    name: Mypy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Run mypy
+        run: |
+          pip install mypy
+          mypy src/
+
   docs-build:
     runs-on: ubuntu-latest
     needs: pkg-install
