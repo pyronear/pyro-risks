@@ -339,7 +339,9 @@ def get_modis(
             )
 
 
-def get_nearest_points(source_points: List[Tuple[Any, Any]], candidates: List[Tuple[Any, Any]]) -> Tuple:
+def get_nearest_points(
+    source_points: List[Tuple[Any, Any]], candidates: List[Tuple[Any, Any]]
+) -> Tuple:
     """
     Find nearest neighbor for all source points from a set of candidate points
     using KDTree algorithm.
