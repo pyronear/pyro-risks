@@ -305,7 +305,6 @@ def get_modis(
     destination: str = "./firms",
 ) -> None:
     """Download last 24H or yearly France active fires from the FIRMS NASA.
-
     Args:
         start_year: first year to be retrieved. Defaults to None.
         end_year: first that will not be retrieved. Defaults to None.
@@ -323,21 +322,19 @@ def get_modis(
         for year in range(start_year, end_year):
             assert (
                 start_year != 2020 or end_year != 2021
-            ), "MODIS active fire archives are only available for the years from 2000" \
-               " to 2019"
-            url = f"https://firms.modaps.eosdis.nasa.gov/data/country/modis/{year}/" \
-                  f"modis_{year}_France.csv"
+            ), "MODIS active fire archives are only available for the years from 2000 to 2019"
+            url = f"https://firms.modaps.eosdis.nasa.gov/data/country/modis/{year}/modis_{year}_France.csv"
             download(
                 url=url, default_extension="csv", unzip=False, destination=destination
             )
 
     else:
         if start_year is not None:
-            raise warnings.warn("The active fires from the last 24H of the MODIS "
-                                "Satellite will be download.")  # type: ignore
+            raise warnings.warn(
+                "The active fires from the last 24H of the MODIS Satellite will be download."
+            )  # type: ignore
         else:
-            url = "https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/" \
-                  "MODIS_C6_Europe_24h.csv"
+            url = "https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/MODIS_C6_Europe_24h.csv"
             download(
                 url=url, default_extension="csv", unzip=False, destination=destination
             )
