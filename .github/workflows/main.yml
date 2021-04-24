@@ -115,6 +115,7 @@ jobs:
       - name: Run mypy
         run: |
           pip install mypy
+          python -m pip install --upgrade pip
           mypy ./pyro_risks/
 
   docs-build:
