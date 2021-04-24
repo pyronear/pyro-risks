@@ -331,7 +331,8 @@ def get_modis(
 
     else:
         if start_year is not None:
-            raise warnings.warn("The active fires from the last 24H of the MODIS Satellite will be download.")  # type: ignore
+            raise warnings.warn("The active fires from the last 24H of the MODIS Satellite will be "
+                                "download.")  # type: ignore
         else:
             url = "https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/MODIS_C6_Europe_24h.csv"
             download(
