@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Predict module &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contributing to Pyro-Risks" href="../../overview/CONTRIBUTING.html" />
+    <link rel="prev" title="Evaluate module" href="evaluate.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../datasets/modules.html">pyro_risks.datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/datasets.html">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/datasets.html#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/datasets.html#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/datasets.html#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyro_risks.pipeline</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">pyro_risks.pipeline</a> &raquo;</li>
+        
+      <li>Predict module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/modules/pipeline/predict.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyro_risks.pipeline.predict">
+<span id="predict-module"></span><h1>Predict module<a class="headerlink" href="#module-pyro_risks.pipeline.predict" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyro_risks.pipeline.predict.PyroRisk">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyro_risks.pipeline.predict.</span></code><code class="sig-name descname"><span class="pre">PyroRisk</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RF'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Pyronear risk score for fire danger on French departments.</p>
+<p>Load a trained model uploaded on the Pyro-risk Github Release to get predictions for a selected day</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>object</strong> (<em>[</em><em>python:type</em><em>]</em>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="pyro_risks.pipeline.predict.PyroRisk.get_input">
+<code class="sig-name descname"><span class="pre">get_input</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.get_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.get_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns for a given day data to feed into the model.</p>
+<p>This makes use of the CDS API to query data for the selected day, add lags and select
+variables used by the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>day</strong> (<em>str</em>) – for example ‘2020-05-05’</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyro_risks.pipeline.predict.PyroRisk.predict">
+<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'France'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves a prediction for the specified day.</p>
+<p>Note that predictions on fwi and era5land data queried from CDS API will return 93 departments
+instead of 96 for France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>day</strong> (<em>str</em>) – like ‘2020-05-05’</p></li>
+<li><p><strong>country</strong> (<em>str</em><em>, </em><em>optional</em>) – Defaults to ‘France’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>keys are departements, values dictionaries whose keys are score and explainability
+and values probability predictions for label 1 (fire) and feature contributions to predictions
+respectively</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../overview/CONTRIBUTING.html" class="btn btn-neutral float-right" title="Contributing to Pyro-Risks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="evaluate.html" class="btn btn-neutral float-left" title="Evaluate module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

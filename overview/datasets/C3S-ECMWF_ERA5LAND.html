@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>C3S ECMWF - ERA5-Land &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyro_risks.datasets" href="../../modules/datasets/modules.html" />
+    <link rel="prev" title="C3S ECMWF - ERA5T" href="C3S-ECMWF_ERA5T.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CEMS-ECMWF_FDI.html">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/datasets/modules.html">pyro_risks.datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pipeline/modules.html">pyro_risks.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/predict.html">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>C3S ECMWF - ERA5-Land</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/overview/datasets/C3S-ECMWF_ERA5LAND.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="c3s-ecmwf-era5-land">
+<h1>C3S ECMWF - ERA5-Land<a class="headerlink" href="#c3s-ecmwf-era5-land" title="Permalink to this headline">¶</a></h1>
+<p><img alt="" src="https://climate.copernicus.eu/sites/default/files/inline-images/AnimatedFigure.gif" />
+<em>The resolution enhancement for daily surface temperature: typical climate model 2°x2°, ERA5 0.25°x0.25 and ERA-Land 0.1°x0.1°. <a class="reference external" href="https://climate.copernicus.eu/high-resolution-climate-projections">Credit: Copernicus Climate Change Service/ECMWF</a></em></p>
+<!--Soil temperatures in ERA-Interim, ERA5 and ERA5-Land. The charts show soil temperature of the top 7 cm of soil at 12 UTC on 15 March 2010 according to ERA-Interim (79 km grid spacing, left), ERA5 (31 km grid spacing, middle), and ERA5-Land (9 km grid spacing, right). (Credit: Copernicus Climate Change Service, ECMWF)-->
+<p>The ERA5-Land is a reanalysis dataset consistent with atmospheric data from the ERA5 reanalysis from 1950 onward. The ERA5-Land is produced by the European Center for Medium Range Weather Forecast (ECMWF) and distributed by the Copernicus Climate Change Service (C3S).</p>
+<p>The ERA5-Land dataset provides global, hourly, historic and high-resolution (9 km) land-focused information for a more accurate representation of water and energy cycles. ERA5-Land is <strong>updated monthly</strong> with a <strong>delay of about three months relatively to actual date</strong>.</p>
+<!--https://climate.copernicus.eu/copernicus-releases-new-dataset-land-observation-->
+<div class="section" id="technical-background">
+<h2>Technical Background<a class="headerlink" href="#technical-background" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><em>“Climate reanalyses combine past observations with models to generate consistent time series of multiple climate variables. Reanalyses are among the most-used datasets in the geophysical sciences. They provide a comprehensive description of the observed climate as it has evolved during recent decades, on 3D grids at sub-daily intervals.“ <a class="reference external" href="https://climate.copernicus.eu/climate-reanalysis">Copenicus Climate Change Services</a></em></p>
+</div></blockquote>
+<p>ECMWF short introductions to numerical weather prediction can be found in the following articles:</p>
+<ul class="simple">
+<li><p><em><a class="reference external" href="https://www.ecmwf.int/en/research/climate-reanalysis">Climate Reanalysis</a></em></p></li>
+<li><p><em><a class="reference external" href="https://www.ecmwf.int/en/research/data-assimilation">Data Assimilation</a></em></p></li>
+<li><p><em><a class="reference external" href="https://www.ecmwf.int/en/research/modelling-and-prediction">Modeling and Prediction</a></em></p></li>
+</ul>
+</div>
+<div class="section" id="downloading-dataset">
+<h2>Downloading Dataset<a class="headerlink" href="#downloading-dataset" title="Permalink to this headline">¶</a></h2>
+<p><em><strong>Copernicus Climate Data Store (CDS):</strong></em> You can access the ERA5-Land dataset via the Climate Data Store <a class="reference external" href="https://doi.org/10.24381/cds.e2161bac">ERA5-Land hourly data from 1981 to present</a> page.</p>
+<p><strong>ERA5T dataset used in Pyro-Risks Training</strong></p>
+<!--TODO PRECISIONS ON THE EXACT DATASET USED FOR TRAINING (temporal coverage and date of download)-->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyro_risks.datasets</span> <span class="kn">import</span> <span class="n">ERA5Land</span>
+<span class="n">era_land</span> <span class="o">=</span> <span class="n">ERA5Land</span><span class="p">()</span>
+</pre></div>
+</div>
+<!--PRECISIONS ON THE EXACT DATASET USED FOR TRAINING-->
+</div>
+<div class="section" id="datasets-descriptions">
+<h2>Datasets Descriptions<a class="headerlink" href="#datasets-descriptions" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>DATA DESCRIPTION</p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Data type</p></td>
+<td><p>Gridded</p></td>
+</tr>
+<tr class="row-odd"><td><p>Horizontal coverage</p></td>
+<td><p>Global</p></td>
+</tr>
+<tr class="row-even"><td><p>Horizontal resolution</p></td>
+<td><p>0.1°x0.1°; Native resolution is 9 km.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vertical coverage</p></td>
+<td><p>From 2 m above the surface level, to a soil depth of 289 cm.</p></td>
+</tr>
+<tr class="row-even"><td><p>Vertical resolution</p></td>
+<td><p>4 levels of the ECMWF surface model: Layer 1: 0 -7cm,<br>Layer 2: 7 -28cm, Layer 3: 28-100cm, Layer 4: 100-289cm <br>Some parameters are defined at 2 m over the surface.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Temporal coverage</p></td>
+<td><p>January 1981 to present</p></td>
+</tr>
+<tr class="row-even"><td><p>Temporal resolution</p></td>
+<td><p>Hourly</p></td>
+</tr>
+<tr class="row-odd"><td><p>File format</p></td>
+<td><p>GRIB</p></td>
+</tr>
+<tr class="row-even"><td><p>Update frequency</p></td>
+<td><p>Monthly with a delay of about three months relatively to actual date.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Full description of the dataset variables is available on the Copernicus Climate Data Store <a class="reference external" href="https://doi.org/10.24381/cds.e2161bac">ERA5-Land hourly data from 1981 to present</a> page. Further descriptions on the ERA5-Land dataset can be found in the ECMWF <a class="reference external" href="https://confluence.ecmwf.int/display/CKB/ERA5-Land%3A+data+documentation">ERA5-Land online documentation</a>.</p>
+</div>
+<div class="section" id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
+<p>We acknowledge the use of data generated using Copernicus Climate Change Service information 2020.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../modules/datasets/modules.html" class="btn btn-neutral float-right" title="pyro_risks.datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="C3S-ECMWF_ERA5T.html" class="btn btn-neutral float-left" title="C3S ECMWF - ERA5T" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

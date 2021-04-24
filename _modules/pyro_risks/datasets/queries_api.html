@@ -1,0 +1,759 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyro_risks.datasets.queries_api &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/datasets/modules.html">pyro_risks.datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/pipeline/modules.html">pyro_risks.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/predict.html">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyro_risks.datasets.queries_api</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyro_risks.datasets.queries_api</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2021, Pyronear contributors.</span>
+
+<span class="c1"># This program is licensed under the GNU Affero General Public License version 3.</span>
+<span class="c1"># See LICENSE or go to &lt;https://www.gnu.org/licenses/agpl-3.0.txt&gt; for full license details.</span>
+
+<span class="kn">import</span> <span class="nn">cdsapi</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">urllib3</span>
+
+<span class="kn">from</span> <span class="nn">pyro_risks</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">cfg</span>
+
+
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InsecureRequestWarning</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;uvicorn.info&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="call_era5land"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.queries_api.call_era5land">[docs]</a><span class="k">def</span> <span class="nf">call_era5land</span><span class="p">(</span><span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Call cdpaspi to get ERA5Land data as file nc format for given date.</span>
+
+<span class="sd">    By default &quot;time&quot; = &quot;14:00&quot;. It is not an issue since we get these ERA5 Land data</span>
+<span class="sd">    with a 2 months delay.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_path: str</span>
+<span class="sd">        year: str</span>
+<span class="sd">        month: str</span>
+<span class="sd">        day: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;era5land_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.nc&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using cached </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cdsapi</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_URL</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_UID</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_API_KEY</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">c</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span>
+        <span class="s2">&quot;reanalysis-era5-land&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;10m_u_component_of_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;10m_v_component_of_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2m_dewpoint_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2m_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;evaporation_from_bare_soil&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;evaporation_from_open_water_surfaces_excluding_oceans&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;evaporation_from_the_top_of_canopy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;evaporation_from_vegetation_transpiration&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;forecast_albedo&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_bottom_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_ice_depth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_ice_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_mix_layer_depth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_mix_layer_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_shape_factor&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_total_layer_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;leaf_area_index_high_vegetation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;leaf_area_index_low_vegetation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;potential_evaporation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;runoff&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;skin_reservoir_content&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;skin_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_albedo&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_density&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_depth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_depth_water_equivalent&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_evaporation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snowfall&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snowmelt&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_3&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_4&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sub_surface_runoff&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_latent_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_net_solar_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_net_thermal_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_pressure&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_runoff&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_sensible_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_solar_radiation_downwards&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_thermal_radiation_downwards&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;temperature_of_snow_layer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_evaporation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_precipitation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_3&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_4&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+            <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">month</span><span class="p">,</span>
+            <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">day</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;14:00&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;area&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="mi">51</span><span class="p">,</span>
+                <span class="o">-</span><span class="mi">6</span><span class="p">,</span>
+                <span class="mi">41</span><span class="p">,</span>
+                <span class="mi">10</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;netcdf&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">file_path</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="call_era5t"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.queries_api.call_era5t">[docs]</a><span class="k">def</span> <span class="nf">call_era5t</span><span class="p">(</span><span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Call cdpaspi to get ERA5T data as file nc format for given date.</span>
+
+<span class="sd">    Most recent available data is Day -5.</span>
+<span class="sd">    By default &quot;time&quot; = &quot;14:00&quot;. It is not an issue since we get these ERA5T data</span>
+<span class="sd">    with a 5 days delay.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_path: str</span>
+<span class="sd">        year: str</span>
+<span class="sd">        month: str</span>
+<span class="sd">        day: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;era5t_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.nc&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using cached </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cdsapi</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_URL</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_UID</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_API_KEY</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">c</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span>
+        <span class="s2">&quot;reanalysis-era5-single-levels&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;product_type&quot;</span><span class="p">:</span> <span class="s2">&quot;reanalysis&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;100m_u_component_of_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;100m_v_component_of_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;10m_u_component_of_neutral_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;10m_u_component_of_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;10m_v_component_of_neutral_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;10m_v_component_of_wind&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;10m_wind_gust_since_previous_post_processing&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2m_dewpoint_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2m_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;air_density_over_the_oceans&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;altimeter_corrected_wave_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;altimeter_range_relative_correction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;altimeter_wave_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;angle_of_sub_gridscale_orography&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;anisotropy_of_sub_gridscale_orography&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;benjamin_feir_index&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;boundary_layer_dissipation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;boundary_layer_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;charnock&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;clear_sky_direct_solar_radiation_at_surface&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cloud_base_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;coefficient_of_drag_with_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;convective_available_potential_energy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;convective_inhibition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;convective_precipitation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;convective_rain_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;convective_snowfall&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;convective_snowfall_rate_water_equivalent&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;downward_uv_radiation_at_the_surface&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;duct_base_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;eastward_gravity_wave_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;eastward_turbulent_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;evaporation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;forecast_albedo&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;forecast_logarithm_of_surface_roughness_for_heat&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;forecast_surface_roughness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;free_convective_velocity_over_the_oceans&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;friction_velocity&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gravity_wave_dissipation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;high_cloud_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;high_vegetation_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ice_temperature_layer_1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ice_temperature_layer_2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ice_temperature_layer_3&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ice_temperature_layer_4&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;instantaneous_10m_wind_gust&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;instantaneous_eastward_turbulent_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;instantaneous_large_scale_surface_precipitation_fraction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;instantaneous_moisture_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;instantaneous_northward_turbulent_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;instantaneous_surface_sensible_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;k_index&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_bottom_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_depth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_ice_depth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_ice_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_mix_layer_depth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_mix_layer_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_shape_factor&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lake_total_layer_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;land_sea_mask&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;large_scale_precipitation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;large_scale_precipitation_fraction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;large_scale_rain_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;large_scale_snowfall&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;large_scale_snowfall_rate_water_equivalent&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;leaf_area_index_high_vegetation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;leaf_area_index_low_vegetation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;low_cloud_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;low_vegetation_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;maximum_2m_temperature_since_previous_post_processing&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;maximum_individual_wave_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;maximum_total_precipitation_rate_since_previous_post_processing&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_boundary_layer_dissipation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_convective_precipitation_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_convective_snowfall_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_direction_of_total_swell&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_direction_of_wind_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_eastward_gravity_wave_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_eastward_turbulent_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_evaporation_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_gravity_wave_dissipation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_large_scale_precipitation_fraction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_large_scale_precipitation_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_large_scale_snowfall_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_northward_gravity_wave_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_northward_turbulent_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_period_of_total_swell&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_period_of_wind_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_potential_evaporation_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_runoff_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_sea_level_pressure&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_snow_evaporation_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_snowfall_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_snowmelt_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_square_slope_of_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_sub_surface_runoff_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_direct_short_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_direct_short_wave_radiation_flux_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_downward_long_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_downward_long_wave_radiation_flux_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_downward_short_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_downward_short_wave_radiation_flux_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_downward_uv_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_latent_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_net_long_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_net_long_wave_radiation_flux_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_net_short_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_net_short_wave_radiation_flux_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_runoff_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_surface_sensible_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_top_downward_short_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_top_net_long_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_top_net_long_wave_radiation_flux_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_top_net_short_wave_radiation_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_top_net_short_wave_radiation_flux_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_total_precipitation_rate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_vertical_gradient_of_refractivity_inside_trapping_layer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_vertically_integrated_moisture_divergence&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_direction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_direction_of_first_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_direction_of_second_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_direction_of_third_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_based_on_first_moment&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_based_on_first_moment_for_swell&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_based_on_first_moment_for_wind_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_based_on_second_moment_for_swell&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_based_on_second_moment_for_wind_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_of_first_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_of_second_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_wave_period_of_third_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mean_zero_crossing_wave_period&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;medium_cloud_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;minimum_2m_temperature_since_previous_post_processing&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;minimum_total_precipitation_rate_since_previous_post_processing&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;minimum_vertical_gradient_of_refractivity_inside_trapping_layer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;model_bathymetry&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;near_ir_albedo_for_diffuse_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;near_ir_albedo_for_direct_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;normalized_energy_flux_into_ocean&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;normalized_energy_flux_into_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;normalized_stress_into_ocean&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;northward_gravity_wave_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;northward_turbulent_surface_stress&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ocean_surface_stress_equivalent_10m_neutral_wind_direction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ocean_surface_stress_equivalent_10m_neutral_wind_speed&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;orography&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;peak_wave_period&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;period_corresponding_to_maximum_individual_wave_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;potential_evaporation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;precipitation_type&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;runoff&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sea_ice_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sea_surface_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;significant_height_of_combined_wind_waves_and_swell&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;significant_height_of_total_swell&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;significant_height_of_wind_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;significant_wave_height_of_first_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;significant_wave_height_of_second_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;significant_wave_height_of_third_swell_partition&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;skin_reservoir_content&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;skin_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;slope_of_sub_gridscale_orography&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_albedo&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_density&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_depth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snow_evaporation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snowfall&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snowmelt&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_3&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_temperature_level_4&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;soil_type&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;standard_deviation_of_filtered_subgrid_orography&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;standard_deviation_of_orography&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sub_surface_runoff&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_latent_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_net_solar_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_net_solar_radiation_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_net_thermal_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_net_thermal_radiation_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_pressure&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_runoff&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_sensible_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_solar_radiation_downward_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_solar_radiation_downwards&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_thermal_radiation_downward_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;surface_thermal_radiation_downwards&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;temperature_of_snow_layer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;toa_incident_solar_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;top_net_solar_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;top_net_solar_radiation_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;top_net_thermal_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;top_net_thermal_radiation_clear_sky&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_cloud_cover&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_cloud_ice_water&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_cloud_liquid_water&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_ozone&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_rain_water&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_snow_water&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_supercooled_liquid_water&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_water&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_column_water_vapour&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_precipitation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_sky_direct_solar_radiation_at_surface&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;total_totals_index&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;trapping_layer_base_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;trapping_layer_top_height&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type_of_high_vegetation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type_of_low_vegetation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;u_component_stokes_drift&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;uv_visible_albedo_for_diffuse_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;uv_visible_albedo_for_direct_radiation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;v_component_stokes_drift&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_cloud_frozen_water_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_cloud_liquid_water_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_geopotential_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_kinetic_energy_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_mass_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_moisture_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_ozone_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_thermal_energy_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_divergence_of_total_energy_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_cloud_frozen_water_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_cloud_liquid_water_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_geopotential_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_kinetic_energy_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_mass_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_ozone_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_total_energy_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_eastward_water_vapour_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_energy_conversion&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_kinetic_energy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_mass_of_atmosphere&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_mass_tendency&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_cloud_frozen_water_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_cloud_liquid_water_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_geopotential_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_heat_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_kinetic_energy_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_mass_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_ozone_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_total_energy_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_northward_water_vapour_flux&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_potential_and_internal_energy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_potential_internal_and_latent_energy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_temperature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_thermal_energy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertical_integral_of_total_energy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;vertically_integrated_moisture_divergence&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_3&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;volumetric_soil_water_layer_4&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;wave_spectral_directional_width&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;wave_spectral_directional_width_for_swell&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;wave_spectral_directional_width_for_wind_waves&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;wave_spectral_kurtosis&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;wave_spectral_peakedness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;wave_spectral_skewness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;zero_degree_level&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+            <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">month</span><span class="p">,</span>
+            <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">day</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;14:00&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;area&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="mi">51</span><span class="p">,</span>
+                <span class="o">-</span><span class="mi">6</span><span class="p">,</span>
+                <span class="mi">41</span><span class="p">,</span>
+                <span class="mi">10</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;netcdf&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">file_path</span><span class="p">,</span>
+    <span class="p">)</span></div>
+    <span class="c1"># TODO : take only needed variables for the model</span>
+
+
+<div class="viewcode-block" id="call_fwi"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.queries_api.call_fwi">[docs]</a><span class="k">def</span> <span class="nf">call_fwi</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get data from Fire danger indices historical data from the Copernicus Climate Data Store.</span>
+
+<span class="sd">    Information on FWI can be found here:</span>
+<span class="sd">    https://datastore.copernicus-climate.eu/c3s/published-forms/c3sprod/cems-fire-historical/Fire_In_CDS.pdf</span>
+
+<span class="sd">    Please follow the instructions before using the CDS API: https://cds.climate.copernicus.eu/api-how-to</span>
+<span class="sd">    Most recent available data is Day -2</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_path: str</span>
+<span class="sd">        year: str</span>
+<span class="sd">        month: str</span>
+<span class="sd">        day: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;fwi_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using cached </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cdsapi</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_URL</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_UID</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">CDS_API_KEY</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">c</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span>
+        <span class="s2">&quot;cems-fire-historical&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;zip&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;Intermediate dataset&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+            <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">month</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;build_up_index&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;danger_risk&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;drought_code&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;duff_moisture_code&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fine_fuel_moisture_code&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fire_daily_severity_rating&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fire_weather_index&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;initial_fire_spread_index&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;product_type&quot;</span><span class="p">:</span> <span class="s2">&quot;reanalysis&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">day</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">file_path</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

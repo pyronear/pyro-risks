@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NASA FIRMS - Active Fire &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CEMS ECMWF - Fire Danger Indices" href="CEMS-ECMWF_FDI.html" />
+    <link rel="prev" title="Package installation" href="../README.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CEMS-ECMWF_FDI.html">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CEMS-ECMWF_FDI.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/datasets/modules.html">pyro_risks.datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pipeline/modules.html">pyro_risks.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/predict.html">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>NASA FIRMS - Active Fire</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nasa-firms-active-fire">
+<h1>NASA FIRMS - Active Fire<a class="headerlink" href="#nasa-firms-active-fire" title="Permalink to this headline">¶</a></h1>
+<p><img alt="" src="https://cdn.earthdata.nasa.gov/conduit/upload/11755/FIRMS.jpg" /></p>
+<p>NASA’s Fire Information for Resource Management System (FIRMS) distributes Near Real-Time (NRT) <strong>Active Fire Data</strong> within 3 hours of satellite observation from NASA’s Moderate Resolution Imaging Spectroradiometer (MODIS) and NASA’s Visible Infrared Imaging Radiometer Suite (VIIRS).</p>
+<p>The European Forest Fire Information System (EFFIS) uses and redistributes the <strong>Active Fire Data</strong> provided by the NASA FIRMS.</p>
+<div class="section" id="technical-background">
+<h2>Technical Background<a class="headerlink" href="#technical-background" title="Permalink to this headline">¶</a></h2>
+<p>The algorithms used by the MODIS and VIIRS instruments detect active fires on the basis of the thermal anomalies they produce. The contextual algorithms compare the temperature of a potential fire with the temperature of the land cover around it. If the difference in temperature is above a given threshold, the potential fire is confirmed as an active fire or “hot spot”.</p>
+<p>A complete description of the MODIS and VIIRS algorithms can be found in the following articles:</p>
+<ul class="simple">
+<li><p><em><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0034425703001846?via%3Dihub">Giglio, Louis, et al. “An enhanced contextual fire detection algorithm for MODIS.
+<br>Remote sensing of environment 87.2-3 (2003): 273-282.</a></em></p></li>
+<li><p><em><a class="reference external" href="https://cdn.earthdata.nasa.gov/conduit/upload/4681/Schroeder_et_al_2014b_RSE.pdf">Schroeder, Wilfrid, et al. “The New VIIRS 375 m active fire detection data product:
+Algorithm description and initial assessment.” Remote Sensing of Environment 143 (2014): 85-96.</a></em></p></li>
+</ul>
+</div>
+<div class="section" id="downloading-datasets">
+<h2>Downloading Datasets<a class="headerlink" href="#downloading-datasets" title="Permalink to this headline">¶</a></h2>
+<p><em><strong>NASA FIRMS:</strong></em></p>
+<ul class="simple">
+<li><p>You can download MODIS and VIIRS Active Fire Data for the last <strong>24, 48 hours and 7 days (.shp, .kml, .csv)</strong> from NASA Fire Information For Resource Management System <a class="reference external" href="https://firms.modaps.eosdis.nasa.gov/active_fire/#firms-txt">here</a>.</p></li>
+<li><p><strong>Archive downloads for active fire/hotspot</strong> information older than the last 7 days are accessible <a class="reference external" href="https://firms.modaps.eosdis.nasa.gov/download/">here</a> (<strong>country yearly summaries</strong>).</p></li>
+</ul>
+<p><em><strong>EFFIS:</strong></em> You can access the Modis and VIIRS Active Fire Data via the EFFIS data request for: <a class="reference external" href="https://effis.jrc.ec.europa.eu/static/data.request.form/">https://effis.jrc.ec.europa.eu/static/data.request.form/</a></p>
+<p><strong>VIIRS dataset used in Pyro-Risks Training</strong></p>
+<!--TODO PRECISIONS ON THE EXACT DATASET USED FOR TRAINING-->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyro_risks.datasets</span> <span class="kn">import</span> <span class="n">NASAFIRMS</span><span class="p">,</span> <span class="n">NASAFIRMS_VIIRS</span>
+<span class="n">viirs</span> <span class="o">=</span> <span class="n">NASAFIRMS_VIIRS</span><span class="p">()</span>
+<span class="n">modis</span> <span class="o">=</span> <span class="n">NASAFIRMS</span><span class="p">()</span>
+</pre></div>
+</div>
+<!--PRECISIONS ON THE EXACT DATASET USED FOR TRAINING-->
+</div>
+<div class="section" id="datasets-descriptions">
+<h2>Datasets Descriptions<a class="headerlink" href="#datasets-descriptions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="viirs-modis-differences">
+<h3>VIIRS MODIS Differences<a class="headerlink" href="#viirs-modis-differences" title="Permalink to this headline">¶</a></h3>
+<p>The spatial resolution of the active fire detection pixel from MODIS is <strong>1 km</strong>. The VIIRS active fire products provides an improved spatial resolution, as compared to MODIS. The spatial resolution of the active fire detection pixel for VIIRS is <strong>375 m</strong>. Additionally, <strong>VIIRS is able to detect smaller fires and can help delineate perimeters of ongoing large fires</strong>. Additional information on the MODIS and VIIRS Active Fire products is available here (<a class="reference external" href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/firms/c6-mcd14dl">MCD14DL</a>, <a class="reference external" href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/firms/v1-vnp14imgt">VNP14IMGTDL_NRT</a>).</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Datasets</p></th>
+<th class="text-align:center head"><p>Availability</p></th>
+<th class="text-align:center head"><p>Update<br>Frequency</p></th>
+<th class="text-align:center head"><p>Temporal<br>Coverage</p></th>
+<th class="text-align:center head"><p>Revisit</p></th>
+<th class="text-align:center head"><p>Spatial <br>Resolution</p></th>
+<th class="text-align:center head"><p>Spatial <br>Coverage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>MODIS C6<br>STANDARD</p></td>
+<td class="text-align:center"><p>2-3 month</p></td>
+<td class="text-align:center"><p>X</p></td>
+<td class="text-align:center"><p>November 2000<br>-<br>Present</p></td>
+<td class="text-align:center"><p>~4-6 hours</p></td>
+<td class="text-align:center"><p>1 km</p></td>
+<td class="text-align:center"><p>Global</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>VIIRS 375 m<br>(S-NPP) <br>STANDARD</p></td>
+<td class="text-align:center"><p>2-3 month</p></td>
+<td class="text-align:center"><p>X</p></td>
+<td class="text-align:center"><p>January 2012<br>-<br>Present</p></td>
+<td class="text-align:center"><p>~4-6 hours</p></td>
+<td class="text-align:center"><p>375 m</p></td>
+<td class="text-align:center"><p>Global</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>VIIRS 375 m<br>(NOAA-20)<br>STANDARD</p></td>
+<td class="text-align:center"><p>2-3 month</p></td>
+<td class="text-align:center"><p>X</p></td>
+<td class="text-align:center"><p>January 2020<br>-<br>Present</p></td>
+<td class="text-align:center"><p>~4-6 hours</p></td>
+<td class="text-align:center"><p>375 m</p></td>
+<td class="text-align:center"><p>Global</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>MODIS C6<br>NRT</p></td>
+<td class="text-align:center"><p>~3 hours</p></td>
+<td class="text-align:center"><p>~6 hours</p></td>
+<td class="text-align:center"><p>November 2000<br>-<br>Present</p></td>
+<td class="text-align:center"><p>~4-6 hours</p></td>
+<td class="text-align:center"><p>1 km</p></td>
+<td class="text-align:center"><p>Global</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>VIIRS 375 m<br>(S-NPP)<br>NRT</p></td>
+<td class="text-align:center"><p>~3 hours</p></td>
+<td class="text-align:center"><p>~6 hours</p></td>
+<td class="text-align:center"><p>January 2012<br>-<br>Present</p></td>
+<td class="text-align:center"><p>~4-6 hours</p></td>
+<td class="text-align:center"><p>375 m</p></td>
+<td class="text-align:center"><p>Global</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>VIIRS 375 m<br>(NOAA-20)<br>NRT</p></td>
+<td class="text-align:center"><p>~3 hours</p></td>
+<td class="text-align:center"><p>~6 hours</p></td>
+<td class="text-align:center"><p>January 2020<br>-<br>Present</p></td>
+<td class="text-align:center"><p>~4-6 hours</p></td>
+<td class="text-align:center"><p>375 m</p></td>
+<td class="text-align:center"><p>Global</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="viirs-nrt-attribute-fields">
+<h3>VIIRS NRT Attribute Fields<a class="headerlink" href="#viirs-nrt-attribute-fields" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Attribute</p></th>
+<th class="text-align:center head"><p>Short Description</p></th>
+<th class="head"><p>Long Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>Latitude</p></td>
+<td class="text-align:center"><p>Latitude</p></td>
+<td><p>Center of nominal 375 m fire pixel</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Longitude</p></td>
+<td class="text-align:center"><p>Longitude</p></td>
+<td><p>Center of nominal 375 m fire pixel</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Bright_ti4</p></td>
+<td class="text-align:center"><p>Brightness <br>temperature I-4</p></td>
+<td><p>VIIRS I-4 channel brightness temperature <br>of the fire pixel measured in Kelvin.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Scan</p></td>
+<td class="text-align:center"><p>Along Scan pixel size</p></td>
+<td><p>The algorithm produces approximately 375 m <br>pixels at nadir. Scan and track reflect <br>actual pixel size.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Track</p></td>
+<td class="text-align:center"><p>Along Track pixel size</p></td>
+<td><p>The algorithm produces approximately 375 m <br>pixels at nadir. Scan and track reflect <br>actual pixel size.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Acq_Date</p></td>
+<td class="text-align:center"><p>Acquisition Date</p></td>
+<td><p>Date of VIIRS acquisition.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Acq_Time</p></td>
+<td class="text-align:center"><p>Acquisition Time</p></td>
+<td><p>Time of acquisition/overpass of the satellite<br>(in UTC).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Satellite</p></td>
+<td class="text-align:center"><p>Satellite</p></td>
+<td><p>N= Suomi National Polar-orbiting Partnership <br>(Suomi NPP)</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Confidence</p></td>
+<td class="text-align:center"><p>Confidence</p></td>
+<td><p>This value is based on a collection of intermediate <br>algorithm quantities used in the detection process. <br>It is intended to help users gauge the quality of <br>individual hotspot/fire pixels.<br><br>Confidence values are set to low, nominal and high.<br>Low confidence daytime fire pixels are typically <br>associated with areas of sun glint and lower relative<br>temperature anomaly (&lt;15K) in the mid-infrared <br>channel I4. Nominal confidence pixels are those free <br>of potential sun glint contamination during the day <br>and marked by strong (&gt;15K) temperature anomaly in <br>either day or nighttime data. High confidence fire <br>pixels are associated with day or nighttime saturated <br>pixels.<br><br>Please note: Low confidence nighttime pixels occur only<br>over the geographic area extending from 11° E to 110° W <br>and 7° N to 55° S. This area describes the region of <br>influence of the South Atlantic Magnetic Anomaly which <br>can cause spurious brightness temperatures in the <br>mid-infrared channel I4 leading to potential false <br>positive alarms. These have been removed from the NRT <br>data distributed by FIRMS.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Version</p></td>
+<td class="text-align:center"><p>Version <br>(Collection and source)</p></td>
+<td><p>Version identifies the collection (e.g. VIIRS Collection 1) <br>and source of data processing: Near Real-Time (NRT suffix <br>added to collection) or Standard Processing (collection only).<br>1.0NRT - Collection 1 NRT processing.<br>1.0 - Collection 1 Standard processing.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Bright_ti5</p></td>
+<td class="text-align:center"><p>Brightness <br>temperature I-5</p></td>
+<td><p>I-5 Channel brightness temperature of the fire pixel measured<br>in Kelvin.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>FRP</p></td>
+<td class="text-align:center"><p>Fire Radiative Power</p></td>
+<td><p>FRP depicts the pixel-integrated fire radiative power in <br>MW (megawatts). Given the unique spatial and spectral <br>resolution of the data, the VIIRS 375 m fire detection <br>algorithm was customized and tuned in order to optimize<br>its response over small fires while balancing the <br>occurrence of false alarms. <br><br>Frequent saturation of the mid-infrared I4 channel <br>(3.55-3.93 µm) driving the detection of active fires requires<br>additional tests and procedures to avoid pixel classification <br>errors. As a result,sub-pixel fire characterization (e.g.,<br>fire radiative power [FRP] retrieval) is only viable across <br>small and/or low-intensity fires.<br><br>Systematic FRP retrievals are based on a hybrid approach <br>combining 375 and 750 m data. <br><br>In fact, starting in 2015 the algorithm incorporated additional<br>VIIRS channel M13 (3.973-4.128 µm) 750 m data in both <br> aggregated and unaggregated format.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Type*</p></td>
+<td class="text-align:center"><p>Inferred hot spot type</p></td>
+<td><p>0 = presumed vegetation fire<br>1 = active volcano<br>2 = other static land source<br>3 = offshore detection (includes all detections over water)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>DayNight</p></td>
+<td class="text-align:center"><p>Day or Night</p></td>
+<td><p>D= Daytime fire, N= Nighttime fire</p></td>
+</tr>
+</tbody>
+</table>
+<p>*This attribute is only available for VJ114IMGT (standard quality) data (coming soon)</p>
+<p>Full description of the VIIRS dataset is available on the NASA Earth science data platform <a class="reference external" href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/firms/v1-vnp14imgt">VNP14IMGTDL_NRT</a> page.</p>
+</div>
+<div class="section" id="modis-nrt-attribute-fields">
+<h3>MODIS NRT Attribute Fields<a class="headerlink" href="#modis-nrt-attribute-fields" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Attribute</p></th>
+<th class="text-align:center head"><p>Short Description</p></th>
+<th class="text-align:center head"><p>Long Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>Latitude</p></td>
+<td class="text-align:center"><p>Latitude</p></td>
+<td class="text-align:center"><p>Center of 1km fire pixel but not necessarily the <br>actual location of the fire as one or more fires<br>can be detected within the 1km pixel.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Longitude</p></td>
+<td class="text-align:center"><p>Longitude</p></td>
+<td class="text-align:center"><p>Center of 1km fire pixel but not necessarily the <br>actual location of the fire as one or more fires <br>can be detected within the 1km pixel.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Brightness</p></td>
+<td class="text-align:center"><p>Brightness <br>temperature<br>21 (Kelvin)</p></td>
+<td class="text-align:center"><p>Channel 21/22 brightness temperature of the fire<br>pixel measured in Kelvin.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Scan</p></td>
+<td class="text-align:center"><p>Along Scan pixel size</p></td>
+<td class="text-align:center"><p>The algorithm produces 1km fire pixels but MODIS<br>pixels get bigger toward the edge of scan. Scan <br>and track reflect actual pixel size.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Track</p></td>
+<td class="text-align:center"><p>Along Track pixel size</p></td>
+<td class="text-align:center"><p>The algorithm produces 1km fire pixels but MODIS<br>pixels get bigger toward the edge of scan. Scan <br>and track reflect actual pixel size.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Acq_Date</p></td>
+<td class="text-align:center"><p>Acquisition Date</p></td>
+<td class="text-align:center"><p>Data of MODIS acquisition.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Acq_Time</p></td>
+<td class="text-align:center"><p>Acquisition Time</p></td>
+<td class="text-align:center"><p>Time of acquisition/overpass of the satellite <br>(in UTC).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Satellite</p></td>
+<td class="text-align:center"><p>Satellite</p></td>
+<td class="text-align:center"><p>A = Aqua and T = Terra.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Confidence</p></td>
+<td class="text-align:center"><p>Confidence<br>(0-100%)</p></td>
+<td class="text-align:center"><p>This value is based on a collection of intermediate <br>algorithm quantities used in the detection process. <br>It is intended to help users gauge the quality of <br>individual hotspot/fire pixels. <br><br>Confidence estimates range between 0 and 100% <br>and are assigned one of the three fire classes <br>(low-confidence fire, nominal-confidence fire, <br>or high-confidence fire).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Version</p></td>
+<td class="text-align:center"><p>Version<br>(Collection and source)</p></td>
+<td class="text-align:center"><p>Version identifies the collection (e.g. MODIS <br>Collection 6) and source of data processing: <br>Near Real-Time (NRT suffix added to collection) <br>or Standard Processing (collection only).<br><br>”6.0NRT” - Collection 6 NRT processing.<br>”6.0” - Collection 6 Standard processing. <br>Find out more on collections and on the <br>differences between FIRMS data sourced<br>from LANCE FIRMS and University of Maryland.</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Bright_T31</p></td>
+<td class="text-align:center"><p>Brightness<br>temperature 31<br>(Kelvin)</p></td>
+<td class="text-align:center"><p>Channel 31 brightness temperature of the fire pixel<br> measured in Kelvin.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>FRP</p></td>
+<td class="text-align:center"><p>Fire Radiative<br>Power<br>(MW - megawatts)</p></td>
+<td class="text-align:center"><p>Depicts the pixel-integrated fire radiative power <br>in MW (megawatts).</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Type*</p></td>
+<td class="text-align:center"><p>Inferred hot<br>spot type</p></td>
+<td class="text-align:center"><p>0 = presumed vegetation fire<br>1 = active volcano<br>2 = other static land source<br>3 = offshore</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>DayNight</p></td>
+<td class="text-align:center"><p>Day or Night</p></td>
+<td class="text-align:center"><p>D= Daytime fire, N= Nighttime fire</p></td>
+</tr>
+</tbody>
+</table>
+<p>*This attribute is only available for MCD14ML (standard quality) data</p>
+<p>Full description of the MODIS dataset is available on the NASA Earth science data platform <a class="reference external" href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/firms/c6-mcd14dl">MCD14DL</a> page.</p>
+</div>
+</div>
+<div class="section" id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
+<p>Data were provided by the European Forest Fire Information System – EFFIS <a class="reference external" href="https://effis.jrc.ec.europa.eu">(https://effis.jrc.ec.europa.eu)</a> of the European Commission Joint Research Centre.</p>
+<p>We acknowledge the use of data and imagery from LANCE FIRMS operated by NASA’s Earth Science Data and Information System (ESDIS) with funding provided by NASA Headquarters.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="CEMS-ECMWF_FDI.html" class="btn btn-neutral float-right" title="CEMS ECMWF - Fire Danger Indices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../README.html" class="btn btn-neutral float-left" title="Package installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

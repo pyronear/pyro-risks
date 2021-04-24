@@ -1,0 +1,662 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyro_risks.datasets.utils &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/datasets/modules.html">pyro_risks.datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/pipeline/modules.html">pyro_risks.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/predict.html">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyro_risks.datasets.utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyro_risks.datasets.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2021, Pyronear contributors.</span>
+
+<span class="c1"># This program is licensed under the GNU Affero General Public License version 3.</span>
+<span class="c1"># See LICENSE or go to &lt;https://www.gnu.org/licenses/agpl-3.0.txt&gt; for full license details.</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">spatial</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="get_intersection_range"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_intersection_range">[docs]</a><span class="k">def</span> <span class="nf">get_intersection_range</span><span class="p">(</span><span class="n">ts1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">ts2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Computes the intersecting date range of two series.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ts1: time series</span>
+<span class="sd">        ts2: time series</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Time span selection</span>
+    <span class="n">time_range1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ts1</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">ts2</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">time_range2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ts1</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">ts2</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">time_range1</span> <span class="o">&gt;</span> <span class="n">time_range2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Extracts do not have intersecting date range&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">time_range1</span><span class="p">,</span> <span class="n">time_range2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="find_closest_weather_station"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.find_closest_weather_station">[docs]</a><span class="k">def</span> <span class="nf">find_closest_weather_station</span><span class="p">(</span>
+    <span class="n">df_weather</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">latitude</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">longitude</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The weather dataframe SHOULD contain a &quot;STATION&quot; column giving the id of</span>
+<span class="sd">    each weather station in the dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_weather: pd.DataFrame</span>
+<span class="sd">            Dataframe of weather conditions</span>
+<span class="sd">        latitude: float</span>
+<span class="sd">            Latitude of the point to which we want to find the closest</span>
+<span class="sd">            weather station</span>
+<span class="sd">        longitude: float</span>
+<span class="sd">            Longitude of the point to which we want to find the closest</span>
+<span class="sd">            weather station</span>
+
+<span class="sd">    Returns: int</span>
+<span class="sd">        Id of the closest weather station of the point (lat, lon)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;STATION&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df_weather</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;STATION column is missing in given weather dataframe.&quot;</span><span class="p">)</span>
+
+    <span class="n">weather</span> <span class="o">=</span> <span class="n">df_weather</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;STATION&quot;</span><span class="p">,</span> <span class="s2">&quot;LATITUDE&quot;</span><span class="p">,</span> <span class="s2">&quot;LONGITUDE&quot;</span><span class="p">])</span>
+
+    <span class="n">zipped_station_lat_lon</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">weather</span><span class="p">[</span><span class="s2">&quot;STATION&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+        <span class="n">weather</span><span class="p">[</span><span class="s2">&quot;LATITUDE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+        <span class="n">weather</span><span class="p">[</span><span class="s2">&quot;LONGITUDE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="n">list_station_lat_lon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">zipped_station_lat_lon</span><span class="p">)</span>
+
+    <span class="n">reference_station</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">latitude_0</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">longitude_0</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">min_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">latitude</span> <span class="o">-</span> <span class="n">latitude_0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">longitude</span> <span class="o">-</span> <span class="n">longitude_0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weather</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">current_latitude</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">current_longitude</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">current_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">latitude</span> <span class="o">-</span> <span class="n">current_latitude</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">longitude</span> <span class="o">-</span> <span class="n">current_longitude</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">current_distance</span> <span class="o">&lt;</span> <span class="n">min_distance</span><span class="p">:</span>
+            <span class="n">min_distance</span> <span class="o">=</span> <span class="n">current_distance</span>
+            <span class="n">reference_station</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">reference_station</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="find_closest_location"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.find_closest_location">[docs]</a><span class="k">def</span> <span class="nf">find_closest_location</span><span class="p">(</span>
+    <span class="n">df_weather</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">latitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">longitude</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For a given point (`latitude`, `longitude`), get the closest point which exists in `df_weather`.</span>
+<span class="sd">    This function is to be used when the user do not choose to use weather stations data but satellite data</span>
+<span class="sd">    e.g. ERA5 Land variables.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_weather: pd.DataFrame</span>
+<span class="sd">            Dataframe of land/weather conditions</span>
+<span class="sd">        latitude: float</span>
+<span class="sd">            Latitude of the point to which we want to find the closest point in `df_weather`.</span>
+<span class="sd">        longitude: float</span>
+<span class="sd">            Longitude of the point to which we want to find the closest in `df_weather`.</span>
+
+<span class="sd">    Returns: Tuple(float, float)</span>
+<span class="sd">        Tuple of the closest weather point (closest_lat, closest_lon) of the point (lat, lon)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;STATION&quot;</span> <span class="ow">in</span> <span class="n">df_weather</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;STATION is in the columns, should use `find_closest_weather_station`.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">weather</span> <span class="o">=</span> <span class="n">df_weather</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">])</span>
+
+    <span class="n">zipped_points_lat_lon</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">weather</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">weather</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">list_station_lat_lon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">zipped_points_lat_lon</span><span class="p">)</span>
+
+    <span class="n">latitude_0</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">longitude_0</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">reference_point</span> <span class="o">=</span> <span class="p">(</span><span class="n">latitude_0</span><span class="p">,</span> <span class="n">longitude_0</span><span class="p">)</span>
+
+    <span class="n">min_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">latitude</span> <span class="o">-</span> <span class="n">latitude_0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">longitude</span> <span class="o">-</span> <span class="n">longitude_0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weather</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">current_latitude</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">current_longitude</span> <span class="o">=</span> <span class="n">list_station_lat_lon</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">current_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">latitude</span> <span class="o">-</span> <span class="n">current_latitude</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">longitude</span> <span class="o">-</span> <span class="n">current_longitude</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">current_distance</span> <span class="o">&lt;</span> <span class="n">min_distance</span><span class="p">:</span>
+            <span class="n">min_distance</span> <span class="o">=</span> <span class="n">current_distance</span>
+            <span class="n">reference_point</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_latitude</span><span class="p">,</span> <span class="n">current_longitude</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reference_point</span></div>
+
+
+<div class="viewcode-block" id="url_retrieve"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.url_retrieve">[docs]</a><span class="k">def</span> <span class="nf">url_retrieve</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Retrives and pass the content of an URL request.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: URL to request</span>
+<span class="sd">        timeout: number of seconds before the request times out. Defaults to 4.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        requests.exceptions.ConnectionError:</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        Content of the response</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Error code </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> - could not download </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span></div>
+
+
+<div class="viewcode-block" id="get_fname"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_fname">[docs]</a><span class="k">def</span> <span class="nf">get_fname</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Find file name, extension and compression of an archive located by an URL.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: URL of the compressed archive</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: if URL contains more than one extension</span>
+<span class="sd">        ValueError: if URL contains more than one compression format</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple containing the base file name, extension and compression format</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">supported_compressions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tar&quot;</span><span class="p">,</span> <span class="s2">&quot;gz&quot;</span><span class="p">,</span> <span class="s2">&quot;zip&quot;</span><span class="p">]</span>
+    <span class="n">supported_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;shp&quot;</span><span class="p">,</span> <span class="s2">&quot;shx&quot;</span><span class="p">,</span> <span class="s2">&quot;nc&quot;</span><span class="p">]</span>
+
+    <span class="n">archive_name</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">base</span> <span class="o">=</span> <span class="n">archive_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">list_extensions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">supported_extensions</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">archive_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)))</span>
+    <span class="n">list_compressions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">supported_compressions</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">archive_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_extensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_extensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">list_extensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> contains more than one extension&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_compressions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">compression</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_compressions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">compression</span> <span class="o">=</span> <span class="n">list_compressions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_compressions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">compression</span> <span class="o">=</span> <span class="s2">&quot;tar.gz&quot;</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> contains more than one compression format&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">extension</span><span class="p">,</span> <span class="n">compression</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="download"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.download">[docs]</a><span class="k">def</span> <span class="nf">download</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">default_extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">unzip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./tmp&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper function for downloading, unzipping and saving compressed file from a given URL.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: URL of the compressed archive</span>
+<span class="sd">        default_extension: extension of the archive</span>
+<span class="sd">        unzip: whether archive should be unzipped. Defaults to True.</span>
+<span class="sd">        destination: folder where the file should be saved. Defaults to &#39;.&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">base</span><span class="p">,</span> <span class="n">extension</span><span class="p">,</span> <span class="n">compression</span> <span class="o">=</span> <span class="n">get_fname</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">url_retrieve</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">unzip</span> <span class="ow">and</span> <span class="n">compression</span> <span class="o">==</span> <span class="s2">&quot;zip&quot;</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">destination</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">content</span><span class="p">))</span> <span class="k">as</span> <span class="n">zip_file</span><span class="p">:</span>
+            <span class="n">zip_file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">unzip</span> <span class="ow">and</span> <span class="n">compression</span> <span class="o">==</span> <span class="s2">&quot;tar.gz&quot;</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">destination</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fileobj</span><span class="o">=</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r:gz&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tar_file</span><span class="p">:</span>
+            <span class="n">tar_file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">destination</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">unzip</span> <span class="ow">and</span> <span class="n">compression</span> <span class="o">==</span> <span class="s2">&quot;gz&quot;</span><span class="p">:</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="n">extension</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">default_extension</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">full_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">content</span><span class="p">))</span> <span class="k">as</span> <span class="n">gzip_file</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span>
+            <span class="n">full_path</span><span class="p">,</span> <span class="s2">&quot;wb+&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">unzipped_file</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">gzip_file</span><span class="p">,</span> <span class="n">unzipped_file</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">unzip</span> <span class="ow">and</span> <span class="n">compression</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="n">extension</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">default_extension</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">full_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="s2">&quot;wb+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">unzip</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">compression</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">compression</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">full_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="s2">&quot;wb+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If the file is not compressed set unzip to False&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_ghcn"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_ghcn">[docs]</a><span class="k">def</span> <span class="nf">get_ghcn</span><span class="p">(</span>
+    <span class="n">start_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">end_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./ghcn&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download yearly Global Historical Climatology Network - Daily (GHCN-Daily) (.csv) From (NCEI).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start_year: first year to be retrieved. Defaults to None.</span>
+<span class="sd">        end_year: first that will not be retrieved. Defaults to None.</span>
+<span class="sd">        destination: destination directory. Defaults to &#39;./ghcn&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start_year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span> <span class="k">if</span> <span class="n">start_year</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">start_year</span>
+    <span class="n">end_year</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">end_year</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">start_year</span> <span class="o">==</span> <span class="n">end_year</span>
+        <span class="k">else</span> <span class="n">end_year</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_year/</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">.csv.gz&quot;</span>
+        <span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">default_extension</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">unzip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">destination</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_modis"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_modis">[docs]</a><span class="k">def</span> <span class="nf">get_modis</span><span class="p">(</span>
+    <span class="n">start_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">end_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">yearly</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./firms&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download last 24H or yearly France active fires from the FIRMS NASA.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start_year: first year to be retrieved. Defaults to None.</span>
+<span class="sd">        end_year: first that will not be retrieved. Defaults to None.</span>
+<span class="sd">        yearly: whether to download yearly active fires or not. Defaults to False.</span>
+<span class="sd">        destination: destination directory. Defaults to &#39;./firms&#39;.]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">yearly</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">start_year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">start_year</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">start_year</span>
+        <span class="n">end_year</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
+            <span class="k">if</span> <span class="n">end_year</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">start_year</span> <span class="o">==</span> <span class="n">end_year</span>
+            <span class="k">else</span> <span class="n">end_year</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="n">start_year</span> <span class="o">!=</span> <span class="mi">2020</span> <span class="ow">or</span> <span class="n">end_year</span> <span class="o">!=</span> <span class="mi">2021</span>
+            <span class="p">),</span> <span class="s2">&quot;MODIS active fire archives are only available for the years from 2000 to 2019&quot;</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://firms.modaps.eosdis.nasa.gov/data/country/modis/</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">/modis_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_France.csv&quot;</span>
+            <span class="n">download</span><span class="p">(</span>
+                <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">default_extension</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">unzip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">destination</span>
+            <span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">start_year</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;The active fires from the last 24H of the MODIS Satellite will be download.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/MODIS_C6_Europe_24h.csv&quot;</span>
+            <span class="n">download</span><span class="p">(</span>
+                <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">default_extension</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">unzip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">destination</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_nearest_points"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_nearest_points">[docs]</a><span class="k">def</span> <span class="nf">get_nearest_points</span><span class="p">(</span><span class="n">source_points</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">],</span> <span class="n">candidates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find nearest neighbor for all source points from a set of candidate points</span>
+<span class="sd">    using KDTree algorithm.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source_points: List[Tuple]</span>
+<span class="sd">            List of tuples (lat, lon) for which you want to find the closest point in candidates.</span>
+<span class="sd">        candidates: List[Tuple]</span>
+<span class="sd">            List of tuples (lat, lon) which are all possible closest points.</span>
+
+<span class="sd">    Returns: Tuple</span>
+<span class="sd">        indices : array of integers</span>
+<span class="sd">            The locations of the neighbors in candidates.</span>
+<span class="sd">        distances : array of floats</span>
+<span class="sd">            The distances to the nearest neighbors..</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create tree from the candidate points</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">spatial</span><span class="o">.</span><span class="n">cKDTree</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+
+    <span class="c1"># Find closest points and distances</span>
+    <span class="n">distances</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">source_points</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">indices</span><span class="p">,</span> <span class="n">distances</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

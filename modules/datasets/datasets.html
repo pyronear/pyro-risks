@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyro_risks.datasets.datasets_mergers module &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyro_risks.models" href="../models/modules.html" />
+    <link rel="prev" title="BDIFF module" href="bdiff.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/CEMS-ECMWF_FDI.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/datasets/C3S-ECMWF_ERA5LAND.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyro_risks.datasets</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pipeline/modules.html">pyro_risks.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pipeline/load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipeline/train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipeline/evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipeline/predict.html">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview/CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview/CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview/CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">pyro_risks.datasets</a> &raquo;</li>
+        
+      <li>pyro_risks.datasets.datasets_mergers module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/modules/datasets/datasets.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyro_risks.datasets.datasets_mergers">
+<span id="pyro-risks-datasets-datasets-mergers-module"></span><h1>pyro_risks.datasets.datasets_mergers module<a class="headerlink" href="#module-pyro_risks.datasets.datasets_mergers" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="pyro_risks.datasets.datasets_mergers.merge_by_proximity">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.datasets_mergers.</span></code><code class="sig-name descname"><span class="pre">merge_by_proximity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_left</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col_left</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_right</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col_right</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/datasets_mergers.html#merge_by_proximity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.datasets_mergers.merge_by_proximity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge df_left and df_right by finding in among all points in df_left, the closest point in df_right.
+For instance, df_left can be a history wildfires dataset and df_right a weather conditions datasets and
+we want to match each wildfire with its closest weather point.
+This can also be used if, for instance, we want to merge FWI dataset (df_left) with ERA5/VIIRS datatset
+(df_right).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_left</strong> – pd.DataFrame
+Left dataframe, must have “latitude” and “longitude” columns.</p></li>
+<li><p><strong>time_col_left</strong> – str
+Name of the time column in <cite>df_left</cite>.</p></li>
+<li><p><strong>df_right</strong> – pd.DataFrame
+Right dataset, must have points described by their latitude and
+longitude.</p></li>
+<li><p><strong>time_col_right</strong> – str
+Name of the time column in <cite>df_right</cite>.</p></li>
+<li><p><strong>how</strong> – str
+How the pandas merge needs to be done.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Merged dataset by point (lat/lon) proximity.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.datasets_mergers.merge_datasets_by_closest_weather_point">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.datasets_mergers.</span></code><code class="sig-name descname"><span class="pre">merge_datasets_by_closest_weather_point</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_weather</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col_weather</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_fires</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col_fires</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/datasets_mergers.html#merge_datasets_by_closest_weather_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.datasets_mergers.merge_datasets_by_closest_weather_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge weather and fire datasets when the weather dataset is provided using satellite
+data such as ERA5 Land hourly dataset provided here
+<a class="reference external" href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land">https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land</a>?tab=form
+and accessible through cdsapi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_weather</strong> – pd.DataFrame
+Weather conditions dataframe, must have “latitude” and “longitude” columns.</p></li>
+<li><p><strong>time_col_weather</strong> – str
+Name of the time column in <cite>df_weather</cite>.</p></li>
+<li><p><strong>df_fires</strong> – pd.DataFrame
+Wildfires history dataset, must have points described by their latitude and
+longitude.</p></li>
+<li><p><strong>time_col_fires</strong> – str
+Name of the time column in <cite>df_fires</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: pd.DataFrame</dt><dd><p>Merged dataset by weather station proximity.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.datasets_mergers.merge_datasets_by_closest_weather_station">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.datasets_mergers.</span></code><code class="sig-name descname"><span class="pre">merge_datasets_by_closest_weather_station</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_weather</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col_weather</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_fires</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col_fires</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/datasets_mergers.html#merge_datasets_by_closest_weather_station"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.datasets_mergers.merge_datasets_by_closest_weather_station" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge two datasets: one of weather conditions and the other of wildfires history data.
+Each dataset must contain a time column, and the weather dataset must have a <cite>STATION</cite>
+column which allows to identify uniquely each station. The merge is done by finding the
+closest weather station to each (lat, lon) point of the wildfires history dataset. The
+latter is then grouped by date and closest_weather_station, which then allows to join it
+with the weather conditions dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_weather</strong> – pd.DataFrame
+Weather conditions dataframe. Must have a <cite>STATION</cite> column to identify each
+weather station.</p></li>
+<li><p><strong>time_col_weather</strong> – str
+Name of the time column in <cite>df_weather</cite>.</p></li>
+<li><p><strong>df_fires</strong> – pd.DataFrame
+Wildfires history dataset, must have points described by their latitude and
+longitude.</p></li>
+<li><p><strong>time_col_fires</strong> – str
+Name of the time column in <cite>df_fires</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: pd.DataFrame</dt><dd><p>Merged dataset by weather station proximity.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.datasets_mergers.merge_datasets_by_departements">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.datasets_mergers.</span></code><code class="sig-name descname"><span class="pre">merge_datasets_by_departements</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry_col1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataframe2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_col2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry_col2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/datasets_mergers.html#merge_datasets_by_departements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.datasets_mergers.merge_datasets_by_departements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge two datasets containing some kind of geometry and date columns.
+The merge is down on [time_col1, time_col2] and [geometry_col1, geometry_col2].
+Here the geometry is based on French departements. Therefore the geometry columns
+should contains either the code on the departement or its geometry (should be
+consistent throughout both datasets).</p>
+<p>Finally the merge is done according to the <cite>how</cite> parameter. Keep me mind that
+this parameter must be so that the merged dataframe keeps similar dimensions to the
+weather dataframe. This is because if there is an inner join, we will keep only the days
+where wildfires were declared. Therefore if the weather dataframe is the left frame, then
+<cite>how</cite> must be left, if it is the right frame, <cite>how</cite> must be right.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe1</strong> – pd.DataFrame
+First dataframe, containing a time column and a geometry one.</p></li>
+<li><p><strong>time_col1</strong> – str
+Name of the time column of dataframe1 on which the merge will be done.</p></li>
+<li><p><strong>geometry_col1</strong> – str
+Name of the geometry column of dataframe1 on which the merge will be done.</p></li>
+<li><p><strong>dataframe2</strong> – pd.DataFrame
+Second dataframe, containing a time column and a geometry one.</p></li>
+<li><p><strong>time_col2</strong> – str
+Name of the time column of dataframe2 on which the merge will be done.</p></li>
+<li><p><strong>geometry_col2</strong> – str
+Name of the geometry column of dataframe2 on which the merge will be done.</p></li>
+<li><p><strong>how</strong> – Parameter of the merge, should correspond to which of the left or right frame
+the weather dataframe is.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: pd.DataFrame</dt><dd><p>Merged dataset on French departement.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyro_risks.datasets.era_fwi_viirs">
+<span id="pyro-risks-datasets-era-fwi-viirs-module"></span><h1>pyro_risks.datasets.era_fwi_viirs module<a class="headerlink" href="#module-pyro_risks.datasets.era_fwi_viirs" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyro_risks.datasets.era_fwi_viirs.MergedEraFwiViirs">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.era_fwi_viirs.</span></code><code class="sig-name descname"><span class="pre">MergedEraFwiViirs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">era_source_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viirs_source_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fwi_source_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/era_fwi_viirs.html#MergedEraFwiViirs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.era_fwi_viirs.MergedEraFwiViirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>Create dataframe for modeling described in models/score_v0.py.</p>
+<p>Get weather, nasafirms viirs fires and fwi datasets, then filter some of the lines corresponding
+to vegetation fires excluding low confidence ones merges. Finally aggregated versions of the
+dataframes by department and by day.
+For each of the features of weather and fwi datasets creates min, max, mean and std.
+Fires are counted for each department and day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyro_risks.datasets.queries_api">
+<span id="pyro-risks-datasets-queries-api-module"></span><h1>pyro_risks.datasets.queries_api module<a class="headerlink" href="#module-pyro_risks.datasets.queries_api" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="pyro_risks.datasets.queries_api.call_era5land">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.queries_api.</span></code><code class="sig-name descname"><span class="pre">call_era5land</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/queries_api.html#call_era5land"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.queries_api.call_era5land" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call cdpaspi to get ERA5Land data as file nc format for given date.</p>
+<p>By default “time” = “14:00”. It is not an issue since we get these ERA5 Land data
+with a 2 months delay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_path</strong> – str</p></li>
+<li><p><strong>year</strong> – str</p></li>
+<li><p><strong>month</strong> – str</p></li>
+<li><p><strong>day</strong> – str</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.queries_api.call_era5t">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.queries_api.</span></code><code class="sig-name descname"><span class="pre">call_era5t</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/queries_api.html#call_era5t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.queries_api.call_era5t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call cdpaspi to get ERA5T data as file nc format for given date.</p>
+<p>Most recent available data is Day -5.
+By default “time” = “14:00”. It is not an issue since we get these ERA5T data
+with a 5 days delay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_path</strong> – str</p></li>
+<li><p><strong>year</strong> – str</p></li>
+<li><p><strong>month</strong> – str</p></li>
+<li><p><strong>day</strong> – str</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.queries_api.call_fwi">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.queries_api.</span></code><code class="sig-name descname"><span class="pre">call_fwi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/queries_api.html#call_fwi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.queries_api.call_fwi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data from Fire danger indices historical data from the Copernicus Climate Data Store.</p>
+<p>Information on FWI can be found here:
+<a class="reference external" href="https://datastore.copernicus-climate.eu/c3s/published-forms/c3sprod/cems-fire-historical/Fire_In_CDS.pdf">https://datastore.copernicus-climate.eu/c3s/published-forms/c3sprod/cems-fire-historical/Fire_In_CDS.pdf</a></p>
+<p>Please follow the instructions before using the CDS API: <a class="reference external" href="https://cds.climate.copernicus.eu/api-how-to">https://cds.climate.copernicus.eu/api-how-to</a>
+Most recent available data is Day -2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_path</strong> – str</p></li>
+<li><p><strong>year</strong> – str</p></li>
+<li><p><strong>month</strong> – str</p></li>
+<li><p><strong>day</strong> – str</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyro_risks.datasets.utils">
+<span id="pyro-risks-datasets-utils-module"></span><h1>pyro_risks.datasets.utils module<a class="headerlink" href="#module-pyro_risks.datasets.utils" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.download">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">download</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_extension</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unzip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'./tmp'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function for downloading, unzipping and saving compressed file from a given URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – URL of the compressed archive</p></li>
+<li><p><strong>default_extension</strong> – extension of the archive</p></li>
+<li><p><strong>unzip</strong> – whether archive should be unzipped. Defaults to True.</p></li>
+<li><p><strong>destination</strong> – folder where the file should be saved. Defaults to ‘.’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.find_closest_location">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">find_closest_location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_weather</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#find_closest_location"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.find_closest_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a given point (<cite>latitude</cite>, <cite>longitude</cite>), get the closest point which exists in <cite>df_weather</cite>.
+This function is to be used when the user do not choose to use weather stations data but satellite data
+e.g. ERA5 Land variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_weather</strong> – pd.DataFrame
+Dataframe of land/weather conditions</p></li>
+<li><p><strong>latitude</strong> – float
+Latitude of the point to which we want to find the closest point in <cite>df_weather</cite>.</p></li>
+<li><p><strong>longitude</strong> – float
+Longitude of the point to which we want to find the closest in <cite>df_weather</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: Tuple(float, float)</dt><dd><p>Tuple of the closest weather point (closest_lat, closest_lon) of the point (lat, lon)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.find_closest_weather_station">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">find_closest_weather_station</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_weather</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#find_closest_weather_station"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.find_closest_weather_station" title="Permalink to this definition">¶</a></dt>
+<dd><p>The weather dataframe SHOULD contain a “STATION” column giving the id of
+each weather station in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_weather</strong> – pd.DataFrame
+Dataframe of weather conditions</p></li>
+<li><p><strong>latitude</strong> – float
+Latitude of the point to which we want to find the closest
+weather station</p></li>
+<li><p><strong>longitude</strong> – float
+Longitude of the point to which we want to find the closest
+weather station</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: int</dt><dd><p>Id of the closest weather station of the point (lat, lon)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.get_fname">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">get_fname</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#get_fname"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.get_fname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find file name, extension and compression of an archive located by an URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> – URL of the compressed archive</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if URL contains more than one extension</p></li>
+<li><p><strong>ValueError</strong> – if URL contains more than one compression format</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A tuple containing the base file name, extension and compression format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.get_ghcn">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">get_ghcn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'./ghcn'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#get_ghcn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.get_ghcn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download yearly Global Historical Climatology Network - Daily (GHCN-Daily) (.csv) From (NCEI).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_year</strong> – first year to be retrieved. Defaults to None.</p></li>
+<li><p><strong>end_year</strong> – first that will not be retrieved. Defaults to None.</p></li>
+<li><p><strong>destination</strong> – destination directory. Defaults to ‘./ghcn’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.get_intersection_range">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">get_intersection_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.indexes.datetimes.DatetimeIndex</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#get_intersection_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.get_intersection_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the intersecting date range of two series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts1</strong> – time series</p></li>
+<li><p><strong>ts2</strong> – time series</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.get_modis">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">get_modis</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yearly</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'./firms'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#get_modis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.get_modis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download last 24H or yearly France active fires from the FIRMS NASA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_year</strong> – first year to be retrieved. Defaults to None.</p></li>
+<li><p><strong>end_year</strong> – first that will not be retrieved. Defaults to None.</p></li>
+<li><p><strong>yearly</strong> – whether to download yearly active fires or not. Defaults to False.</p></li>
+<li><p><strong>destination</strong> – destination directory. Defaults to ‘./firms’.]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.get_nearest_points">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">get_nearest_points</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidates</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#get_nearest_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.get_nearest_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find nearest neighbor for all source points from a set of candidate points
+using KDTree algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_points</strong> – List[Tuple]
+List of tuples (lat, lon) for which you want to find the closest point in candidates.</p></li>
+<li><p><strong>candidates</strong> – List[Tuple]
+List of tuples (lat, lon) which are all possible closest points.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: Tuple</dt><dd><dl class="simple">
+<dt>indices<span class="classifier">array of integers</span></dt><dd><p>The locations of the neighbors in candidates.</p>
+</dd>
+<dt>distances<span class="classifier">array of floats</span></dt><dd><p>The distances to the nearest neighbors..</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyro_risks.datasets.utils.url_retrieve">
+<code class="sig-prename descclassname"><span class="pre">pyro_risks.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">url_retrieve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="reference internal" href="../../_modules/pyro_risks/datasets/utils.html#url_retrieve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.datasets.utils.url_retrieve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrives and pass the content of an URL request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – URL to request</p></li>
+<li><p><strong>timeout</strong> – number of seconds before the request times out. Defaults to 4.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>requests.exceptions.ConnectionError</strong> – </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Content of the response</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../models/modules.html" class="btn btn-neutral float-right" title="pyro_risks.models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bdiff.html" class="btn btn-neutral float-left" title="BDIFF module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

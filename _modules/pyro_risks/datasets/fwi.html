@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyro_risks.datasets.fwi &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/CEMS-ECMWF_FDI.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/datasets/C3S-ECMWF_ERA5LAND.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/datasets/modules.html">pyro_risks.datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/datasets/datasets.html#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/pipeline/modules.html">pyro_risks.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pipeline/predict.html">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview/CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview/CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyro_risks.datasets.fwi</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyro_risks.datasets.fwi</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2021, Pyronear contributors.</span>
+
+<span class="c1"># This program is licensed under the GNU Affero General Public License version 3.</span>
+<span class="c1"># See LICENSE or go to &lt;https://www.gnu.org/licenses/agpl-3.0.txt&gt; for full license details.</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">netCDF4</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">shapely</span> <span class="kn">import</span> <span class="n">geometry</span>
+
+<span class="kn">from</span> <span class="nn">pyro_risks</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">cfg</span>
+<span class="kn">from</span> <span class="nn">pyro_risks.datasets.queries_api</span> <span class="kn">import</span> <span class="n">call_fwi</span>
+<span class="kn">from</span> <span class="nn">pyro_risks.datasets.masks</span> <span class="kn">import</span> <span class="n">get_french_geom</span>
+
+
+<div class="viewcode-block" id="load_data"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.load_data">[docs]</a><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load FWI zipped data from github repo and unzip data in folder output_path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_path (str): absolute, relative or temporary path</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">FR_FWI_2019_FALLBACK</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;fwi_folder.zip&quot;</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="n">file</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;fwi_folder.zip&quot;</span><span class="p">))</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;fwi_unzipped&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="include_department"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.include_department">[docs]</a><span class="k">def</span> <span class="nf">include_department</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">polygons_json</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Given a row of a dataframe containing longitude and latitude returns name of french department.</span>
+
+<span class="sd">    This function makes use of shapely to return if a polygon contains a point.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        row (pd.Series): row of dataframe</span>
+<span class="sd">        polygons_json (json): json with polygons of the departments</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: name of department or empty string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i_dep</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">polygons_json</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">])):</span>
+        <span class="n">geom</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">polygons_json</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="n">i_dep</span><span class="p">][</span><span class="s2">&quot;geometry&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">geom</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">Point</span><span class="p">((</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]))):</span>
+            <span class="k">return</span> <span class="n">polygons_json</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="n">i_dep</span><span class="p">][</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;nom&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="get_fwi_from_api"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.get_fwi_from_api">[docs]</a><span class="k">def</span> <span class="nf">get_fwi_from_api</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Call the CDS API and return all fwi variables as a dataframe with geo coordinates and departments.</span>
+
+<span class="sd">    When calling the API we get a zip file that must be extracted (in a tmp directory), then handle</span>
+<span class="sd">    each queried variable which is in a separate netcdf file. A dataframe is created with all the variables</span>
+<span class="sd">    and then finally we join codes and departments with geopandas.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        date (str)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+    <span class="n">date_concat</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="n">call_fwi</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+
+        <span class="n">file</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;fwi_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="p">))</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;fwi_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+
+        <span class="n">df0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({})</span>
+        <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;BUI&quot;</span><span class="p">,</span> <span class="s2">&quot;DC&quot;</span><span class="p">,</span> <span class="s2">&quot;DMC&quot;</span><span class="p">,</span> <span class="s2">&quot;DSR&quot;</span><span class="p">,</span> <span class="s2">&quot;FFMC&quot;</span><span class="p">,</span> <span class="s2">&quot;FWI&quot;</span><span class="p">,</span> <span class="s2">&quot;ISI&quot;</span><span class="p">]:</span>
+            <span class="n">var_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">tmp</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;fwi_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">/ECMWF_FWI_</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">date_concat</span><span class="si">}</span><span class="s2">_1200_hr_v3.1_int.nc&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">nc</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">var_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+            <span class="n">lats</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">][:]</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()][:]</span>
+            <span class="n">nc</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mf">180.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+            <span class="n">var_cyclic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span> <span class="mi">720</span><span class="p">:],</span> <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span> <span class="p">:</span><span class="mi">721</span><span class="p">]])</span>
+            <span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="n">lat2d</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                    <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="n">lon2d</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                    <span class="n">var_name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">var_cyclic</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">var_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()])</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">var_name</span> <span class="o">==</span> <span class="s2">&quot;BUI&quot;</span><span class="p">:</span>
+                <span class="n">df0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df0</span><span class="p">,</span> <span class="n">df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">df0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df0</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+    <span class="n">geo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+        <span class="n">df0</span><span class="p">,</span>
+        <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df0</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">],</span> <span class="n">df0</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]),</span>
+        <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">geo_masks</span> <span class="o">=</span> <span class="n">get_french_geom</span><span class="p">()</span>
+    <span class="n">geo_df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">geo_masks</span><span class="p">,</span> <span class="n">geo_data</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">geo_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;index_right&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_fwi_data_for_predict"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.get_fwi_data_for_predict">[docs]</a><span class="k">def</span> <span class="nf">get_fwi_data_for_predict</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Run CDS API queries for dates required by the model and return fwi dataset for predict step.</span>
+
+<span class="sd">    This takes care principally of the lags required for the modelling step.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        date (str)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">get_fwi_from_api</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date</span>
+    <span class="c1"># Lag J-1</span>
+    <span class="n">lag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>
+    <span class="n">dataJ1</span> <span class="o">=</span> <span class="n">get_fwi_from_api</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">lag</span><span class="p">))</span>
+    <span class="n">dataJ1</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span>
+    <span class="c1"># Lag J-3</span>
+    <span class="n">lag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>
+    <span class="n">dataJ3</span> <span class="o">=</span> <span class="n">get_fwi_from_api</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">lag</span><span class="p">))</span>
+    <span class="n">dataJ3</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span>
+    <span class="c1"># Lag J-7</span>
+    <span class="n">lag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>
+    <span class="n">dataJ7</span> <span class="o">=</span> <span class="n">get_fwi_from_api</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">lag</span><span class="p">))</span>
+    <span class="n">dataJ7</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span>
+    <span class="n">merged_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data</span><span class="p">,</span> <span class="n">dataJ1</span><span class="p">,</span> <span class="n">dataJ3</span><span class="p">,</span> <span class="n">dataJ7</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">merged_data</span></div>
+
+
+<div class="viewcode-block" id="get_fwi_data"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.get_fwi_data">[docs]</a><span class="k">def</span> <span class="nf">get_fwi_data</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s2">&quot;20190101&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load and handle netcdf data for selected day.</span>
+
+<span class="sd">    Return pandas dataframe with longitude, latitude, day and fwi indices</span>
+<span class="sd">    (fwi, ffmc, dmc, dc, isi, bui, dsr, dr).</span>
+<span class="sd">    Args:</span>
+<span class="sd">        source_path (str): path with unzipped netcdf fwi data, usually got from load_data.</span>
+<span class="sd">        day (str, optional): which day to load. Defaults to &#39;20190101&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: dataframe with all fwi indices for selected day</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nc</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="s2">&quot;fwi_unzipped/JRC_FWI_</span><span class="si">{}</span><span class="s2">.nc&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">day</span><span class="p">)),</span> <span class="s2">&quot;r&quot;</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lons</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;lon&quot;</span><span class="p">][:]</span>
+        <span class="n">lats</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;lat&quot;</span><span class="p">][:]</span>
+        <span class="n">fwi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;fwi&quot;</span><span class="p">][:]</span>
+        <span class="n">ffmc</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;ffmc&quot;</span><span class="p">][:]</span>
+        <span class="n">dmc</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;dmc&quot;</span><span class="p">][:]</span>
+        <span class="n">dc</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;dc&quot;</span><span class="p">][:]</span>
+        <span class="n">isi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;isi&quot;</span><span class="p">][:]</span>
+        <span class="n">bui</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;bui&quot;</span><span class="p">][:]</span>
+        <span class="n">dsr</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;dsr&quot;</span><span class="p">][:]</span>
+        <span class="n">dr</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;danger_risk&quot;</span><span class="p">][:]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Some reading error with: &quot;</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+    <span class="n">nc</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="n">lat2d</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="n">lon2d</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">day</span><span class="p">,</span>
+            <span class="s2">&quot;fwi&quot;</span><span class="p">:</span> <span class="n">fwi</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;ffmc&quot;</span><span class="p">:</span> <span class="n">ffmc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;dmc&quot;</span><span class="p">:</span> <span class="n">dmc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;dc&quot;</span><span class="p">:</span> <span class="n">dc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;isi&quot;</span><span class="p">:</span> <span class="n">isi</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;bui&quot;</span><span class="p">:</span> <span class="n">bui</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;dsr&quot;</span><span class="p">:</span> <span class="n">dsr</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="s2">&quot;dr&quot;</span><span class="p">:</span> <span class="n">dr</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;fwi&quot;</span><span class="p">,</span> <span class="s2">&quot;ffmc&quot;</span><span class="p">,</span> <span class="s2">&quot;dmc&quot;</span><span class="p">,</span> <span class="s2">&quot;dc&quot;</span><span class="p">,</span> <span class="s2">&quot;isi&quot;</span><span class="p">,</span> <span class="s2">&quot;bui&quot;</span><span class="p">,</span> <span class="s2">&quot;dsr&quot;</span><span class="p">,</span> <span class="s2">&quot;dr&quot;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="create_departement_df"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.create_departement_df">[docs]</a><span class="k">def</span> <span class="nf">create_departement_df</span><span class="p">(</span><span class="n">day_data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create dataframe with lon, lat coordinates and corresponding departments.</span>
+
+<span class="sd">    Load json with the department polygons and run function include_department to get the</span>
+<span class="sd">    name of departments corresponding to each row of input data, typically one day of FWI data</span>
+<span class="sd">    got with load_data. This may take a few minutes due to the shapely process.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        day_data (pd.Dataframe): df with longitudes and latitudes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: dataframe with lat, lon and department</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">day_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">FR_GEOJSON</span><span class="p">)</span> <span class="k">as</span> <span class="n">url</span><span class="p">:</span>
+        <span class="n">dep_polygons</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span><span class="n">include_department</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dep_polygons</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;departement&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deps</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;departement&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+    <span class="n">dep_geo_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;departement&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">dep_geo_df</span></div>
+
+
+<div class="viewcode-block" id="GwisFwi"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.GwisFwi">[docs]</a><span class="k">class</span> <span class="nc">GwisFwi</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;GWIS FWI dataframe (8 km resolution) on French territory based on 2019-2020 data.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;20190101&quot;</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Create dataframe with fwi indices data corresponding to days_list and join french department.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            days_list: list of str, format year month day (all concatenated)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fwi_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;day&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fwi&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ffmc&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dmc&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dc&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;isi&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;bui&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dsr&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dr&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+            <span class="n">load_data</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">tmp</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="n">days_list</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">get_fwi_data</span><span class="p">(</span><span class="n">source_path</span><span class="o">=</span><span class="n">tmp</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">)</span>
+                <span class="n">fwi_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">fwi_df</span><span class="p">,</span> <span class="n">df</span><span class="p">])</span>
+            <span class="n">dep_geo_df</span> <span class="o">=</span> <span class="n">create_departement_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+            <span class="n">fwi_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fwi_df</span><span class="p">,</span> <span class="n">dep_geo_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">])</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fwi_df</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

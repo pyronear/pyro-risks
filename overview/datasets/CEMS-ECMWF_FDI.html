@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CEMS ECMWF - Fire Danger Indices &mdash; pyro_risks 0.1.0a0-git documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="C3S ECMWF - ERA5T" href="C3S-ECMWF_ERA5T.html" />
+    <link rel="prev" title="NASA FIRMS - Active Fire" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/pyronear-logo-dark.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0a0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Package installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#package-usage">Package usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#importing-publicly-available-datasets">Importing publicly available datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#running-examples-scripts">Running examples scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#running-the-web-server">Running the web server</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Publicly Available Datasets</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html">NASA FIRMS - Active Fire</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#datasets-descriptions">Datasets Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-modis-differences">VIIRS MODIS Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#viirs-nrt-attribute-fields">VIIRS NRT Attribute Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#modis-nrt-attribute-fields">MODIS NRT Attribute Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CEMS ECMWF - Fire Danger Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="C3S-ECMWF_ERA5T.html">C3S ECMWF - ERA5T</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5T.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html">C3S ECMWF - ERA5-Land</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#technical-background">Technical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#downloading-dataset">Downloading Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#datasets-descriptions">Datasets Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="C3S-ECMWF_ERA5LAND.html#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Pyro Risks Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/datasets/modules.html">pyro_risks.datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/masks.html">Masks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/nasa_firms.html">NASA FIRMS - Active Fire module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/copernicus_fwi.html">Copernicus - FWI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/copernicus_era.html">Copernicus - ERA5 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/noaa_ncei.html">NOAA NCEI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/bdiff.html">BDIFF module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html">pyro_risks.datasets.datasets_mergers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.era_fwi_viirs">pyro_risks.datasets.era_fwi_viirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.queries_api">pyro_risks.datasets.queries_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/datasets/datasets.html#module-pyro_risks.datasets.utils">pyro_risks.datasets.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/models/modules.html">pyro_risks.models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/pipelines.html">Pipelines module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/transformers.html">Transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/models/utils.html">Utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/pipeline/modules.html">pyro_risks.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/load.html">Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/train.html">Train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/evaluate.html">Evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/pipeline/predict.html">Predict module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing to Pyro-Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#project-structure-and-conventions">Project structure and conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#codebase-structure">Codebase structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#style-conventions">Style conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#contributing-to-the-project">Contributing to the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#project-setup">Project Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#create-a-virtual-environment">1. Create a virtual environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#fork-the-repository">2. Fork the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#set-origin-and-upstream-remotes-repositories">3. Set origin and upstream remotes repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CONTRIBUTING.html#install-project-dependencies">4. Install project dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html#contributing-workflow">Contributing workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html#opening-an-issue">Opening an issue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyro_risks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>CEMS ECMWF - Fire Danger Indices</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/overview/datasets/CEMS-ECMWF_FDI.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cems-ecmwf-fire-danger-indices">
+<h1>CEMS ECMWF - Fire Danger Indices<a class="headerlink" href="#cems-ecmwf-fire-danger-indices" title="Permalink to this headline">¶</a></h1>
+<p><img alt="" src="https://pbs.twimg.com/media/D9KxVa4WkAAGhC0.jpg" /></p>
+<p>The <em><strong>Fire Danger Indices</strong></em> dataset is produced by the European Center for Medium Range Weather forecast (ECMWF) for the European Forest Fire Information System (EFFIS) on behalf of the Copernicus Emergency Management Service (CEMS).</p>
+<p>The Copernicus program distributes the <em><strong>Fire Danger Indices</strong></em> via the Copernicus <a class="reference external" href="https://cds.climate.copernicus.eu/cdsapp#%21/home">Climate Data Store</a>.</p>
+<div class="section" id="technical-background">
+<h2>Technical Background<a class="headerlink" href="#technical-background" title="Permalink to this headline">¶</a></h2>
+<p>The fire danger indices are calculated by the Global ECMWF Fire Forecasting model (GEFF) from numerical weather prediction (NWP).
+The GEFF outputs characterise different aspects of fire danger conditions, their relationship is describe bellow.</p>
+<p><img alt="" src="https://www.ecmwf.int/sites/default/files/NL_147_-_M4_-_Di_Guiseppe_Fig_2_coloured_0.png" /></p>
+<p>A complete description of the GEFF multi-model platform can be found in the following articles:</p>
+<ul class="simple">
+<li><p><em><a class="reference external" href="https://www.ecmwf.int/en/newsletter/147/meteorology/nwp-driven-fire-danger-forecasting-copernicus">Di Giuseppe, Francesca, et al. “NWP-driven fire danger forecasting for Copernicus”. ECMWF Newsletter. (2016): 34-39.</a></em></p></li>
+<li><p><em><a class="reference external" href="https://doi.org/10.1175/JAMC-D-15-0297.1">Di Giuseppe, Francesca, et al. “The potential predictability of fire danger provided by numerical weather prediction.” Journal of Applied Meteorology and Climatology 55.11 (2016): 2469-2491.</a></em></p></li>
+<li><p><em><a class="reference external" href="https://nhess.copernicus.org/articles/20/2365/2020/nhess-20-2365-2020.html">Di Giuseppe, Francesca, et al. “Fire Weather Index: the skill provided by the European Centre for Medium-Range Weather Forecasts ensemble prediction system.” Natural Hazards and Earth System Sciences 20.8 (2020): 2365-2378.
+</a></em></p></li>
+</ul>
+<p>More details on the <em><strong>Fire Danger Indices</strong></em> can be found in the Copernicus Climate Data Store <a class="reference external" href="https://datastore.copernicus-climate.eu/c3s/published-forms/c3sprod/cems-fire-historical/Fire_In_CDS.pdf">Fire Danger Indices product user guide</a></p>
+</div>
+<div class="section" id="downloading-dataset">
+<h2>Downloading Dataset<a class="headerlink" href="#downloading-dataset" title="Permalink to this headline">¶</a></h2>
+<p><em><strong>Copernicus Climate Data Store (CDS):</strong></em> You can access the Fire Danger Indices historical dataset via the Climate Data Store <a class="reference external" href="https://doi.org/10.24381/cds.0e89c522">Fire Danger Indices</a> page.</p>
+<!--***EFFIS:*** You can access the Fire Danger Indices historical via the EFFIS data request form: [EFFIS](https://effis.jrc.ec.europa.eu/static/data.request.form/)-->
+<p><strong>Fire Danger Indices dataset used in Pyro-Risks Training</strong></p>
+<!--TODO PRECISIONS ON THE EXACT DATASET USED FOR TRAINING-->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyro_risks.datasets</span> <span class="kn">import</span> <span class="n">GwisFwi</span>
+<span class="n">fdi</span> <span class="o">=</span> <span class="n">GwisFwi</span><span class="p">()</span>
+</pre></div>
+</div>
+<!--PRECISIONS ON THE EXACT DATASET USED FOR TRAINING-->
+</div>
+<div class="section" id="datasets-descriptions">
+<h2>Datasets Descriptions<a class="headerlink" href="#datasets-descriptions" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>DATA DESCRIPTION</p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Data type</p></td>
+<td><p>Gridded</p></td>
+</tr>
+<tr class="row-odd"><td><p>Horizontal coverage</p></td>
+<td><p>Global</p></td>
+</tr>
+<tr class="row-even"><td><p>Horizontal resolution</p></td>
+<td><p>0.1°x0.1°; Native resolution is 9 km.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vertical coverage</p></td>
+<td><p>From 2 m above the surfacelevel, to a soil depth of 289 cm.</p></td>
+</tr>
+<tr class="row-even"><td><p>Vertical resolution</p></td>
+<td><p>4 levels of the ECMWF surface model: Layer 1: 0 -7cm,<br>Layer 2: 7 -28cm, Layer 3: 28-100cm, Layer 4: 100-289cm <br>Some parameters are defined at 2 m over the surface.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Temporal coverage</p></td>
+<td><p>January 1981 to present</p></td>
+</tr>
+<tr class="row-even"><td><p>Temporal resolution</p></td>
+<td><p>Hourly</p></td>
+</tr>
+<tr class="row-odd"><td><p>File format</p></td>
+<td><p>GRIB</p></td>
+</tr>
+<tr class="row-even"><td><p>Update frequency</p></td>
+<td><p>Monthly with a delay of about three months relatively to actual date.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Full description of the dataset variables is available on the Copernicus Climate Data Store <a class="reference external" href="https://doi.org/10.24381/cds.0e89c522">Fire Danger Indices</a> page.</p>
+<center>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Name</p></th>
+<th class="text-align:center head"><p>Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>Build-up index</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Burning index</p></td>
+<td class="text-align:center"><p>10ft</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Danger rating</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Drought code</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Duff moisture code</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Energy release component</p></td>
+<td class="text-align:center"><p>25Btu ft2 -1</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Fine fuel moisture code</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Fire daily severity index</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Fire danger index</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Fire weather index</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Ignition component</p></td>
+<td class="text-align:center"><p>%</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Initial spread index</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Keetch-Byram drought index</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Spread component</p></td>
+<td class="text-align:center"><p>Dimensionless</p></td>
+</tr>
+</tbody>
+</table>
+</center>
+</div>
+<div class="section" id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
+<p>We acknowledge the use of data generated using Copernicus Climate Change Service information 2020.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="C3S-ECMWF_ERA5T.html" class="btn btn-neutral float-right" title="C3S ECMWF - ERA5T" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="NASA-FIRMS_ACTIVE-FIRE_VIIRS.html" class="btn btn-neutral float-left" title="NASA FIRMS - Active Fire" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pyronear Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
