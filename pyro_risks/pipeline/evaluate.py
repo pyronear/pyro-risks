@@ -54,12 +54,16 @@ def save_classification_reports(
 
     report = classification_report(y_true, y_pred, output_dict=True)
 
+    report.pop("accuracy")
+    report.pop("macro avg")
+    report.pop("weighted avg")
+
     # JSON report for tracking metrics
     with open(json_report_path, "w") as fp:
         json.dump(obj=report, fp=fp)
 
     # CSV report for plotting classification report
-    report.pop("accuracy")
+
     pd.DataFrame(report).transpose().round(3).to_csv(csv_report_path)
 
     print(classification_report(y_true, y_pred))
