@@ -128,11 +128,12 @@ WEATHER_ERA5T_VARS = [
     "v10",
 ]
 
-CACHE_FOLDER: str = os.path.expanduser("~/.cache/pyro_risks")
+CACHE_FOLDER: str = "./.cache/"
 
 DATA_REGISTRY = os.path.join(CACHE_FOLDER, "data_registry/")
 MODEL_REGISTRY = os.path.join(CACHE_FOLDER, "model_registry/")
 METADATA_REGISTRY = os.path.join(CACHE_FOLDER, "metadata_registry/")
+DATASET_PATH = os.path.join(DATA_REGISTRY, DATASET)
 
 os.makedirs(CACHE_FOLDER, exist_ok=True)
 os.makedirs(DATA_REGISTRY, exist_ok=True)
