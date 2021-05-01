@@ -114,18 +114,6 @@ def get_fwi_from_api(date: str) -> gpd.GeoDataFrame:
         crs="EPSG:4326",
     )
     geo_masks = get_french_geom()
-    geo_masks[["lon_1", "lat_1", "lon_2", "lat_2"]] = geo_masks["geometry"].bounds
-    min_lon = min(geo_masks.lon_1.min(), geo_masks.lon_2.min())
-    max_lon = max(geo_masks.lon_1.max(), geo_masks.lon_2.max())
-    min_lat = min(geo_masks.lat_1.min(), geo_masks.lat_2.min())
-    max_lat = max(geo_masks.lat_1.max(), geo_masks.lat_2.max())
-    geo_masks = geo_masks.drop(columns=["lon_1", "lat_1", "lon_2", "lat_2"])
-    geo_data = geo_data.loc[
-        (geo_data.latitude >= min_lat)
-        & (geo_data.latitude <= max_lat)
-        & (geo_data.longitude >= min_lon)
-        & (geo_data.longitude <= max_lon)
-    ]
     geo_df = gpd.sjoin(geo_masks, geo_data, how="inner")
     return geo_df.drop(["index_right", "geometry"], axis=1)
 
