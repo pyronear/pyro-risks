@@ -11,7 +11,6 @@ from sklearn.metrics import precision_recall_curve
 import xgboost as xgb
 import pandas as pd
 import numpy as np
-import config as cfg
 
 __all__ = [
     "prepare_dataset",
@@ -84,7 +83,7 @@ def prepare_dataset(
     Returns:
         tuple: X pd.DataFrame, y pd.Series
     """
-    selected_dep = cfg.SELECTED_DEP if selected_dep is None else selected_dep
+    selected_dep = SELECTED_DEP if selected_dep is None else selected_dep
     df = df[df["departement"].isin(selected_dep)].copy()
     df = df.fillna(-1)
 
