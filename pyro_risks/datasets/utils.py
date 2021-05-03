@@ -365,3 +365,16 @@ def get_nearest_points(source_points: List[Tuple], candidates: List[Tuple]) -> T
     distances, indices = tree.query(source_points, k=1)
 
     return indices, distances
+
+
+def std(x: np.array) -> np.ndarray:
+    """
+    Returns standard deviation ignoring NaN.
+
+    Args:
+        x (np.array): array for which we want to compute standard deviation
+
+    Returns:
+        np.std(x) (np.ndarray): standard deviation
+    """
+    return np.std(x)

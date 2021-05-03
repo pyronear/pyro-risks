@@ -7,7 +7,7 @@ import logging
 import pandas as pd
 
 from pyro_risks.datasets import NASAFIRMS_VIIRS, ERA5Land, ERA5T
-from pyro_risks.datasets.utils import get_intersection_range
+from pyro_risks.datasets.utils import get_intersection_range, std
 from pyro_risks.datasets.fwi import GwisFwi
 from pyro_risks import config as cfg
 
@@ -116,7 +116,7 @@ class MergedEraFwiViirs(pd.DataFrame):
         # Group fwi dataframe by day and department and compute min, max, mean, std
         agg_fwi_df = (
             fwi_df.groupby(["day", "departement"])[cfg.FWI_VARS]
-            .agg(["min", "max", "mean", "std"])
+            .agg(["min", "max", "mean", std])
             .reset_index()
         )
         agg_fwi_df.columns = ["day", "departement"] + [
@@ -126,7 +126,7 @@ class MergedEraFwiViirs(pd.DataFrame):
         # Group weather dataframe by day and department and compute min, max, mean, std
         agg_wth_df = (
             weather.groupby(["time", "nom"])[cfg.WEATHER_ERA5T_VARS]
-            .agg(["min", "max", "mean", "std"])
+            .agg(["min", "max", "mean", std])
             .reset_index()
         )
         agg_wth_df.columns = ["day", "departement"] + [
