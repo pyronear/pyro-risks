@@ -227,12 +227,12 @@ class GwisFwi(pd.DataFrame):
     """GWIS FWI dataframe (8 km resolution) on French territory based on 2019-2020 data."""
 
     def __init__(self, days_list: Optional[List[str]] = None) -> None:
-        day_list = ["20190101"] if day_list is None else day_list
         """Create dataframe with fwi indices data corresponding to days_list and join french department.
 
         Args:
             days_list: list of str, format year month day (all concatenated)
         """
+        days_list = ["20190101"] if days_list is None else days_list
         fwi_df = pd.DataFrame(
             columns=[
                 "latitude",

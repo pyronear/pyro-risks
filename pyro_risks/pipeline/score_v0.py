@@ -11,7 +11,7 @@ from sklearn.metrics import precision_recall_curve
 import xgboost as xgb
 import pandas as pd
 import numpy as np
-
+import config as cfg
 
 __all__ = [
     "prepare_dataset",
@@ -72,13 +72,8 @@ XGB_PARAMS = {
 }
 
 
-import config as cfg
-
-   df: pd.DataFrame, selected_dep: Optional[List[str]] = None
-) -> Tuple[pd.DataFrame, pd.Series]:
-
-     selected_dep = cfg.SELECTED_DEP if selected_dep is None else selected_dep
-    df: pd.DataFrame, selected_dep: Optional[List[str]] = SELECTED_DEP
+def prepare_dataset(
+    df: pd.DataFrame, selected_dep: Optional[List[str]] = None
 ) -> Tuple[pd.DataFrame, pd.Series]:
     """Filter departments, create target and filter correlated features to target.
 
@@ -89,6 +84,7 @@ import config as cfg
     Returns:
         tuple: X pd.DataFrame, y pd.Series
     """
+    selected_dep = cfg.SELECTED_DEP if selected_dep is None else selected_dep
     df = df[df["departement"].isin(selected_dep)].copy()
     df = df.fillna(-1)
 
