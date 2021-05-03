@@ -226,7 +226,8 @@ def create_departement_df(day_data: pd.DataFrame) -> pd.DataFrame:
 class GwisFwi(pd.DataFrame):
     """GWIS FWI dataframe (8 km resolution) on French territory based on 2019-2020 data."""
 
-    def __init__(self, days_list: List[str] = ["20190101"]) -> None:
+    def __init__(self, days_list: Optional[List[str]] = None) -> None:
+        day_list = ["20190101"] if day_list is None else day_list
         """Create dataframe with fwi indices data corresponding to days_list and join french department.
 
         Args:
