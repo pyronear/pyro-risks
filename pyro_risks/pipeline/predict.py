@@ -45,7 +45,8 @@ class PyroRisk(object):
         self.model = joblib.load(urlopen(self.model_path))
         self._model_type = which
 
-    def get_input(self, day: str) -> pd.DataFrame:
+    @staticmethod
+    def get_input(day: str) -> pd.DataFrame:
         """Returns for a given day data to feed into the model.
 
         This makes use of the CDS API to query data for the selected day, add lags and select
