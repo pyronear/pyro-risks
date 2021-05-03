@@ -72,7 +72,12 @@ XGB_PARAMS = {
 }
 
 
-def prepare_dataset(
+import config as cfg
+
+   df: pd.DataFrame, selected_dep: Optional[List[str]] = None
+) -> Tuple[pd.DataFrame, pd.Series]:
+
+     selected_dep = cfg.SELECTED_DEP if selected_dep is None else selected_dep
     df: pd.DataFrame, selected_dep: Optional[List[str]] = SELECTED_DEP
 ) -> Tuple[pd.DataFrame, pd.Series]:
     """Filter departments, create target and filter correlated features to target.
