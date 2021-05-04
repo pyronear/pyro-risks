@@ -3,7 +3,7 @@
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
-from typing import List, Union, Optional, Tuple
+from typing import List, Union, Optional, Tuple, Callable
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer
 from .utils import check_xy, check_x
@@ -23,7 +23,7 @@ class TargetDiscretizer(BaseEstimator):
         discretizer: user defined function.
     """
 
-    def __init__(self, discretizer: callable):
+    def __init__(self, discretizer: Callable) -> None:
 
         if callable(discretizer):
             self.discretizer = discretizer
@@ -66,7 +66,7 @@ class CategorySelector(BaseEstimator):
         category: modalities to be selected.
     """
 
-    def __init__(self, variable: str, category: Union[str, list]):
+    def __init__(self, variable: str, category: Union[str, list]) -> None:
 
         self.variable = variable
         # Catch or prevent key errors
@@ -134,7 +134,7 @@ class Imputer(SimpleImputer):
         verbose: int = 0,
         copy: bool = True,
         add_indicator: bool = False,
-    ):
+    ) -> None:
         super().__init__(
             missing_values=missing_values,
             strategy=strategy,
@@ -146,7 +146,7 @@ class Imputer(SimpleImputer):
 
         self.columns = columns
 
-    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
+    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None) -> "Imputer":
         """
         Fit the imputer on X.
 
@@ -192,12 +192,12 @@ class LagTransformer(BaseEstimator, TransformerMixin):
         columns: columns to add lag.
     """
 
-    def __init__(self, date_column: str, zone_column: str, columns: List[str]):
+    def __init__(self, date_column: str, zone_column: str, columns: List[str]) -> None:
         self.date_column = date_column
         self.zone_column = zone_column
         self.columns = columns
 
-    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
+    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None) -> "LagTransformer":
         """
         Fit the imputer on X.
 
@@ -262,14 +262,14 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
     """
 
     def __init__(
-        self, exclude: List[str], method: str = "pearson", threshold: int = 0.15
-    ):
+        self, exclude: List[str], method: str = "pearson", threshold: float = 0.15
+    ) -> None:
 
         self.exclude = exclude
         self.method = method
         self.threshold = threshold
 
-    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
+    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None) -> "FeatureSelector":
         """Fit the FeatureSelector on X.
 
         Compute the correlation matrix.
@@ -323,11 +323,11 @@ class FeatureSubsetter(BaseEstimator, TransformerMixin):
         threshold: columns on which to add lags
     """
 
-    def __init__(self, columns: List[str]):
+    def __init__(self, columns: List[str]) -> None:
 
         self.columns = columns
 
-    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
+    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None) -> "FeatureSubsetter":
         """Comply with pipeline requirements.
 
         The method does not fit the dataset, the naming convention ensure
