@@ -264,7 +264,7 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">spatial</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -420,7 +420,7 @@
     <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span></div>
 
 
-<div class="viewcode-block" id="get_fname"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_fname">[docs]</a><span class="k">def</span> <span class="nf">get_fname</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="get_fname"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_fname">[docs]</a><span class="k">def</span> <span class="nf">get_fname</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
     <span class="sd">&quot;&quot;&quot;Find file name, extension and compression of an archive located by an URL.</span>
 
 <span class="sd">    Args:</span>
@@ -469,8 +469,8 @@
     <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">default_extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">unzip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./tmp&quot;</span><span class="p">,</span>
-<span class="p">):</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./tmp&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Helper function for downloading, unzipping and saving compressed file from a given URL.</span>
 
 <span class="sd">    Args:</span>
@@ -530,8 +530,8 @@
 <div class="viewcode-block" id="get_ghcn"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_ghcn">[docs]</a><span class="k">def</span> <span class="nf">get_ghcn</span><span class="p">(</span>
     <span class="n">start_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">end_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./ghcn&quot;</span><span class="p">,</span>
-<span class="p">):</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./ghcn&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Download yearly Global Historical Climatology Network - Daily (GHCN-Daily) (.csv) From (NCEI).</span>
 
 <span class="sd">    Args:</span>
@@ -555,10 +555,9 @@
     <span class="n">start_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">end_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">yearly</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./firms&quot;</span><span class="p">,</span>
-<span class="p">):</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./firms&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Download last 24H or yearly France active fires from the FIRMS NASA.</span>
-
 <span class="sd">    Args:</span>
 <span class="sd">        start_year: first year to be retrieved. Defaults to None.</span>
 <span class="sd">        end_year: first that will not be retrieved. Defaults to None.</span>
@@ -584,9 +583,11 @@
 
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">start_year</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s2">&quot;The active fires from the last 24H of the MODIS Satellite will be download.&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">BaseException</span><span class="p">(</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;The active fires from the last 24H of the MODIS Satellite will be download.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/MODIS_C6_Europe_24h.csv&quot;</span>
             <span class="n">download</span><span class="p">(</span>
@@ -594,7 +595,9 @@
             <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_nearest_points"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_nearest_points">[docs]</a><span class="k">def</span> <span class="nf">get_nearest_points</span><span class="p">(</span><span class="n">source_points</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">],</span> <span class="n">candidates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<div class="viewcode-block" id="get_nearest_points"><a class="viewcode-back" href="../../../modules/datasets/datasets.html#pyro_risks.datasets.utils.get_nearest_points">[docs]</a><span class="k">def</span> <span class="nf">get_nearest_points</span><span class="p">(</span>
+    <span class="n">source_points</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">candidates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find nearest neighbor for all source points from a set of candidate points</span>
 <span class="sd">    using KDTree algorithm.</span>

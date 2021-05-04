@@ -260,6 +260,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">netCDF4</span> <span class="kn">import</span> <span class="n">Dataset</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">zipfile</span>
@@ -277,7 +278,7 @@
 <span class="kn">from</span> <span class="nn">pyro_risks.datasets.masks</span> <span class="kn">import</span> <span class="n">get_french_geom</span>
 
 
-<div class="viewcode-block" id="load_data"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.load_data">[docs]</a><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
+<div class="viewcode-block" id="load_data"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.load_data">[docs]</a><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Load FWI zipped data from github repo and unzip data in folder output_path.</span>
 
 <span class="sd">    Args:</span>
@@ -293,13 +294,13 @@
     <span class="n">file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;fwi_unzipped&quot;</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="include_department"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.include_department">[docs]</a><span class="k">def</span> <span class="nf">include_department</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">polygons_json</span><span class="p">):</span>
+<div class="viewcode-block" id="include_department"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.include_department">[docs]</a><span class="k">def</span> <span class="nf">include_department</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">polygons_json</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Given a row of a dataframe containing longitude and latitude returns name of french department.</span>
 
 <span class="sd">    This function makes use of shapely to return if a polygon contains a point.</span>
 <span class="sd">    Args:</span>
 <span class="sd">        row (pd.Series): row of dataframe</span>
-<span class="sd">        polygons_json (json): json with polygons of the departments</span>
+<span class="sd">        polygons_json (dict): dict with polygons of the departments</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: name of department or empty string</span>
@@ -311,7 +312,7 @@
     <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="get_fwi_from_api"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.get_fwi_from_api">[docs]</a><span class="k">def</span> <span class="nf">get_fwi_from_api</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="get_fwi_from_api"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.get_fwi_from_api">[docs]</a><span class="k">def</span> <span class="nf">get_fwi_from_api</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Call the CDS API and return all fwi variables as a dataframe with geo coordinates and departments.</span>
 
 <span class="sd">    When calling the API we get a zip file that must be extracted (in a tmp directory), then handle</span>
@@ -399,7 +400,7 @@
     <span class="k">return</span> <span class="n">merged_data</span></div>
 
 
-<div class="viewcode-block" id="get_fwi_data"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.get_fwi_data">[docs]</a><span class="k">def</span> <span class="nf">get_fwi_data</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s2">&quot;20190101&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="get_fwi_data"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.get_fwi_data">[docs]</a><span class="k">def</span> <span class="nf">get_fwi_data</span><span class="p">(</span><span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;20190101&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Load and handle netcdf data for selected day.</span>
 
 <span class="sd">    Return pandas dataframe with longitude, latitude, day and fwi indices</span>
@@ -451,7 +452,7 @@
     <span class="k">return</span> <span class="n">df</span></div>
 
 
-<div class="viewcode-block" id="create_departement_df"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.create_departement_df">[docs]</a><span class="k">def</span> <span class="nf">create_departement_df</span><span class="p">(</span><span class="n">day_data</span><span class="p">):</span>
+<div class="viewcode-block" id="create_departement_df"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.create_departement_df">[docs]</a><span class="k">def</span> <span class="nf">create_departement_df</span><span class="p">(</span><span class="n">day_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Create dataframe with lon, lat coordinates and corresponding departments.</span>
 
 <span class="sd">    Load json with the department polygons and run function include_department to get the</span>
@@ -478,12 +479,13 @@
 <div class="viewcode-block" id="GwisFwi"><a class="viewcode-back" href="../../../modules/datasets/copernicus_fwi.html#pyro_risks.datasets.fwi.GwisFwi">[docs]</a><span class="k">class</span> <span class="nc">GwisFwi</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;GWIS FWI dataframe (8 km resolution) on French territory based on 2019-2020 data.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;20190101&quot;</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Create dataframe with fwi indices data corresponding to days_list and join french department.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            days_list: list of str, format year month day (all concatenated)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">days_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;20190101&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">days_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">days_list</span>
         <span class="n">fwi_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
             <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
                 <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>

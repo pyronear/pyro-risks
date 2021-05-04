@@ -277,11 +277,12 @@ Pipeline allowing for defining sequences of <strong>resampling, preprocessing an
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">discretizer</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
 <span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBClassifier</span>
 
 <span class="kn">import</span> <span class="nn">pyro_risks.config</span> <span class="k">as</span> <span class="nn">cfg</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;xgb_pipeline&quot;</span><span class="p">,</span> <span class="s2">&quot;rf_pipeline&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rf_pipeline&quot;</span><span class="p">,</span> <span class="s2">&quot;xgb_pipeline&quot;</span><span class="p">]</span>
 
 <span class="c1"># pipeline base steps definition</span>
 <span class="n">base_steps</span> <span class="o">=</span> <span class="p">[</span>

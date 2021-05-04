@@ -258,7 +258,9 @@
 
 <span class="kn">import</span> <span class="nn">joblib</span>
 <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">xgboost</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">pyro_risks</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">cfg</span>
 <span class="kn">from</span> <span class="nn">pyro_risks.datasets.fwi</span> <span class="kn">import</span> <span class="n">get_fwi_data_for_predict</span>
@@ -281,7 +283,7 @@
 <span class="sd">        object ([type])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;RF&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">which</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RF&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Load from Github release the trained model. For the moment only RF and XGB are available.</span>
 
 <span class="sd">        Args:</span>
@@ -296,7 +298,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_path</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model_type</span> <span class="o">=</span> <span class="n">which</span>
 
-<div class="viewcode-block" id="PyroRisk.get_input"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.get_input">[docs]</a>    <span class="k">def</span> <span class="nf">get_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+<div class="viewcode-block" id="PyroRisk.get_input"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.get_input">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_input</span><span class="p">(</span><span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Returns for a given day data to feed into the model.</span>
 
 <span class="sd">        This makes use of the CDS API to query data for the selected day, add lags and select</span>
@@ -325,7 +328,7 @@
         <span class="n">to_predict</span> <span class="o">=</span> <span class="n">to_predict</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">to_predict</span><span class="p">[</span><span class="n">model_cols</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="PyroRisk.predict"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="s2">&quot;France&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="PyroRisk.predict"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;France&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Serves a prediction for the specified day.</span>
 
 <span class="sd">        Note that predictions on fwi and era5land data queried from CDS API will return 93 departments</span>
