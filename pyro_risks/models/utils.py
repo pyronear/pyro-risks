@@ -65,3 +65,29 @@ def discretizer(x: float) -> int:
         int: discretized value
     """
     return 1 if x > 0 else 0
+
+
+def lagged_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Adds columns to the original dataframe with 1, 3 and 7 days lags.
+
+    Args:
+        df (pd.DataFrame): DataFrame to lag, for one department and one feature only.
+
+    Returns:
+        pd.DataFrame: Lagged dataframe.
+    """
+    lagged_aggregated_df = df.copy()
+
+    lagged_aggregated_df = lagged_aggregated_df.join(
+        df.shift(periods=1, freq="D"), rsuffix="_lag1", how="left"
+    )
+
+    lagged_aggregated_df = lagged_aggregated_df.join(
+        df.shift(periods=3, freq="D"), rsuffix="_lag3", how="left"
+    )
+
+    lagged_aggregated_df = lagged_aggregated_df.join(
+        df.shift(periods=7, freq="D"), rsuffix="_lag7", how="left"
+    )
+    return lagged_aggregated_df

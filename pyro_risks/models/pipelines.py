@@ -32,6 +32,7 @@ base_steps = [
             date_column=cfg.DATE_VAR,
             zone_column=cfg.ZONE_VAR,
             columns=cfg.LAG_ERA5T_VARS,
+            resampling=cfg.RESAMPLING_TECHNIQUE,
         ),
     ),
     ("imputer", Imputer(columns=cfg.MODEL_ERA5T_VARS, strategy="median")),

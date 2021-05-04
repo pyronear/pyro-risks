@@ -109,6 +109,8 @@ SELECTED_DEP = [
 
 LAG_ERA5T_VARS = ["_".join(x.split("_")[:-1]) for x in MODEL_ERA5T_VARS if "_lag" in x]
 
+RESAMPLING_TECHNIQUE = "SMOTE"
+
 TEST_SIZE = 0.2
 
 RANDOM_STATE = 42

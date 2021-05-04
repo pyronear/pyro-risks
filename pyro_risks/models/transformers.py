@@ -6,7 +6,7 @@
 from typing import List, Union, Optional, Tuple
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer
-from .utils import check_xy, check_x
+from .utils import check_xy, check_x, lagged_dataframe
 
 import pandas as pd
 import numpy as np
@@ -190,12 +190,14 @@ class LagTransformer(BaseEstimator, TransformerMixin):
         date_column: date column.
         zone_columns: geographical zoning column.
         columns: columns to add lag.
+        resampling: name of the resampling technique being used.
     """
 
-    def __init__(self, date_column: str, zone_column: str, columns: List[str]):
+    def __init__(self, date_column: str, zone_column: str, columns: List[str], resampling: Optional[str] = ""):
         self.date_column = date_column
         self.zone_column = zone_column
         self.columns = columns
+        self.resampling = resampling
 
     def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
         """
@@ -229,24 +231,38 @@ class LagTransformer(BaseEstimator, TransformerMixin):
                 f"{self.__class__.__name__} transforme methods expect date_column of type datetime64[ns]"
             )
 
-        for var in self.columns:
-            for dep in X[self.zone_column].unique():
-                tmp = X[X[self.zone_column] == dep][[self.date_column, var]].set_index(
-                    self.date_column
-                )
-                tmp1 = tmp.copy()
-                tmp1 = tmp1.join(
-                    tmp.shift(periods=1, freq="D"), rsuffix="_lag1", how="left"
-                )
-                tmp1 = tmp1.join(
-                    tmp.shift(periods=3, freq="D"), rsuffix="_lag3", how="left"
-                )
-                tmp1 = tmp1.join(
-                    tmp.shift(periods=7, freq="D"), rsuffix="_lag7", how="left"
-                )
-                new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
-                X.loc[X[self.zone_column] == dep, new_vars] = tmp1[new_vars].values
-        return X
+        if self.resampling == "SMOTE":
+            for var in self.columns:
+                for dep in X[self.zone_column].unique():
+                    # Process original data
+                    tmp = X[(X[self.zone_column] == dep) & (X["is_original_data"] == 1)][
+                        [self.date_column, var]].set_index(
+                        self.date_column
+                    )
+                    tmp1 = lagged_dataframe(tmp)
+                    new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
+                    X.loc[(X[self.zone_column] == dep) & (X["is_original_data"] == 1), new_vars] = tmp1[new_vars].values
+
+                    # Process SMOTE data
+                    tmp = X[(X[self.zone_column] == dep) & (X["is_original_data"] == 0)][
+                        [self.date_column, var]].set_index(
+                        self.date_column
+                    )
+                    tmp1 = lagged_dataframe(tmp)
+                    new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
+                    X.loc[(X[self.zone_column] == dep) & (X["is_original_data"] == 0), new_vars] = tmp1[new_vars].values
+
+            return X
+        else:
+            for var in self.columns:
+                for dep in X[self.zone_column].unique():
+                    tmp = X[X[self.zone_column] == dep][[self.date_column, var]].set_index(
+                        self.date_column
+                    )
+                    tmp1 = lagged_dataframe(tmp)
+                    new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
+                    X.loc[X[self.zone_column] == dep, new_vars] = tmp1[new_vars].values
+            return X
 
 
 class FeatureSelector(BaseEstimator, TransformerMixin):
