@@ -4,9 +4,13 @@
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
 from typing import List, Union, Optional, Tuple
+
+from imblearn.over_sampling import SMOTE
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer
-from .utils import check_xy, check_x, lagged_dataframe
+from sklearn.preprocessing import LabelEncoder
+
+from .utils import check_xy, check_x, lagged_dataframe, discretizer
 
 import pandas as pd
 import numpy as np
@@ -374,3 +378,85 @@ class FeatureSubsetter(BaseEstimator, TransformerMixin):
         X = check_x(X)
 
         return X[self.columns]
+
+
+class SMOTEDataGenerator(BaseEstimator):
+
+    """Generate more data.
+
+    The `SMOTEDataGenerator` uses the SMOTE oversampling technique to generate more data for our training.
+
+    Parameters:
+        random_state: random state for the SMOTE dataset generation.
+    """
+
+    def __init__(self, random_state: int):
+        self.random_state = random_state
+
+    def fit_resample(
+        self, X: pd.DataFrame, y: Optional[pd.Series] = None
+    ) -> Tuple[pd.DataFrame, pd.Series]:
+        """Select features and targets rows.
+
+        The `fit_resample` method allows for producing new data using SMOTE method.
+        We have several steps here, maybe they can be implemented in separate methods.
+        I just have to look at the imabalanced-learn documentation :
+            1. Processing whole dataset for SMOTE
+                1. days cannot be Timestamps for SMOTE
+                2. departements have to be put in category because SMOTE doesn't work with category data
+            2. Handling missing values
+            3. Generate SMOTE data
+            4. Process SMOTE only generated values
+                1. Clean it : delete impossible combination of values that have been generated
+                (several rows for the same day same department)
+            5. Final SMOTE df generation
+            6. Adjust y_smote with correct indices for training
+            7. Retroprocessing : undo the category encoding we did earlier
+
+        Args:
+            X: Training dataset features
+            y: Training dataset target
+
+        Returns:
+            X_smote: Training dataset, augmented by SMOTE oversampling technique
+            y_smote: Training dataset, augmented by SMOTE oversampling technique
+        """
+        le = LabelEncoder()
+        X["day"] = pd.to_numeric(X["day"])
+        X["departement"] = X["departement"].astype("category")
+        X = X.reset_index(drop=True)
+        y = y.reset_index(drop=True)
+
+        X['departement'] = le.fit_transform(X['departement'])
+
+        imp = Imputer(strategy="median", columns=["asn_std", "rsn_std"])
+        imp.fit(X, y)
+        X = imp.transform(X)
+
+        sm = SMOTE(sampling_strategy='not majority', random_state=self.random_state)
+
+        vdiscretizer = np.vectorize(discretizer)
+
+        y_vectorized = vdiscretizer(y)
+        X_smote_all, y_smote_tmp = sm.fit_resample(X, y_vectorized)
+        y_smote_tmp = pd.Series(y_smote_tmp)
+
+        X_smote_tmp = X_smote_all.iloc[len(X):]
+
+        X_smote_tmp["day_drop_dup"] = pd.to_datetime(X_smote_tmp["day"]).dt.date
+        X_smote_tmp = X_smote_tmp.drop_duplicates(subset=["departement", "day_drop_dup"])
+        X_smote_tmp.drop(columns=["day_drop_dup"], inplace=True)
+
+        X["is_original_data"] = 1
+        X_smote = pd.concat([X, X_smote_tmp], axis=0).fillna(0)
+
+        y_smote = y_smote_tmp[y_smote_tmp.index.isin(X_smote.index)]
+        X_smote = X_smote.reset_index(drop=True)
+        y_smote = y_smote.reset_index(drop=True)
+
+        X_smote_original_dpt = le.inverse_transform(np.array(X_smote["departement"]))
+        X_smote["departement"] = X_smote_original_dpt
+        X_smote["day"] = pd.to_datetime(X_smote["day"]).values.astype('datetime64[D]')
+
+        return X_smote, y_smote
+

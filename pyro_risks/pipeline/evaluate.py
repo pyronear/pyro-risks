@@ -116,6 +116,7 @@ def evaluate_pipeline(
     y: pd.Series,
     pipeline: Union[pp.Pipeline, str],
     threshold: str,
+    resampling_technique: Optional[str] = None,
     prefix: Optional[str] = None,
     destination: Optional[str] = None,
 ):
@@ -127,6 +128,7 @@ def evaluate_pipeline(
         y: Training dataset target pd.Series.
         pipeline: imbalanced-learn preprocessing pipeline or path to pipeline.
         threshold: Classification pipeline optimal threshold path.
+        resampling_technique: resampling technique name.
         prefix: Classification reports prefix i.e. pipeline name. Defaults to None.
         destination: Folder where the report should be saved. Defaults to ``METADATA_REGISTRY``.
     """
@@ -137,6 +139,9 @@ def evaluate_pipeline(
 
     if not isinstance(pipeline, pp.Pipeline):
         pipeline = joblib.load(pipeline)
+
+    if resampling_technique == "SMOTE":
+        X_test['is_original_data'] = 1
 
     y_proba = pipeline.predict_proba(X_test)
 

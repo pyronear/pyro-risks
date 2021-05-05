@@ -10,6 +10,7 @@ from .transformers import (
     Imputer,
     LagTransformer,
     FeatureSubsetter,
+    SMOTEDataGenerator,
 )
 from .utils import discretizer
 
@@ -43,6 +44,9 @@ base_steps = [
 # Add estimator to base step lists
 xgb_steps = [*base_steps, ("xgboost", XGBClassifier(**cfg.XGB_PARAMS))]
 rf_steps = [*base_steps, ("random_forest", RandomForestClassifier(**cfg.RF_PARAMS))]
+if cfg.RESAMPLING_TECHNIQUE == "SMOTE":
+    smote_step = [("smote", SMOTEDataGenerator(random_state=cfg.RANDOM_STATE))]
+    rf_steps = smote_step + rf_steps
 
 # Define sklearn / imblearn pipelines
 xgb_pipeline = Pipeline(xgb_steps)
