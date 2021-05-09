@@ -29,7 +29,7 @@ def main():
 @click.option(
     "--destination", default=cfg.DATA_REGISTRY, help="Dataset registry local path"
 )
-def _download(url: str, default_extension: str, unzip: bool, destination: str):
+def _download(url: str, default_extension: str, unzip: bool, destination: str) -> None:
     click.echo(f"Download {cfg.DATASET} dataset in {destination}")
     download(
         url=url,
@@ -54,7 +54,7 @@ def _download(url: str, default_extension: str, unzip: bool, destination: str):
 )
 def _train_pipeline(
     model: str, destination: str, ignore_prints: bool, ignore_html: bool
-):
+) -> None:
     click.echo(f"Train and save pipeline in {destination}")
     X, y = load_dataset()
     train_pipeline(
@@ -76,7 +76,9 @@ def _train_pipeline(
     default=cfg.METADATA_REGISTRY,
     help="Folder where the report should be saved.",
 )
-def _evaluate_pipeline(pipeline: str, threshold: str, prefix: str, destination: str):
+def _evaluate_pipeline(
+    pipeline: str, threshold: str, prefix: str, destination: str
+) -> None:
     click.echo(f"Evaluate and save pipeline performance metrics in {destination}")
     X, y = load_dataset()
     evaluate_pipeline(

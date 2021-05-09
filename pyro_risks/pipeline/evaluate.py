@@ -32,7 +32,7 @@ def save_classification_reports(
     y_pred: np.ndarray,
     prefix: Optional[str] = None,
     destination: Optional[str] = None,
-):
+) -> None:
     """
     Build and save binary classification metrics reports.
 
@@ -72,7 +72,7 @@ def save_classification_plots(
     threshold: np.float64,
     prefix: Optional[str] = None,
     destination: Optional[str] = None,
-):
+) -> None:
     """
     Build and save binary classification performance evaluation plots.
 
@@ -115,7 +115,7 @@ def evaluate_pipeline(
     threshold: str,
     prefix: Optional[str] = None,
     destination: Optional[str] = None,
-):
+) -> None:
     """
     Build and save binary classification evaluation reports.
 

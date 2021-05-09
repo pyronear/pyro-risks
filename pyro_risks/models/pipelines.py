@@ -19,12 +19,14 @@ from .transformers import (
 from .utils import discretizer
 
 from sklearn.ensemble import RandomForestClassifier
+
 from xgboost import XGBClassifier
 
 import pyro_risks.config as cfg
 
 __all__ = ["xgb_pipeline", "rf_pipeline"]
 label_encoder = LabelEncoder()
+
 # pipeline base steps definition
 base_steps = [
     (

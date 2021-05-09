@@ -11,7 +11,7 @@ import shutil
 import warnings
 
 from scipy import spatial
-from typing import Tuple, Optional, List
+from typing import Tuple, Optional, List, Any
 
 from io import BytesIO
 from datetime import datetime
@@ -167,7 +167,7 @@ def url_retrieve(url: str, timeout: Optional[float] = None) -> bytes:
     return response.content
 
 
-def get_fname(url: str) -> Tuple[str, str, str]:
+def get_fname(url: str) -> Tuple[str, Optional[str], Optional[str]]:
     """Find file name, extension and compression of an archive located by an URL.
 
     Args:
@@ -216,8 +216,8 @@ def download(
     url: str,
     default_extension: str,
     unzip: Optional[bool] = True,
-    destination: Optional[str] = "./tmp",
-):
+    destination: str = "./tmp",
+) -> None:
     """Helper function for downloading, unzipping and saving compressed file from a given URL.
 
     Args:
@@ -277,8 +277,8 @@ def download(
 def get_ghcn(
     start_year: Optional[int] = None,
     end_year: Optional[int] = None,
-    destination: Optional[str] = "./ghcn",
-):
+    destination: str = "./ghcn",
+) -> None:
     """Download yearly Global Historical Climatology Network - Daily (GHCN-Daily) (.csv) From (NCEI).
 
     Args:
@@ -302,10 +302,9 @@ def get_modis(
     start_year: Optional[int] = None,
     end_year: Optional[int] = None,
     yearly: Optional[bool] = False,
-    destination: Optional[str] = "./firms",
-):
+    destination: str = "./firms",
+) -> None:
     """Download last 24H or yearly France active fires from the FIRMS NASA.
-
     Args:
         start_year: first year to be retrieved. Defaults to None.
         end_year: first that will not be retrieved. Defaults to None.
@@ -331,9 +330,11 @@ def get_modis(
 
     else:
         if start_year is not None:
-            raise warnings.warn(
-                "The active fires from the last 24H of the MODIS Satellite will be download."
-            )
+            raise BaseException(
+                warnings.warn(
+                    "The active fires from the last 24H of the MODIS Satellite will be download."
+                )
+            )  # type: ignore
         else:
             url = "https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/MODIS_C6_Europe_24h.csv"
             download(
@@ -341,7 +342,9 @@ def get_modis(
             )
 
 
-def get_nearest_points(source_points: List[Tuple], candidates: List[Tuple]) -> Tuple:
+def get_nearest_points(
+    source_points: List[Tuple[Any, Any]], candidates: List[Tuple[Any, Any]]
+) -> Tuple:
     """
     Find nearest neighbor for all source points from a set of candidate points
     using KDTree algorithm.
