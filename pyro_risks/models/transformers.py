@@ -487,7 +487,9 @@ class CustomSMOTE(SMOTE):
         self.columns = columns
         super().__init__(sampling_strategy=sampling_strategy, random_state=random_state)
 
-    def _fit_resample(self, X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.Series]:
+    def _fit_resample(
+        self, X: pd.DataFrame, y: pd.Series
+    ) -> Tuple[pd.DataFrame, pd.Series]:
         """Resample the dataset using SMOTE - Synthetic Minority Over-sampling
         Technique.
 
@@ -528,7 +530,7 @@ class CustomSMOTE(SMOTE):
 
         X_resampled = pd.DataFrame(data=X_resampled, columns=self.columns)
         X_resampled["is_original_data"] = 0
-        X_resampled = X_resampled.iloc[len(X):]
+        X_resampled = X_resampled.iloc[len(X) :]
         X_resampled["day_drop_dup"] = pd.to_datetime(X_resampled["day"]).dt.date
         X_resampled = X_resampled.drop_duplicates(
             subset=["departement", "day_drop_dup"]
