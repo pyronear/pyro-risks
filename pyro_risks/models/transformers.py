@@ -9,11 +9,13 @@ from imblearn.over_sampling import SMOTE
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import LabelEncoder
+from sklearn.utils import _safe_indexing
 
-from .utils import check_xy, check_x, lagged_dataframe, discretizer
+from .utils import check_xy, check_x, lagged_dataframe
 
 import pandas as pd
 import numpy as np
+from scipy import sparse
 
 
 class TargetDiscretizer(BaseEstimator):
@@ -197,7 +199,13 @@ class LagTransformer(BaseEstimator, TransformerMixin):
         resampling: name of the resampling technique being used.
     """
 
-    def __init__(self, date_column: str, zone_column: str, columns: List[str], resampling: Optional[str] = ""):
+    def __init__(
+        self,
+        date_column: str,
+        zone_column: str,
+        columns: List[str],
+        resampling: Optional[str] = "",
+    ):
         self.date_column = date_column
         self.zone_column = zone_column
         self.columns = columns
@@ -239,30 +247,34 @@ class LagTransformer(BaseEstimator, TransformerMixin):
             for var in self.columns:
                 for dep in X[self.zone_column].unique():
                     # Process original data
-                    tmp = X[(X[self.zone_column] == dep) & (X["is_original_data"] == 1)][
-                        [self.date_column, var]].set_index(
-                        self.date_column
-                    )
+                    tmp = X[
+                        (X[self.zone_column] == dep) & (X["is_original_data"] == 1)
+                    ][[self.date_column, var]].set_index(self.date_column)
                     tmp1 = lagged_dataframe(tmp)
                     new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
-                    X.loc[(X[self.zone_column] == dep) & (X["is_original_data"] == 1), new_vars] = tmp1[new_vars].values
+                    X.loc[
+                        (X[self.zone_column] == dep) & (X["is_original_data"] == 1),
+                        new_vars,
+                    ] = tmp1[new_vars].values
 
                     # Process SMOTE data
-                    tmp = X[(X[self.zone_column] == dep) & (X["is_original_data"] == 0)][
-                        [self.date_column, var]].set_index(
-                        self.date_column
-                    )
+                    tmp = X[
+                        (X[self.zone_column] == dep) & (X["is_original_data"] == 0)
+                    ][[self.date_column, var]].set_index(self.date_column)
                     tmp1 = lagged_dataframe(tmp)
                     new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
-                    X.loc[(X[self.zone_column] == dep) & (X["is_original_data"] == 0), new_vars] = tmp1[new_vars].values
+                    X.loc[
+                        (X[self.zone_column] == dep) & (X["is_original_data"] == 0),
+                        new_vars,
+                    ] = tmp1[new_vars].values
 
             return X
         else:
             for var in self.columns:
                 for dep in X[self.zone_column].unique():
-                    tmp = X[X[self.zone_column] == dep][[self.date_column, var]].set_index(
-                        self.date_column
-                    )
+                    tmp = X[X[self.zone_column] == dep][
+                        [self.date_column, var]
+                    ].set_index(self.date_column)
                     tmp1 = lagged_dataframe(tmp)
                     new_vars = [var + "_lag1", var + "_lag3", var + "_lag7"]
                     X.loc[X[self.zone_column] == dep, new_vars] = tmp1[new_vars].values
@@ -380,83 +392,151 @@ class FeatureSubsetter(BaseEstimator, TransformerMixin):
         return X[self.columns]
 
 
-class SMOTEDataGenerator(BaseEstimator):
+class CastTypesToNumeric(BaseEstimator, TransformerMixin):
+    def __init__(self, label_encoder: LabelEncoder):
+        self.label_encoder = label_encoder
 
-    """Generate more data.
+    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
+        """Comply with pipeline requirements.
 
-    The `SMOTEDataGenerator` uses the SMOTE oversampling technique to generate more data for our training.
-
-    Parameters:
-        random_state: random state for the SMOTE dataset generation.
-    """
-
-    def __init__(self, random_state: int):
-        self.random_state = random_state
-
-    def fit_resample(
-        self, X: pd.DataFrame, y: Optional[pd.Series] = None
-    ) -> Tuple[pd.DataFrame, pd.Series]:
-        """Select features and targets rows.
-
-        The `fit_resample` method allows for producing new data using SMOTE method.
-        We have several steps here, maybe they can be implemented in separate methods.
-        I just have to look at the imabalanced-learn documentation :
-            1. Processing whole dataset for SMOTE
-                1. days cannot be Timestamps for SMOTE
-                2. departements have to be put in category because SMOTE doesn't work with category data
-            2. Handling missing values
-            3. Generate SMOTE data
-            4. Process SMOTE only generated values
-                1. Clean it : delete impossible combination of values that have been generated
-                (several rows for the same day same department)
-            5. Final SMOTE df generation
-            6. Adjust y_smote with correct indices for training
-            7. Retroprocessing : undo the category encoding we did earlier
+        The method does not fit the dataset, the naming convention ensure
+        the compatibility of the transformer with scikit-learn `Pipeline`
+        object.
 
         Args:
-            X: Training dataset features
-            y: Training dataset target
+            X: Training dataset features.
+            y: Training dataset target.
 
         Returns:
-            X_smote: Training dataset, augmented by SMOTE oversampling technique
-            y_smote: Training dataset, augmented by SMOTE oversampling technique
+                Transformer.
         """
-        le = LabelEncoder()
+        X, y = check_xy(X, y)
+
+        return self
+
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        """
+        Convert types. SMOTE does not work with category data types and
+        datetime objects. Therefore, we encode departement names, and
+        convert datetime to timestamps.
+
+        Args:
+            X: Original training dataset.
+
+        Returns:
+                Training dataset with numeric types.
+        """
+        X = check_x(X)
         X["day"] = pd.to_numeric(X["day"])
         X["departement"] = X["departement"].astype("category")
+        X["departement"] = self.label_encoder.fit_transform(X["departement"])
+        return X
+
+
+class ResetIndex(BaseEstimator):
+    def fit_resample(
+        self, X: pd.DataFrame, y: pd.Series
+    ) -> Tuple[pd.DataFrame, pd.Series]:
+        X, y = check_xy(X, y)
         X = X.reset_index(drop=True)
         y = y.reset_index(drop=True)
+        return X, y
 
-        X['departement'] = le.fit_transform(X['departement'])
 
-        imp = Imputer(strategy="median", columns=["asn_std", "rsn_std"])
-        imp.fit(X, y)
-        X = imp.transform(X)
+class CustomSMOTE(SMOTE):
+    def __init__(
+        self,
+        *,
+        sampling_strategy: str = "not majority",
+        random_state: int = None,
+        columns: str,
+    ):
+        self.columns = columns
+        super().__init__(sampling_strategy=sampling_strategy, random_state=random_state)
 
-        sm = SMOTE(sampling_strategy='not majority', random_state=self.random_state)
+    def _fit_resample(self, X, y):
+        self._validate_estimator()
 
-        vdiscretizer = np.vectorize(discretizer)
+        X_resampled = [X.copy()]
+        y_resampled = [y.copy()]
 
-        y_vectorized = vdiscretizer(y)
-        X_smote_all, y_smote_tmp = sm.fit_resample(X, y_vectorized)
-        y_smote_tmp = pd.Series(y_smote_tmp)
+        for class_sample, n_samples in self.sampling_strategy_.items():
+            if n_samples == 0:
+                continue
+            target_class_indices = np.flatnonzero(y == class_sample)
+            X_class = _safe_indexing(X, target_class_indices)
 
-        X_smote_tmp = X_smote_all.iloc[len(X):]
+            self.nn_k_.fit(X_class)
+            nns = self.nn_k_.kneighbors(X_class, return_distance=False)[:, 1:]
+            X_new, y_new = self._make_samples(
+                X_class, y.dtype, class_sample, X_class, nns, n_samples, 1.0
+            )
+            X_resampled.append(X_new)
+            y_resampled.append(y_new)
 
-        X_smote_tmp["day_drop_dup"] = pd.to_datetime(X_smote_tmp["day"]).dt.date
-        X_smote_tmp = X_smote_tmp.drop_duplicates(subset=["departement", "day_drop_dup"])
-        X_smote_tmp.drop(columns=["day_drop_dup"], inplace=True)
+        if sparse.issparse(X):
+            X_resampled = sparse.vstack(X_resampled, format=X.format)
+        else:
+            X_resampled = np.vstack(X_resampled)
+        y_resampled = np.hstack(y_resampled)
 
-        X["is_original_data"] = 1
-        X_smote = pd.concat([X, X_smote_tmp], axis=0).fillna(0)
+        X = pd.DataFrame(data=X, columns=self.columns)
 
-        y_smote = y_smote_tmp[y_smote_tmp.index.isin(X_smote.index)]
-        X_smote = X_smote.reset_index(drop=True)
-        y_smote = y_smote.reset_index(drop=True)
+        X_resampled = pd.DataFrame(data=X_resampled, columns=self.columns)
+        X_resampled["is_original_data"] = 0
+        X_resampled = X_resampled.iloc[len(X) :]
+        X_resampled["day_drop_dup"] = pd.to_datetime(X_resampled["day"]).dt.date
+        X_resampled = X_resampled.drop_duplicates(
+            subset=["departement", "day_drop_dup"]
+        )
+        X_resampled.drop(columns=["day_drop_dup"], inplace=True)
 
-        X_smote_original_dpt = le.inverse_transform(np.array(X_smote["departement"]))
-        X_smote["departement"] = X_smote_original_dpt
-        X_smote["day"] = pd.to_datetime(X_smote["day"]).values.astype('datetime64[D]')
+        X_smote = pd.concat([X, X_resampled], axis=0).fillna(0)
 
+        y_resampled = pd.Series(y_resampled)
+        y_smote = y_resampled[y_resampled.index.isin(X_smote.index)]
         return X_smote, y_smote
 
+
+class DecodeLabelsAndTimestamps(BaseEstimator, TransformerMixin):
+    def __init__(self, label_encoder: LabelEncoder):
+        self.label_encoder = label_encoder
+
+    def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None):
+        """Comply with pipeline requirements.
+
+        The method does not fit the dataset, the naming convention ensure
+        the compatibility of the transformer with scikit-learn `Pipeline`
+        object.
+
+        Args:
+            X: Training dataset features.
+            y: Training dataset target.
+
+        Returns:
+                Transformer.
+        """
+        X, y = check_xy(X, y)
+
+        return self
+
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        """
+        Decoded previously casted/encoded types, to recover the original data
+        and proceed to our ML pipeline.
+
+        Args:
+            X: Encoded training dataset with SMOTE values.
+
+        Returns:
+            Decoded training dataset.
+        """
+        X = check_x(X)
+
+        X_smote_original_dpt = self.label_encoder.inverse_transform(
+            np.array(X["departement"])
+        )
+        X["departement"] = X_smote_original_dpt
+        X["day"] = pd.to_datetime(X["day"]).values.astype("datetime64[D]")
+
+        return X

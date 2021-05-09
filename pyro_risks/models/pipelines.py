@@ -2,15 +2,19 @@
 
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
-
 from imblearn.pipeline import Pipeline
+from sklearn.preprocessing import LabelEncoder
+
 from .transformers import (
     TargetDiscretizer,
     CategorySelector,
     Imputer,
     LagTransformer,
     FeatureSubsetter,
-    SMOTEDataGenerator,
+    CastTypesToNumeric,
+    ResetIndex,
+    CustomSMOTE,
+    DecodeLabelsAndTimestamps,
 )
 from .utils import discretizer
 
@@ -20,7 +24,7 @@ from xgboost import XGBClassifier
 import pyro_risks.config as cfg
 
 __all__ = ["xgb_pipeline", "rf_pipeline"]
-
+label_encoder = LabelEncoder()
 # pipeline base steps definition
 base_steps = [
     (
@@ -41,13 +45,32 @@ base_steps = [
     ("subset_features", FeatureSubsetter(columns=cfg.MODEL_ERA5T_VARS)),
 ]
 
+# Preprocessing steps
+smote_step = [
+    ("cast_types_to_numeric", CastTypesToNumeric(label_encoder=label_encoder)),
+    ("smote_imputer", Imputer(strategy="median", columns=["asn_std", "rsn_std"])),
+    ("reset_index", ResetIndex()),
+    ("binarize_target_pre_SMOTE", TargetDiscretizer(discretizer=discretizer)),
+    (
+        "smote",
+        CustomSMOTE(
+            sampling_strategy="not majority",
+            random_state=cfg.RANDOM_STATE,
+            columns=[cfg.DATE_VAR]
+            + [cfg.ZONE_VAR]
+            + cfg.PIPELINE_ERA5T_VARS
+            + ["is_original_data"],
+        ),
+    ),
+    ("reset_index_post_SMOTE", ResetIndex()),
+    ("uncast_types", DecodeLabelsAndTimestamps(label_encoder=label_encoder)),
+]
+
 # Add estimator to base step lists
 xgb_steps = [*base_steps, ("xgboost", XGBClassifier(**cfg.XGB_PARAMS))]
 rf_steps = [*base_steps, ("random_forest", RandomForestClassifier(**cfg.RF_PARAMS))]
-if cfg.RESAMPLING_TECHNIQUE == "SMOTE":
-    smote_step = [("smote", SMOTEDataGenerator(random_state=cfg.RANDOM_STATE))]
-    rf_steps = smote_step + rf_steps
 
 # Define sklearn / imblearn pipelines
-xgb_pipeline = Pipeline(xgb_steps)
+preprocessing_pipeline = Pipeline(smote_step)
+xgb_pipeline = Pipeline(rf_steps)
 rf_pipeline = Pipeline(rf_steps)
