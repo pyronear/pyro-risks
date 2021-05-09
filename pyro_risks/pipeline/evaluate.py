@@ -4,12 +4,10 @@
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
 from typing import Union, Optional
-from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from plot_metric.functions import BinaryClassification
 from pyro_risks.models import discretizer
-from pyro_risks.pipeline.load import load_dataset
 
 import matplotlib.pyplot as plt
 import imblearn.pipeline as pp
@@ -18,7 +16,6 @@ import pyro_risks.config as cfg
 import pandas as pd
 import numpy as np
 
-import sys
 import os
 import json
 import joblib
