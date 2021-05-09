@@ -47,7 +47,7 @@ base_steps = [
     ("subset_features", FeatureSubsetter(columns=cfg.MODEL_ERA5T_VARS)),
 ]
 
-# Preprocessing steps
+# Upsampling steps
 smote_step = [
     ("cast_types_to_numeric", CastTypesToNumeric(label_encoder=label_encoder)),
     ("smote_imputer", Imputer(strategy="median", columns=["asn_std", "rsn_std"])),
