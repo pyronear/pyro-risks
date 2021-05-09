@@ -434,9 +434,28 @@ class CastTypesToNumeric(BaseEstimator, TransformerMixin):
 
 
 class ResetIndex(BaseEstimator):
+
+    """Reset DataFrame and Series indexes.
+
+    The `ResetIndex` transformer resets the indexes of the DataFrame
+    and Series.
+    It makes some transformations easier (like when replacing values
+    in "is_original_data" when generating SMOTE values).
+    """
+
     def fit_resample(
         self, X: pd.DataFrame, y: pd.Series
     ) -> Tuple[pd.DataFrame, pd.Series]:
+        """Reset DataFrames and Series indexes.
+
+        Args:
+            X (pd.DataFrame): Training dataset
+            y (pd.Series): Training dataset target
+
+        Returns:
+            X (pd.DataFrame): Training dataset with new indexes
+            y (pd.Series): Training dataset target with new indexes
+        """
         X, y = check_xy(X, y)
         X = X.reset_index(drop=True)
         y = y.reset_index(drop=True)
@@ -444,6 +463,21 @@ class ResetIndex(BaseEstimator):
 
 
 class CustomSMOTE(SMOTE):
+
+    """Class to perform over-sampling using custom SMOTE.
+
+    The `CustomSMOTE` transformer resamples the dataset using the SMOTE algorithm
+    with custom default parameters and additional steps.
+
+    Parameters:
+        sampling_strategy: specify the class targeted by the resampling. The
+          number of samples in the different classes will be equalized. Here
+          by default ``'not majority'``, which means it resamples all classes
+          but the majority class
+        random_state : int, RandomState instance or None
+        columns: DataFrame columns.
+    """
+
     def __init__(
         self,
         *,
@@ -454,7 +488,18 @@ class CustomSMOTE(SMOTE):
         self.columns = columns
         super().__init__(sampling_strategy=sampling_strategy, random_state=random_state)
 
-    def _fit_resample(self, X, y):
+    def _fit_resample(self, X: pd.DataFrame, y: pd.Series) -> Tuple[pd.DataFrame, pd.Series]:
+        """Resample the dataset using SMOTE - Synthetic Minority Over-sampling
+        Technique.
+
+        Args:
+            X (pd.DataFrame): Training dataset
+            y (pd.Series): Training dataset target
+
+        Returns:
+            X (pd.DataFrame): Training dataset with new rows
+            y (pd.Series): Training dataset target with new rows
+        """
         self._validate_estimator()
 
         X_resampled = [X.copy()]
@@ -484,7 +529,7 @@ class CustomSMOTE(SMOTE):
 
         X_resampled = pd.DataFrame(data=X_resampled, columns=self.columns)
         X_resampled["is_original_data"] = 0
-        X_resampled = X_resampled.iloc[len(X) :]
+        X_resampled = X_resampled.iloc[len(X):]
         X_resampled["day_drop_dup"] = pd.to_datetime(X_resampled["day"]).dt.date
         X_resampled = X_resampled.drop_duplicates(
             subset=["departement", "day_drop_dup"]
@@ -499,6 +544,17 @@ class CustomSMOTE(SMOTE):
 
 
 class DecodeLabelsAndTimestamps(BaseEstimator, TransformerMixin):
+
+    """Class to decode previously encoded variables.
+
+    The `DecodeLabelsAndTimestamps` transforms timestamps in dates, and numbers
+    in labels.
+
+    Parameters:
+        label_encoder (LabelEncoder): the label encoder that was used to encode
+        departements.
+    """
+
     def __init__(self, label_encoder: LabelEncoder):
         self.label_encoder = label_encoder
 
@@ -529,7 +585,7 @@ class DecodeLabelsAndTimestamps(BaseEstimator, TransformerMixin):
             X: Encoded training dataset with SMOTE values.
 
         Returns:
-            Decoded training dataset.
+            X: Decoded training dataset.
         """
         X = check_x(X)
 
