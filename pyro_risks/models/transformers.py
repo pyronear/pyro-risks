@@ -530,7 +530,7 @@ class CustomSMOTE(SMOTE):
 
         X_resampled = pd.DataFrame(data=X_resampled, columns=self.columns)
         X_resampled["is_original_data"] = 0
-        X_resampled = X_resampled.iloc[len(X) :]
+        X_resampled = X_resampled.iloc[len(X):]
         X_resampled["day_drop_dup"] = pd.to_datetime(X_resampled["day"]).dt.date
         X_resampled = X_resampled.drop_duplicates(
             subset=["departement", "day_drop_dup"]
