@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_curve
 from sklearn.utils import estimator_html_repr
 
-from pyro_risks.models.pipelines import preprocessing_pipeline
+from pyro_risks.models.pipelines import upsampling_pipeline
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg
@@ -115,7 +115,7 @@ def train_pipeline(
     if model == "RF":
         X_train["is_original_data"] = 1  # to avoid SMOTE conflicts
         X_test["is_original_data"] = 1
-        preprocessing_pipeline.fit(X_train, y_train)
+        upsampling_pipeline.fit(X_train, y_train)
         rf_pipeline.fit(X_train, y_train)
         y_scores = rf_pipeline.predict_proba(X_test)
         optimal_threshold = calibrate_pipeline(

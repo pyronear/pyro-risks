@@ -73,6 +73,6 @@ xgb_steps = [*base_steps, ("xgboost", XGBClassifier(**cfg.XGB_PARAMS))]
 rf_steps = [*base_steps, ("random_forest", RandomForestClassifier(**cfg.RF_PARAMS))]
 
 # Define sklearn / imblearn pipelines
-preprocessing_pipeline = Pipeline(smote_step)
+upsampling_pipeline = Pipeline(smote_step)
 xgb_pipeline = Pipeline(rf_steps)
 rf_pipeline = Pipeline(rf_steps)
