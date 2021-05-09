@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_curve
 from sklearn.utils import estimator_html_repr
 
-from models.pipelines import preprocessing_pipeline
+from pyro_risks.models.pipelines import preprocessing_pipeline
 from pyro_risks.models import xgb_pipeline, rf_pipeline, discretizer
 import imblearn.pipeline as pp
 import pyro_risks.config as cfg

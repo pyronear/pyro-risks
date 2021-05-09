@@ -469,12 +469,12 @@ class CustomSMOTE(SMOTE):
     with custom default parameters and additional steps.
 
     Parameters:
-        sampling_strategy: specify the class targeted by the resampling. The
+        sampling_strategy (str): specify the class targeted by the resampling. The
           number of samples in the different classes will be equalized. Here
           by default ``'not majority'``, which means it resamples all classes
           but the majority class
-        random_state : int, RandomState instance or None
-        columns: DataFrame columns.
+        random_state (int): RandomState instance or None
+        columns (list of str): DataFrame columns.
     """
 
     def __init__(
@@ -482,7 +482,7 @@ class CustomSMOTE(SMOTE):
         *,
         sampling_strategy: str = "not majority",
         random_state: int = None,
-        columns: str,
+        columns: List[str],
     ):
         self.columns = columns
         super().__init__(sampling_strategy=sampling_strategy, random_state=random_state)
@@ -528,19 +528,19 @@ class CustomSMOTE(SMOTE):
 
         X = pd.DataFrame(data=X, columns=self.columns)
 
-        X_resampled = pd.DataFrame(data=X_resampled, columns=self.columns)
-        X_resampled["is_original_data"] = 0
-        X_resampled = X_resampled.iloc[len(X):]
-        X_resampled["day_drop_dup"] = pd.to_datetime(X_resampled["day"]).dt.date
-        X_resampled = X_resampled.drop_duplicates(
-            subset=["departement", "day_drop_dup"]
+        X_resampled_df = pd.DataFrame(data=X_resampled, columns=self.columns)
+        X_resampled_df["is_original_data"] = 0 #pd.Series(data=np.zeros((len(X_resampled_df))))
+        X_resampled_df = X_resampled_df.iloc[len(X):]
+        X_resampled_df["day_drop_dup"] = pd.to_datetime(X_resampled_df["day"]).dt.date
+        X_resampled_df.drop_duplicates(
+            subset=["departement", "day_drop_dup"], inplace=True
         )
-        X_resampled.drop(columns=["day_drop_dup"], inplace=True)
+        X_resampled_df.drop(columns=["day_drop_dup"], inplace=True)
 
-        X_smote = pd.concat([X, X_resampled], axis=0).fillna(0)
+        X_smote = pd.concat([X, X_resampled_df], axis=0)
 
-        y_resampled = pd.Series(y_resampled)
-        y_smote = y_resampled[y_resampled.index.isin(X_smote.index)]
+        y_resampled_series = pd.Series(y_resampled)
+        y_smote = y_resampled_series[y_resampled_series.index.isin(X_smote.index)]
         return X_smote, y_smote
 
 
