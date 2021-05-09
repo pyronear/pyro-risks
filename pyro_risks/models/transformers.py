@@ -529,7 +529,7 @@ class CustomSMOTE(SMOTE):
         X = pd.DataFrame(data=X, columns=self.columns)
 
         X_resampled_df = pd.DataFrame(data=X_resampled, columns=self.columns)
-        X_resampled_df["is_original_data"] = 0 #pd.Series(data=np.zeros((len(X_resampled_df))))
+        X_resampled_df["is_original_data"] = 0
         X_resampled_df = X_resampled_df.iloc[len(X):]
         X_resampled_df["day_drop_dup"] = pd.to_datetime(X_resampled_df["day"]).dt.date
         X_resampled_df.drop_duplicates(
