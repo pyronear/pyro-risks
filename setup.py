@@ -56,6 +56,8 @@ requirements = [
     "cdsapi==0.4.0",
     "python-dotenv>=0.15.0",
     "plot-metric==0.0.6",
+    "dvc>=2.0.5",
+    "dvc[gdrive]>=2.0.5",
 ]
 
 setup(

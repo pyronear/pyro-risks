@@ -3,8 +3,11 @@
 # This program is licensed under the GNU Affero General Public License version 3.
 # See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
 
+# type: ignore
 from pyro_risks.datasets.utils import download
 from pyro_risks.pipeline import load_dataset, train_pipeline, evaluate_pipeline
+from pyro_risks.pipeline import PyroRisk
+from datetime import date
 
 import pyro_risks.config as cfg
 import click
@@ -15,7 +18,12 @@ def main():
     pass
 
 
-@main.command(name="download")
+@main.group(name="download")
+def download_main():
+    pass
+
+
+@download_main.command(name="dataset")
 @click.option("--url", default=cfg.ERA5T_VIIRS_PIPELINE, help="Dataset URL")
 @click.option(
     "--extension", "default_extension", default="csv", help="Dataset file extension"
@@ -29,7 +37,7 @@ def main():
 @click.option(
     "--destination", default=cfg.DATA_REGISTRY, help="Dataset registry local path"
 )
-def _download(url: str, default_extension: str, unzip: bool, destination: str) -> None:
+def _download_dataset(url: str, default_extension: str, unzip: bool, destination: str):
     click.echo(f"Download {cfg.DATASET} dataset in {destination}")
     download(
         url=url,
@@ -37,6 +45,21 @@ def _download(url: str, default_extension: str, unzip: bool, destination: str) -
         unzip=unzip,
         destination=destination,
     )
+
+
+@download_main.command(name="inputs")
+@click.option("--day", help="Date of interest (%Y-%m-%d) for example 2020-05-05")
+@click.option("--country", default="France", help="Country of interest")
+@click.option(
+    "--directory", default=cfg.PREDICTIONS_REGISTRY, help="Dataset registry local path"
+)
+def _download_inputs(day: str, country: str, directory: str):
+    day = day if day is not None else date.today().strftime("%Y-%m-%d")
+    pyrorisk = PyroRisk()
+    location = "default directory" if directory is None else directory
+    click.echo(f"Download inputs in {location} to fire risks in {country} on {day}")
+    pyrorisk.get_inputs(day=day, country=country, dir_destination=directory)
+    click.echo("The fire risks inputs are downloaded")
 
 
 @main.command(name="train")
@@ -88,6 +111,32 @@ def _evaluate_pipeline(
         threshold=threshold,
         prefix=prefix,
         destination=destination,
+    )
+
+
+@main.command(name="predict")
+@click.option(
+    "--model",
+    default="RF",
+    help="trained pipeline from pyrorisks remote model default to RF",
+)
+@click.option("--day", help="Date of interest (%Y-%m-%d) for example 2020-05-05")
+@click.option("--country", default="France", help="Country of interest")
+@click.option("--zone", default=cfg.ZONE_VAR, help="Territorial unit variable")
+@click.option(
+    "--directory",
+    default=cfg.PREDICTIONS_REGISTRY,
+    help="Predictions registry local path",
+)
+def _predict(model: str, day: str, country: str, zone: str, directory: str):
+    day = day if day is not None else date.today().strftime("%Y-%m-%d")
+    pyrorisk = PyroRisk(model=model)
+    click.echo(f"Start predictions with the trained {pyrorisk.model} pipeline")
+    pyrorisk.predict(
+        day=day, country=country, zone_column=zone, dir_destination=directory
+    )
+    click.echo(
+        f"Predictions are persisted in {directory}{pyrorisk.model}_prediction_{country}_{day}.joblib"
     )
 
 
