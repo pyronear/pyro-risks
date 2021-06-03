@@ -109,6 +109,10 @@ SELECTED_DEP = [
 
 LAG_ERA5T_VARS = ["_".join(x.split("_")[:-1]) for x in MODEL_ERA5T_VARS if "_lag" in x]
 
+USECOLS = [DATE_VAR, ZONE_VAR, TARGET] + PIPELINE_ERA5T_VARS
+
+PIPELINE_COLS = [DATE_VAR, ZONE_VAR] + PIPELINE_ERA5T_VARS
+
 TEST_SIZE = 0.2
 
 RANDOM_STATE = 42
@@ -138,7 +142,4 @@ XGB_PARAMS = {
 }
 
 
-XGB_FIT_PARAMS = {
-    "early_stopping_rounds": 50,
-    "eval_metric": ["logloss", "aucpr"],
-}
+XGB_FIT_PARAMS = {"early_stopping_rounds": 50, "eval_metric": ["logloss", "aucpr"]}

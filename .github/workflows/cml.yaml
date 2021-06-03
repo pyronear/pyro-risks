@@ -9,6 +9,9 @@ on:
 jobs:
   continous-training:
     runs-on: [ubuntu-latest]
+    env:
+      GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS}}
+      repo_token: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: iterative/setup-cml@v1
@@ -31,11 +34,14 @@ jobs:
           sudo apt install libspatialindex-dev python3-rtree
           python -m pip install --upgrade pip
           pip install -e .
-      - name: CML
-        env:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set env
         run: |
-          dvc repro -R dags
+          mkdir -p .dvc/tmp
+          echo "$GDRIVE_CREDENTIALS" | cat - | base64 -d > .dvc/tmp/credentials.json
+
+      - name: CML
+        run: |
+          dvc repro -R dags/dvc/train
 
           echo "# Models" >> report.md
           echo "## Random Forest" >> report.md
@@ -52,8 +58,5 @@ jobs:
 
       - name: Push to registry
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        env:
-          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS}}
         run: |
-          echo "$GDRIVE_CREDENTIALS" | cat - | base64 -d > .dvc/tmp/credentials.json
           dvc push -r artifacts-registry

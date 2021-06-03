@@ -1,7 +1,7 @@
 stages:
   download:
     wdir: ../../../
-    cmd: pyrorisks download
+    cmd: pyrorisks download dataset
     deps:
       - pyro_risks/pipeline/load.py
     outs:

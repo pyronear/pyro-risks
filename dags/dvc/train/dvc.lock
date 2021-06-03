@@ -54,8 +54,8 @@ stages:
       size: 5224
     outs:
     - path: .cache/metadata_registry/RF_classification_report.json
-      md5: 3d925f3a89ab841106ffea60f377c478
-      size: 525
+      md5: 47d86b5779e035dc9ff38d38330cd9fd
+      size: 237
     - path: .cache/metadata_registry/XGBOOST_classification_report.json
-      md5: 8f8e6ec2eec701529d1158b49795c6d3
-      size: 522
+      md5: 137fe7ce77c7dc4fdc948e11885f5557
+      size: 237
