@@ -260,51 +260,142 @@
 <span id="predict-module"></span><h1>Predict module<a class="headerlink" href="#module-pyro_risks.pipeline.predict" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="pyro_risks.pipeline.predict.PyroRisk">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyro_risks.pipeline.predict.</span></code><code class="sig-name descname"><span class="pre">PyroRisk</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'RF'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyro_risks.pipeline.predict.</span></code><code class="sig-name descname"><span class="pre">PyroRisk</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'RF'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Pyronear risk score for fire danger on French departments.</p>
-<p>Load a trained model uploaded on the Pyro-risk Github Release to get predictions for a selected day</p>
+<p>Pyronear Wildfire Risk Forecaster</p>
+<p>Load a trained pipeline from pyrorisks remote model registry, download features from publicly
+available data sources (CDS API). Forecast the local (NUTS 3 level) daily wildfire risks
+(forest fire danger) in a Given Country (France).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>object</strong> (<em>[</em><em>python:type</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>model</strong> – Can be ‘RF’ for random forest or ‘XGBOOST’ for xgboost. Defaults to ‘RF’.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Model can be only of type RF or XGBOOST</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="pyro_risks.pipeline.predict.PyroRisk.get_input">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">get_input</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.get_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.get_input" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns for a given day data to feed into the model.</p>
-<p>This makes use of the CDS API to query data for the selected day, add lags and select
-variables used by the model.</p>
+<dt id="pyro_risks.pipeline.predict.PyroRisk.expose_predictions">
+<code class="sig-name descname"><span class="pre">expose_predictions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'France'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.expose_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.expose_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves a prediction for the specified day.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>day</strong> (<em>str</em>) – for example ‘2020-05-05’</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>day</strong> – Date of interest (‘%Y-%m-%d’) for example ‘2020-05-05’.</p></li>
+<li><p><strong>country</strong> – Country of interest. Defaults to ‘France’.</p></li>
+<li><p><strong>dir_path</strong> – Location of the predictions to download, relative to the root of the dvc project.</p></li>
+<li><p><strong>to None.</strong> (<em>Defaults</em>) – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pd.DataFrame</p>
+<dd class="field-even"><p>keys are departements, values dictionaries whose keys are score and explainability
+and values probability predictions for label 1 (fire) and feature contributions to predictions
+respectively.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyro_risks.pipeline.predict.PyroRisk.get_inputs">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">get_inputs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'France'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.get_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.get_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download datasets and build features for forecasting daily wildfire risks on a given date.</p>
+<p>The <cite>get_inputs</cite> method downloads datsets from publicly available data sources (CDS API) and
+build features for forecasting wildfire risks on a given date. The downloaded inputs are
+persited in the destination csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>day</strong> – Date of interest (‘%Y-%m-%d’) for example ‘2020-05-05’.</p></li>
+<li><p><strong>country</strong> – Country of interest. Defaults to ‘France’.</p></li>
+<li><p><strong>destination</strong> – Location where the daily inputs are persisted.</p></li>
+<li><p><strong>to None</strong> (<em>Defaults</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyro_risks.pipeline.predict.PyroRisk.get_pipeline">
+<code class="sig-name descname"><span class="pre">get_pipeline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.get_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.get_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download trained pipeline from remote model registry.</p>
+<p>The <cite>get_pipeline</cite> method downloads the selected trained pipeline from the pyrorisks remote
+model registry. The downloaded pipeline is persited in the destination joblib file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – Location and file name of the pipeline to download, relative to the root of the</p></li>
+<li><p><strong>project. Defaults to None</strong> (<em>dvc</em>) – </p></li>
+<li><p><strong>destination</strong> – Location where the pipeline is downloaded. Defaults to None (self.model_path).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyro_risks.pipeline.predict.PyroRisk.get_predictions">
+<code class="sig-name descname"><span class="pre">get_predictions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'France'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.get_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.get_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download predictions for the day of interest from the remote prediction registry.</p>
+<p>The <cite>get_predictions</cite> method downloads the forecasted local wildfire risks at a given
+day in a given country (France). The downloaded predictions are persited in the
+destination joblib file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>day</strong> – Date of interest (‘%Y-%m-%d’) for example ‘2020-05-05’.</p></li>
+<li><p><strong>country</strong> – Country of interest. Defaults to ‘France’.</p></li>
+<li><p><strong>dir_path</strong> – Location of the predictions to download, relative to the root of the dvc project.</p></li>
+<li><p><strong>to None.</strong> (<em>Defaults</em>) – </p></li>
+<li><p><strong>dir_destination</strong> – Location where the daily predictions are persisted. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyro_risks.pipeline.predict.PyroRisk.load_inputs">
+<code class="sig-name descname"><span class="pre">load_inputs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'France'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usecols</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.load_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.load_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load inputs from local path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>day</strong> – Date of interest (‘%Y-%m-%d’) for example ‘2020-05-05’.</p></li>
+<li><p><strong>country</strong> – Country of interest. Defaults to ‘France’.</p></li>
+<li><p><strong>dir_path</strong> – Location where the daily inputs have been persisted. Defaults to None</p></li>
+<li><p><strong>(cfg.PREDICTIONS_REGISTRY).</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyro_risks.pipeline.predict.PyroRisk.load_pipeline">
+<code class="sig-name descname"><span class="pre">load_pipeline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.load_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.load_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load trained pipeline from local path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – Location where the pipeline has been downloaded. Defaults to None (self.model_path).</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="pyro_risks.pipeline.predict.PyroRisk.predict">
-<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'France'</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Serves a prediction for the specified day.</p>
-<p>Note that predictions on fwi and era5land data queried from CDS API will return 93 departments
-instead of 96 for France.</p>
+<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'France'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone_column</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'departement'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../_modules/pyro_risks/pipeline/predict.html#PyroRisk.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyro_risks.pipeline.predict.PyroRisk.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict local daily wildfire risks in a given country.</p>
+<p>Forecast the local (NUTS 3 level) daily wildfire risks (forest fire danger) in a given
+country (France). Note that predictions on fwi and era5land data queried from CDS API
+will return 93 departments instead of 96 for France.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>day</strong> (<em>str</em>) – like ‘2020-05-05’</p></li>
-<li><p><strong>country</strong> (<em>str</em><em>, </em><em>optional</em>) – Defaults to ‘France’.</p></li>
+<li><p><strong>day</strong> – Date of interest (‘%Y-%m-%d’) for example ‘2020-05-05’.</p></li>
+<li><p><strong>country</strong> – Country of interest. Defaults to ‘France’.</p></li>
+<li><p><strong>dir_destination</strong> – Location where the daily inputs are persisted.</p></li>
+<li><p><strong>to None</strong> (<em>Defaults</em>) – </p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>keys are departements, values dictionaries whose keys are score and explainability
-and values probability predictions for label 1 (fire) and feature contributions to predictions
-respectively</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>

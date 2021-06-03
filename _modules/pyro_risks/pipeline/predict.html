@@ -256,101 +256,270 @@
 <span class="c1"># This program is licensed under the GNU Affero General Public License version 3.</span>
 <span class="c1"># See LICENSE or go to &lt;https://www.gnu.org/licenses/agpl-3.0.txt&gt; for full license details.</span>
 
-<span class="kn">import</span> <span class="nn">joblib</span>
-<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">xgboost</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-
+<span class="c1"># type: ignore</span>
 <span class="kn">from</span> <span class="nn">pyro_risks</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">cfg</span>
 <span class="kn">from</span> <span class="nn">pyro_risks.datasets.fwi</span> <span class="kn">import</span> <span class="n">get_fwi_data_for_predict</span>
-<span class="kn">from</span> <span class="nn">pyro_risks.datasets.ERA5</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">get_data_era5land_for_predict</span><span class="p">,</span>
-    <span class="n">get_data_era5t_for_predict</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pyro_risks.datasets.ERA5</span> <span class="kn">import</span> <span class="n">get_data_era5t_for_predict</span>
 <span class="kn">from</span> <span class="nn">pyro_risks.datasets.era_fwi_viirs</span> <span class="kn">import</span> <span class="n">process_dataset_to_predict</span>
-<span class="kn">from</span> <span class="nn">.score_v0</span> <span class="kn">import</span> <span class="n">add_lags</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">dvc.api</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PyroRisk&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="PyroRisk"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk">[docs]</a><span class="k">class</span> <span class="nc">PyroRisk</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Pyronear risk score for fire danger on French departments.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pyronear Wildfire Risk Forecaster</span>
 
-<span class="sd">    Load a trained model uploaded on the Pyro-risk Github Release to get predictions for a selected day</span>
+<span class="sd">    Load a trained pipeline from pyrorisks remote model registry, download features from publicly</span>
+<span class="sd">    available data sources (CDS API). Forecast the local (NUTS 3 level) daily wildfire risks</span>
+<span class="sd">    (forest fire danger) in a Given Country (France).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        object ([type])</span>
+<span class="sd">        model: Can be &#39;RF&#39; for random forest or &#39;XGBOOST&#39; for xgboost. Defaults to &#39;RF&#39;.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: Model can be only of type RF or XGBOOST</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">which</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RF&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Load from Github release the trained model. For the moment only RF and XGB are available.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RF&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">country</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zone</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predictions_registry</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PREDICTIONS_REGISTRY</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            which (str, optional): Can be &#39;RF&#39; for random forest or &#39;XGB&#39; for xgboost. Defaults to &#39;RF&#39;.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;RF&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">RFMODEL_ERA5T_PATH</span>
-        <span class="k">elif</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;XGB&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">XGBMODEL_ERA5T_PATH</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;RF&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">RFMODEL_ERA5T_PATH</span>  <span class="c1"># file path</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;XGBOOST&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">XGBMODEL_ERA5T_PATH</span>  <span class="c1"># file path</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model can be only of type RF or XGB&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_path</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_model_type</span> <span class="o">=</span> <span class="n">which</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model can be only of type RF or XGBOOST&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PyroRisk.get_input"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.get_input">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_input</span><span class="p">(</span><span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns for a given day data to feed into the model.</span>
+<div class="viewcode-block" id="PyroRisk.get_pipeline"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.get_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">get_pipeline</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Download trained pipeline from remote model registry.</span>
 
-<span class="sd">        This makes use of the CDS API to query data for the selected day, add lags and select</span>
-<span class="sd">        variables used by the model.</span>
+<span class="sd">        The `get_pipeline` method downloads the selected trained pipeline from the pyrorisks remote</span>
+<span class="sd">        model registry. The downloaded pipeline is persited in the destination joblib file.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            day (str): for example &#39;2020-05-05&#39;</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            pd.DataFrame</span>
+<span class="sd">            path: Location and file name of the pipeline to download, relative to the root of the</span>
+<span class="sd">            dvc project. Defaults to None (self.model_path).</span>
+<span class="sd">            destination: Location where the pipeline is downloaded. Defaults to None (self.model_path).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">model_cols</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">MODEL_ERA5T_VARS</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">path</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="k">if</span> <span class="n">destination</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">destination</span>
+
+        <span class="n">pipeline</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">BytesIO</span><span class="p">(</span>
+                <span class="n">dvc</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+                    <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">REPO_DIR</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="s2">&quot;artifacts-registry&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PyroRisk.get_inputs"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.get_inputs">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_inputs</span><span class="p">(</span>
+        <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;France&quot;</span><span class="p">,</span>
+        <span class="n">dir_destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Download datasets and build features for forecasting daily wildfire risks on a given date.</span>
+
+<span class="sd">        The `get_inputs` method downloads datsets from publicly available data sources (CDS API) and</span>
+<span class="sd">        build features for forecasting wildfire risks on a given date. The downloaded inputs are</span>
+<span class="sd">        persited in the destination csv file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            day: Date of interest (&#39;%Y-%m-%d&#39;) for example &#39;2020-05-05&#39;.</span>
+<span class="sd">            country: Country of interest. Defaults to &#39;France&#39;.</span>
+<span class="sd">            destination: Location where the daily inputs are persisted.</span>
+<span class="sd">            Defaults to None (cfg.PIPELINE_INPUT_PATH).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO:</span>
+        <span class="c1"># Delete get_fwi_data_for_predict variables not available at predict time</span>
+        <span class="c1"># Create process_era5 function</span>
+        <span class="c1"># Create MergedEraViir class</span>
+        <span class="n">dir_destination</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">cfg</span><span class="o">.</span><span class="n">PREDICTIONS_REGISTRY</span> <span class="k">if</span> <span class="n">dir_destination</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dir_destination</span>
+        <span class="p">)</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;inputs_</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_destination</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
         <span class="n">fwi</span> <span class="o">=</span> <span class="n">get_fwi_data_for_predict</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
         <span class="n">era</span> <span class="o">=</span> <span class="n">get_data_era5t_for_predict</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
         <span class="n">res_test</span> <span class="o">=</span> <span class="n">process_dataset_to_predict</span><span class="p">(</span><span class="n">fwi</span><span class="p">,</span> <span class="n">era</span><span class="p">)</span>
         <span class="n">res_test</span> <span class="o">=</span> <span class="n">res_test</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;nom&quot;</span><span class="p">:</span> <span class="s2">&quot;departement&quot;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="c1"># Add lags only for columns on which model was trained on</span>
-        <span class="n">cols_lags</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">MODEL_ERA5T_VARS</span> <span class="k">if</span> <span class="s2">&quot;_lag&quot;</span> <span class="ow">in</span> <span class="n">x</span>
-        <span class="p">]</span>
-        <span class="n">res_lags</span> <span class="o">=</span> <span class="n">add_lags</span><span class="p">(</span><span class="n">res_test</span><span class="p">,</span> <span class="n">cols_lags</span><span class="p">)</span>
-        <span class="c1"># Select only rows corresponding to day</span>
-        <span class="n">to_predict</span> <span class="o">=</span> <span class="n">res_lags</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res_lags</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">day</span><span class="p">]</span>
-        <span class="n">to_predict</span> <span class="o">=</span> <span class="n">to_predict</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;departement&quot;</span><span class="p">)</span>
-        <span class="c1"># Some NaN due to the aggregations on departments with only one line (variables with std)</span>
-        <span class="n">to_predict</span> <span class="o">=</span> <span class="n">to_predict</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">to_predict</span><span class="p">[</span><span class="n">model_cols</span><span class="p">]</span></div>
+        <span class="n">res_test</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="PyroRisk.predict"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;France&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Serves a prediction for the specified day.</span>
-
-<span class="sd">        Note that predictions on fwi and era5land data queried from CDS API will return 93 departments</span>
-<span class="sd">        instead of 96 for France.</span>
+<div class="viewcode-block" id="PyroRisk.load_pipeline"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.load_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">load_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load trained pipeline from local path.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            day (str): like &#39;2020-05-05&#39;</span>
-<span class="sd">            country (str, optional): Defaults to &#39;France&#39;.</span>
+<span class="sd">            path: Location where the pipeline has been downloaded. Defaults to None (self.model_path).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">path</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_pipeline</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PyroRisk.load_inputs"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.load_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">load_inputs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;France&quot;</span><span class="p">,</span>
+        <span class="n">usecols</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dir_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load inputs from local path.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            day: Date of interest (&#39;%Y-%m-%d&#39;) for example &#39;2020-05-05&#39;.</span>
+<span class="sd">            country: Country of interest. Defaults to &#39;France&#39;.</span>
+<span class="sd">            dir_path: Location where the daily inputs have been persisted. Defaults to None</span>
+<span class="sd">            (cfg.PREDICTIONS_REGISTRY).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PREDICTIONS_REGISTRY</span> <span class="k">if</span> <span class="n">dir_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dir_path</span>
+        <span class="n">usecols</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PIPELINE_COLS</span> <span class="k">if</span> <span class="n">usecols</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">usecols</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;inputs_</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">(</span><span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span> <span class="n">dir_destination</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATE_VAR</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATE_VAR</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="PyroRisk.predict"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;France&quot;</span><span class="p">,</span>
+        <span class="n">zone_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">ZONE_VAR</span><span class="p">,</span>
+        <span class="n">dir_destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Predict local daily wildfire risks in a given country.</span>
+
+<span class="sd">        Forecast the local (NUTS 3 level) daily wildfire risks (forest fire danger) in a given</span>
+<span class="sd">        country (France). Note that predictions on fwi and era5land data queried from CDS API</span>
+<span class="sd">        will return 93 departments instead of 96 for France.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            day: Date of interest (&#39;%Y-%m-%d&#39;) for example &#39;2020-05-05&#39;.</span>
+<span class="sd">            country: Country of interest. Defaults to &#39;France&#39;.</span>
+<span class="sd">            dir_destination: Location where the daily inputs are persisted.</span>
+<span class="sd">            Defaults to None (cfg.PREDICTIONS_REGISTRY).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_destination</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">.joblib&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dir_destination</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PREDICTIONS_REGISTRY</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">.joblib&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_pipeline</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_inputs</span><span class="p">(</span><span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span> <span class="n">dir_path</span><span class="o">=</span><span class="n">dir_destination</span><span class="p">)</span>
+
+        <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">_predictions_</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.joblib&quot;</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_destination</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;RF&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">zone_column</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;XGBOOST&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">zone_column</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Predict </span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2"> local wildfire risks on </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">, using </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2"> pipeline.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PyroRisk.get_predictions"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.get_predictions">[docs]</a>    <span class="k">def</span> <span class="nf">get_predictions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;France&quot;</span><span class="p">,</span>
+        <span class="n">dir_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dir_destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Download predictions for the day of interest from the remote prediction registry.</span>
+
+<span class="sd">        The `get_predictions` method downloads the forecasted local wildfire risks at a given</span>
+<span class="sd">        day in a given country (France). The downloaded predictions are persited in the</span>
+<span class="sd">        destination joblib file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            day: Date of interest (&#39;%Y-%m-%d&#39;) for example &#39;2020-05-05&#39;.</span>
+<span class="sd">            country: Country of interest. Defaults to &#39;France&#39;.</span>
+<span class="sd">            dir_path: Location of the predictions to download, relative to the root of the dvc project.</span>
+<span class="sd">            Defaults to None.</span>
+<span class="sd">            dir_destination: Location where the daily predictions are persisted. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PREDICTIONS_REGISTRY</span> <span class="k">if</span> <span class="n">dir_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dir_path</span>
+        <span class="n">dir_destination</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">cfg</span><span class="o">.</span><span class="n">PREDICTIONS_REGISTRY</span> <span class="k">if</span> <span class="n">dir_destination</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dir_destination</span>
+        <span class="p">)</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">_predictions_</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.joblib&quot;</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_destination</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">BytesIO</span><span class="p">(</span>
+                <span class="n">dvc</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+                    <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">REPO_DIR</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="s2">&quot;artifacts-registry&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PyroRisk.expose_predictions"><a class="viewcode-back" href="../../../modules/pipeline/predict.html#pyro_risks.pipeline.predict.PyroRisk.expose_predictions">[docs]</a>    <span class="k">def</span> <span class="nf">expose_predictions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">day</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;France&quot;</span><span class="p">,</span>
+        <span class="n">dir_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dir_destination</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Serves a prediction for the specified day.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            day: Date of interest (&#39;%Y-%m-%d&#39;) for example &#39;2020-05-05&#39;.</span>
+<span class="sd">            country: Country of interest. Defaults to &#39;France&#39;.</span>
+<span class="sd">            dir_path: Location of the predictions to download, relative to the root of the dvc project.</span>
+<span class="sd">            Defaults to None.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict: keys are departements, values dictionaries whose keys are score and explainability</span>
+<span class="sd">            dict[dict]: keys are departements, values dictionaries whose keys are score and explainability</span>
 <span class="sd">            and values probability predictions for label 1 (fire) and feature contributions to predictions</span>
-<span class="sd">            respectively</span>
+<span class="sd">            respectively.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_input</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_type</span> <span class="o">==</span> <span class="s2">&quot;RF&quot;</span><span class="p">:</span>
-            <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">predictions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_type</span> <span class="o">==</span> <span class="s2">&quot;XGB&quot;</span><span class="p">:</span>
-            <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">xgboost</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">predictions</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="s2">&quot;explainability&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">res</span><span class="p">}</span></div></div>
+        <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">_predictions_</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">.joblib&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_destination</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_predictions</span><span class="p">(</span>
+                <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span>
+                <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span>
+                <span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span>
+                <span class="n">dir_destination</span><span class="o">=</span><span class="n">dir_destination</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="s2">&quot;explainability&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span>
+        <span class="p">}</span></div></div>
 </pre></div>
 
            </div>
