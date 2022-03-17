@@ -1,7 +1,7 @@
-# Copyright (C) 2021, Pyronear contributors.
+# Copyright (C) 2021-2022, Pyronear.
 
-# This program is licensed under the GNU Affero General Public License version 3.
-# See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.
+# This program is licensed under the Apache License version 2.
+# See LICENSE or go to <https://www.apache.org/licenses/LICENSE-2.0.txt> for full license details.
 
 import unittest
 from pathlib import Path
@@ -12,10 +12,10 @@ class HeadersTester(unittest.TestCase):
         shebang = ["#!usr/bin/python\n"]
         blank_line = "\n"
 
-        copyright_notice = ["# Copyright (C) 2021, Pyronear contributors.\n"]
+        copyright_notice = ["# Copyright (C) 2021-2022, Pyronear.\n"]
         license_notice = [
-            "# This program is licensed under the GNU Affero General Public License version 3.\n",
-            "# See LICENSE or go to <https://www.gnu.org/licenses/agpl-3.0.txt> for full license details.\n",
+            "# This program is licensed under the Apache License version 2.\n",
+            "# See LICENSE or go to <https://www.apache.org/licenses/LICENSE-2.0.txt> for full license details.\n",
         ]
 
         self.headers = [
