@@ -1,7 +1,7 @@
 <h1 align="center">Pyronear Risks</h1>
 <p align="center">
     <a href="LICENSE" alt="License">
-        <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" /></a>
+        <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
     <a href="https://github.com/pyronear/pyro-risks/actions?query=workflow%3Apython-package">
         <img src="https://github.com/pyronear/pyro-risks/workflows/python-package/badge.svg" /></a>
    <a href="https://www.codacy.com/gh/pyronear/pyro-risks/dashboard?utm_source=github.com&utm_medium=referral&utm_content=pyronear/pyro-risks&utm_campaign=Badge_Grade">
@@ -110,4 +110,4 @@ This project is developed and maintained by the repo owner and volunteers from [
 
 ## License
 
-Distributed under the AGPLv3 Licenses. See [`LICENSE`](./LICENSE) for more information.
+Distributed under the Apache v2 License. See [`LICENSE`](./LICENSE) for more information.
