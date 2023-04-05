@@ -42,7 +42,13 @@ class S3Bucket:
         >>> metadata = s3.get_file_metadata('path/to/my_file.txt')
     """
 
-    def __init__(self, bucket_name, region_name=None, aws_access_key_id=None, aws_secret_access_key=None):
+    def __init__(
+        self,
+        bucket_name,
+        region_name=None,
+        aws_access_key_id=None,
+        aws_secret_access_key=None,
+    ):
         """
         Initializes a new instance of the S3Bucket class.
 
@@ -54,12 +60,12 @@ class S3Bucket:
         """
         session_args = {}
         if region_name:
-            session_args['region_name'] = region_name
+            session_args["region_name"] = region_name
         if aws_access_key_id and aws_secret_access_key:
-            session_args['aws_access_key_id'] = aws_access_key_id
-            session_args['aws_secret_access_key'] = aws_secret_access_key
+            session_args["aws_access_key_id"] = aws_access_key_id
+            session_args["aws_secret_access_key"] = aws_secret_access_key
         self.session = boto3.Session(**session_args)
-        self.s3 = self.session.resource('s3')
+        self.s3 = self.session.resource("s3")
         self.bucket = self.s3.Bucket(bucket_name)
 
     def upload_file(self, file_path, object_key):
