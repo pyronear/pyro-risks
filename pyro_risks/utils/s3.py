@@ -6,6 +6,40 @@ __all__ = ["S3Bucket"]
 class S3Bucket:
     """
     A class for manipulating an S3 bucket using Boto3.
+
+    Example:
+        To create an instance of the S3Bucket class with a session, use:
+
+        >>> s3 = S3Bucket(
+                bucket_name='mybucket',
+                region_name='us-east-1',
+                aws_access_key_id='my_access_key_id',
+                aws_secret_access_key='my_secret_access_key'
+            )
+
+        To upload a file to the bucket, use:
+
+        >>> s3.upload_file('my_file.txt', 'path/to/my_file.txt')
+
+        To download a file from the bucket, use:
+
+        >>> s3.download_file('path/to/my_file.txt', 'my_downloaded_file.txt')
+
+        To delete a file from the bucket, use:
+
+        >>> s3.delete_file('path/to/my_file.txt')
+
+        To list files in the bucket, use:
+
+        >>> files = s3.list_files()
+
+        To filter files by a pattern, use:
+
+        >>> pattern_files = s3.list_files(pattern='my_prefix')
+
+        To get metadata for a file in the bucket, use:
+
+        >>> metadata = s3.get_file_metadata('path/to/my_file.txt')
     """
 
     def __init__(self, bucket_name, region_name=None, aws_access_key_id=None, aws_secret_access_key=None):
