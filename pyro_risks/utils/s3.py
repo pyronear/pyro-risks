@@ -10,6 +10,8 @@ class S3Bucket:
     Example:
         To create an instance of the S3Bucket class with a session, use:
 
+        >>> from pyro_risks.utils.s3 import S3Bucket
+
         >>> s3 = S3Bucket(
                 bucket_name='mybucket',
                 region_name='us-east-1',
@@ -45,9 +47,10 @@ class S3Bucket:
     def __init__(
         self,
         bucket_name,
-        region_name=None,
-        aws_access_key_id=None,
-        aws_secret_access_key=None,
+        endpoint_url,
+        region_name,
+        aws_access_key_id,
+        aws_secret_key,
     ):
         """
         Initializes a new instance of the S3Bucket class.
@@ -56,16 +59,16 @@ class S3Bucket:
             bucket_name (str): The name of the S3 bucket.
             region_name (str): The AWS region where the bucket is located (optional).
             aws_access_key_id (str): The AWS access key ID for the account (optional).
-            aws_secret_access_key (str): The AWS secret access key for the account (optional).
+            aws_secret_key (str): The AWS secret access key for the account (optional).
         """
         session_args = {}
         if region_name:
             session_args["region_name"] = region_name
-        if aws_access_key_id and aws_secret_access_key:
+        if aws_access_key_id and aws_secret_key:
             session_args["aws_access_key_id"] = aws_access_key_id
-            session_args["aws_secret_access_key"] = aws_secret_access_key
+            session_args["aws_secret_access_key"] = aws_secret_key
         self.session = boto3.Session(**session_args)
-        self.s3 = self.session.resource("s3")
+        self.s3 = self.session.resource("s3", endpoint_url=endpoint_url)
         self.bucket = self.s3.Bucket(bucket_name)
 
     def upload_file(self, file_path, object_key):
@@ -96,6 +99,25 @@ class S3Bucket:
             object_key (str): The S3 key (path) of the file to delete.
         """
         self.bucket.Object(object_key).delete()
+
+
+    def list_folders(self, prefix=''):
+        """
+        Lists all folders (prefixes) in the bucket.
+
+        Args:
+            prefix (str): The prefix to search for (optional).
+
+        Returns:
+            A list of folder names (prefixes).
+        """
+        folders = set()
+        for obj in self.bucket.objects.filter(Prefix=prefix, Delimiter='/'):
+            folder = '/'.join(obj.key.split('/')[:-1]) + '/'
+            if folder != prefix:
+                folders.add(folder)
+        return sorted(list(folders))
+    
 
     def list_files(self, pattern=None):
         """
