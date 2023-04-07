@@ -14,6 +14,7 @@ class S3Bucket:
 
         >>> s3 = S3Bucket(
                 bucket_name='mybucket',
+                endpoint_url='my_endpoint',
                 region_name='us-east-1',
                 aws_access_key_id='my_access_key_id',
                 aws_secret_access_key='my_secret_access_key'
@@ -57,9 +58,10 @@ class S3Bucket:
 
         Args:
             bucket_name (str): The name of the S3 bucket.
-            region_name (str): The AWS region where the bucket is located (optional).
-            aws_access_key_id (str): The AWS access key ID for the account (optional).
-            aws_secret_key (str): The AWS secret access key for the account (optional).
+            endpoint_url (str): The AWS endpoint URL.
+            region_name (str): The AWS region where the bucket is located.
+            aws_access_key_id (str): The AWS access key ID for the account.
+            aws_secret_key (str): The AWS secret access key for the account.
         """
         session_args = {}
         if region_name:
@@ -99,25 +101,6 @@ class S3Bucket:
             object_key (str): The S3 key (path) of the file to delete.
         """
         self.bucket.Object(object_key).delete()
-
-
-    def list_folders(self, prefix=''):
-        """
-        Lists all folders (prefixes) in the bucket.
-
-        Args:
-            prefix (str): The prefix to search for (optional).
-
-        Returns:
-            A list of folder names (prefixes).
-        """
-        folders = set()
-        for obj in self.bucket.objects.filter(Prefix=prefix, Delimiter='/'):
-            folder = '/'.join(obj.key.split('/')[:-1]) + '/'
-            if folder != prefix:
-                folders.add(folder)
-        return sorted(list(folders))
-    
 
     def list_files(self, pattern=None):
         """
