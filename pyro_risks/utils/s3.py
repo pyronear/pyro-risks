@@ -19,6 +19,8 @@ class S3Bucket:
                 aws_access_key_id='my_access_key_id',
                 aws_secret_access_key='my_secret_access_key'
             )
+        
+        NOTE: credentials should never be in the code.
 
         To upload a file to the bucket, use:
 
