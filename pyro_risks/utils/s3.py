@@ -17,7 +17,7 @@ class S3Bucket:
                 endpoint_url='my_endpoint',
                 region_name='us-east-1',
                 aws_access_key_id='my_access_key_id',
-                aws_secret_access_key='my_secret_access_key'
+                aws_secret_key='my_secret_key'
             )
         
         NOTE: credentials should never be in the code.
