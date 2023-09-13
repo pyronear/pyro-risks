@@ -19,7 +19,7 @@ class S3Bucket:
                 aws_access_key_id='my_access_key_id',
                 aws_secret_key='my_secret_key'
             )
-        
+
         NOTE: credentials should never be in the code.
 
         To upload a file to the bucket, use:
@@ -133,3 +133,28 @@ class S3Bucket:
         obj = self.bucket.Object(object_key)
         metadata = obj.metadata
         return metadata
+
+    def get_files_metadata(self, pattern=None):
+        """
+        Lists files in the S3 bucket with their size in GB and last modified dates.
+
+        Args:
+            pattern (str): The pattern to filter files by (optional).
+
+        Returns:
+            A dictionnary of file keys (paths), file sizes en GB and last modified dates in the bucket.
+        """
+        files = []
+        for obj in self.bucket.objects.all():
+            if not pattern or pattern in obj.key:
+                file_name = obj.key
+                file_size = round(obj.size * 1.0 / 1024, 2)
+                file_last_modified = obj.last_modified
+                files.append(
+                    {
+                        "file_name": file_name,
+                        "file_size": file_size,
+                        "file_last_modified": file_last_modified,
+                    }
+                )
+        return files
