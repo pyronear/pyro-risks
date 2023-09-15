@@ -75,7 +75,7 @@ class S3Bucket:
         self.s3 = self.session.resource("s3", endpoint_url=endpoint_url)
         self.bucket = self.s3.Bucket(bucket_name)
 
-    def upload_file(self, file_path, object_key: str) -> None:
+    def upload_file(self, file_path: str, object_key: str) -> None:
         """
         Uploads a file to the S3 bucket.
 
