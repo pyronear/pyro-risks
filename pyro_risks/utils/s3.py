@@ -134,7 +134,7 @@ class S3Bucket:
         metadata = obj.metadata
         return metadata
 
-    def get_files_metadata(self, pattern=None):
+    def get_files_metadata(self, pattern:str=None) -> dict:
         """
         Lists files in the S3 bucket with their size in GB and last modified dates.
 
