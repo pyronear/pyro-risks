@@ -147,14 +147,11 @@ class S3Bucket:
         files = []
         for obj in self.bucket.objects.all():
             if not pattern or pattern in obj.key:
-                file_name = obj.key
-                file_size = round(obj.size * 1.0 / (1024*1000000), 2)
-                file_last_modified = obj.last_modified
                 files.append(
                     {
-                        "file_name": file_name,
-                        "file_size": file_size,
-                        "file_last_modified": file_last_modified,
+                        "file_name": obj.key,
+                        "file_size": round(obj.size * 1.0 / (1024 * 1000000), 2),
+                        "file_last_modified": obj.last_modified,
                     }
                 )
         return files
