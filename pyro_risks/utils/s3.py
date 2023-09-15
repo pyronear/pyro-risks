@@ -49,12 +49,12 @@ class S3Bucket:
 
     def __init__(
         self,
-        bucket_name,
-        endpoint_url,
-        region_name,
-        aws_access_key_id,
-        aws_secret_key,
-    ):
+        bucket_name: str,
+        endpoint_url: str,
+        region_name: str,
+        aws_access_key_id: str,
+        aws_secret_key: str,
+    ) -> None:
         """
         Initializes a new instance of the S3Bucket class.
 
@@ -75,7 +75,7 @@ class S3Bucket:
         self.s3 = self.session.resource("s3", endpoint_url=endpoint_url)
         self.bucket = self.s3.Bucket(bucket_name)
 
-    def upload_file(self, file_path, object_key):
+    def upload_file(self, file_path, object_key: str) -> None:
         """
         Uploads a file to the S3 bucket.
 
@@ -85,7 +85,7 @@ class S3Bucket:
         """
         self.bucket.upload_file(file_path, object_key)
 
-    def download_file(self, object_key, file_path):
+    def download_file(self, object_key: str, file_path: str) -> None:
         """
         Downloads a file from the S3 bucket.
 
@@ -95,7 +95,7 @@ class S3Bucket:
         """
         self.bucket.download_file(object_key, file_path)
 
-    def delete_file(self, object_key):
+    def delete_file(self, object_key: str) -> None:
         """
         Deletes a file from the S3 bucket.
 
@@ -104,7 +104,7 @@ class S3Bucket:
         """
         self.bucket.Object(object_key).delete()
 
-    def list_files(self, pattern=None):
+    def list_files(self, pattern: str = None) -> list[str]:
         """
         Lists files in the S3 bucket.
 
@@ -120,7 +120,7 @@ class S3Bucket:
                 files.append(obj.key)
         return files
 
-    def get_file_metadata(self, object_key):
+    def get_file_metadata(self, object_key: str) -> dict:
         """
         Retrieves metadata for a file in the S3 bucket.
 
@@ -134,7 +134,7 @@ class S3Bucket:
         metadata = obj.metadata
         return metadata
 
-    def get_files_metadata(self, pattern:str=None) -> dict:
+    def get_files_metadata(self, pattern: str = None) -> dict:
         """
         Lists files in the S3 bucket with their size in GB and last modified dates.
 
