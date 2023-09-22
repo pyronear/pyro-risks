@@ -136,7 +136,7 @@ class S3Bucket:
 
     def get_files_metadata(self, pattern: str = None) -> dict:
         """
-        Lists files in the S3 bucket with their size in GB and last modified dates.
+        Lists files in the S3 bucket with their size in bytes and last modified dates.
 
         Args:
             pattern (str): The pattern to filter files by (optional).
@@ -150,7 +150,7 @@ class S3Bucket:
                 files.append(
                     {
                         "file_name": obj.key,
-                        "file_size": round(obj.size * 1.0 / (1024 * 1000000), 2),
+                        "file_size": round(obj.size * 1.0 / (1024), 2), 
                         "file_last_modified": obj.last_modified,
                     }
                 )
