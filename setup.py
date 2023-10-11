@@ -11,28 +11,18 @@ Package installation setup
 
 import os
 import subprocess
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 package_name = "pyro_risks"
 with open(os.path.join(package_name, "version.py")) as version_file:
     version = version_file.read().strip()
-sha = "Unknown"
 
 cwd = os.path.dirname(os.path.abspath(__file__))
 
-try:
-    sha = (
-        subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=cwd)
-        .decode("ascii")
-        .strip()
-    )
-except Exception:
-    pass
-
 if os.getenv("BUILD_VERSION"):
     version = os.getenv("BUILD_VERSION")
-elif sha != "Unknown":
-    version += "+" + sha[:7]
+    
 print("Building wheel {}-{}".format(package_name, version))
 
 
