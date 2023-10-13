@@ -139,7 +139,6 @@ class Imputer(SimpleImputer):
             missing_values=missing_values,
             strategy=strategy,
             fill_value=fill_value,
-            verbose=verbose,
             copy=copy,
             add_indicator=add_indicator,
         )
