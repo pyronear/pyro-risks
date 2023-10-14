@@ -104,7 +104,6 @@ class MainTester(unittest.TestCase):
 
         runner = CliRunner()
         with tempfile.TemporaryDirectory() as directory:
-
             with open(os.path.join(directory, inputs_fname), "wb") as inputs:
                 inputs.write(mock_inputs.content)
 
