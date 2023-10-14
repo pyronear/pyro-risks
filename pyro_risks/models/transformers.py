@@ -24,7 +24,6 @@ class TargetDiscretizer(BaseEstimator):
     """
 
     def __init__(self, discretizer: Callable) -> None:
-
         if callable(discretizer):
             self.discretizer = discretizer
         else:
@@ -67,7 +66,6 @@ class CategorySelector(BaseEstimator):
     """
 
     def __init__(self, variable: str, category: Union[str, list]) -> None:
-
         self.variable = variable
         # Catch or prevent key errors
         if isinstance(category, str):
@@ -263,7 +261,6 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
     def __init__(
         self, exclude: List[str], method: str = "pearson", threshold: float = 0.15
     ) -> None:
-
         self.exclude = exclude
         self.method = method
         self.threshold = threshold
@@ -323,7 +320,6 @@ class FeatureSubsetter(BaseEstimator, TransformerMixin):
     """
 
     def __init__(self, columns: List[str]) -> None:
-
         self.columns = columns
 
     def fit(self, X: pd.DataFrame, y: Optional[pd.Series] = None) -> "FeatureSubsetter":
