@@ -11,12 +11,11 @@ Package installation setup
 
 import os
 import subprocess
-from datetime import date
 from setuptools import setup, find_packages
 
 package_name = "pyro_risks"
 with open(os.path.join(package_name, "version.py")) as version_file:
-    version = version_file.read().strip()+date.today().strftime("%d%m%Y")
+    version = version_file.read().strip()
 sha = "Unknown"
 
 cwd = os.path.dirname(os.path.abspath(__file__))
