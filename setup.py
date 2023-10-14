@@ -29,10 +29,10 @@ try:
 except Exception:
     pass
 
-if os.getenv("BUILD_VERSION"):
-    version = os.getenv("BUILD_VERSION")
-elif sha != "Unknown":
-    version += "+" + sha[:7]
+#if os.getenv("BUILD_VERSION"):
+#    version = os.getenv("BUILD_VERSION")
+#elif sha != "Unknown":
+#    version += "+" + sha[:7]
 print("Building wheel {}-{}".format(package_name, version))
 
 
