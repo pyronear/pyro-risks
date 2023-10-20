@@ -148,7 +148,11 @@ class S3Bucket:
         return folders
 
     def list_files(
-        self, patterns: list[str] = None, prefix: str = "", delimiter: str = ""
+        self,
+        patterns: list[str] = None,
+        prefix: str = "",
+        delimiter: str = "",
+        limit: int = 0,
     ) -> list[str]:
         """
         Lists files in the S3 bucket.
@@ -157,16 +161,26 @@ class S3Bucket:
             patterns (list[str], optional): Only files with keys containing one of the patterns will be listed.
             prefix (str, optional): Only folders with keys starting with this prefix will be listed.
             delimiter (str, optional): The delimiter to use for the folder listing.
+            limit (int, optional): Limit the number of files in the output list of the function.
 
         Returns:
             A list of file keys (paths) in the bucket.
         """
         files = []
-        for obj in self.bucket.objects.filter(Prefix=prefix, Delimiter=delimiter):
-            if not patterns or (
-                type(patterns) == list and any([p in obj.key for p in patterns])
-            ):
-                files.append(obj.key)
+        if limit == 0:
+            for obj in self.bucket.objects.filter(Prefix=prefix, Delimiter=delimiter):
+                if not patterns or (
+                    type(patterns) == list and any([p in obj.key for p in patterns])
+                ):
+                    files.append(obj.key)
+        else:
+            for obj in self.bucket.objects.filter(
+                Prefix=prefix, Delimiter=delimiter
+            ).limit(limit):
+                if not patterns or (
+                    type(patterns) == list and any([p in obj.key for p in patterns])
+                ):
+                    files.append(obj.key)
         return files
 
     def get_file_metadata(self, object_key: str) -> dict:
