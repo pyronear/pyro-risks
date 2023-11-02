@@ -1,4 +1,5 @@
 import boto3
+import requests
 import os
 
 __all__ = ["S3Bucket"]
@@ -94,6 +95,23 @@ class S3Bucket:
             object_key (str): The S3 key (path) where the file will be stored.
         """
         self.bucket.upload_file(file_path, object_key)
+
+    def upload_tiff_from_url_to_s3(self, url: str, object_key: str):
+        """
+        Download a file from URL and upload it to the S3 bucket.
+
+        Args:
+            url (str): Url to request the file.
+            object_key (str): The S3 key (path) where the file will be stored.
+        """
+        try:
+            response = requests.get(url, stream=True)
+            response.raise_for_status()
+            self.bucket.upload_fileobj(response.raw, object_key)
+            return True
+        except requests.exceptions.RequestException as e:
+            print(f"Error downloading TIFF from URL: {e}")
+            return False
 
     def download_file(self, object_key: str, file_path: str) -> None:
         """
