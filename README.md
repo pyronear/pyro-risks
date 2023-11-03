@@ -108,6 +108,11 @@ Please refer to the [`CONTRIBUTING`](./CONTRIBUTING.md) guide if you wish to con
 
 This project is developed and maintained by the repo owner and volunteers from [Data for Good](https://dataforgood.fr/).
 
+This project uses data from EFFIS (European Forest Fire Information System) for the FWI (Fire Weather Index). This data is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. 
+
+- Dataset: [EFFIS FWI Dataset](https://effis.jrc.ec.europa.eu/applications/data-and-services)
+- License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
 ## License
 
 Distributed under the Apache v2 License. See [`LICENSE`](./LICENSE) for more information.
