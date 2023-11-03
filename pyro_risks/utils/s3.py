@@ -1,5 +1,6 @@
 import boto3
-import requests
+import json
+
 import os
 
 __all__ = ["S3Bucket"]
@@ -96,22 +97,17 @@ class S3Bucket:
         """
         self.bucket.upload_file(file_path, object_key)
 
-    def upload_tiff_from_url_to_s3(self, url: str, object_key: str):
+    def write_json_to_s3(self, json_data: json, object_key: str) -> None:
         """
-        Download a file from URL and upload it to the S3 bucket.
+        Writes a JSON file on the S3 bucket.
 
         Args:
-            url (str): Url to request the file.
+            json_data (json): The JSON data we want to upload.
             object_key (str): The S3 key (path) where the file will be stored.
         """
-        try:
-            response = requests.get(url, stream=True)
-            response.raise_for_status()
-            self.bucket.upload_fileobj(response.raw, object_key)
-            return True
-        except requests.exceptions.RequestException as e:
-            print(f"Error downloading TIFF from URL: {e}")
-            return False
+        self.bucket.put_object(
+            Key=object_key, Body=bytes(json.dumps(json_data).encode("UTF-8"))
+        )
 
     def download_file(self, object_key: str, file_path: str) -> None:
         """
