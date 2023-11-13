@@ -62,7 +62,7 @@ requirements = [
 
 setup(
     name=package_name,
-    version=version,
+    version="0.0.1",
     author="Pyronear Contributors",
     description="Pre-processing pipelines and models for wildfire forecasting and monitoring",
     long_description=readme,
@@ -93,6 +93,6 @@ setup(
     zip_safe=True,
     python_requires=">=3.6.0",
     include_package_data=True,
-    install_requires=requirements,
+    # install_requires=requirements,
     package_data={"": ["LICENSE"]},
 )

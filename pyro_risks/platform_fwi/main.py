@@ -1,33 +1,16 @@
 from datetime import date
 from pyro_risks.utils.fwi_helpers import FWIHelpers
 from pyro_risks.utils.s3 import S3Bucket
-import os
 
 
 def main():
-    # AWS credentials and config paths
-    aws_path = "../../../../.aws/"
-    aws_credentials_path = aws_path + "credentials"
-    aws_config_path = aws_path + "config"
-
-    # Get AWS credentials
-    with open(aws_credentials_path) as f:
-        content = f.read().splitlines()
-        my_access_key_id = content[1].split(" = ")[1]
-        my_secret_access_key = content[2].split(" = ")[1]
-
-    # Get AWS config
-    with open(aws_config_path) as f:
-        content = f.read().splitlines()
-        my_endpoint = content[8].split(" = ")[1]
-
     # Create an S3Bucket instance
     s3 = S3Bucket(
-        bucket_name="risk",
-        endpoint_url=my_endpoint,
+        bucket_name="pyro-risk",
+        endpoint_url="http://s3.localhost.localstack.cloud:4566",
         region_name="gra",
-        aws_access_key_id=my_access_key_id,
-        aws_secret_key=my_secret_access_key,
+        aws_access_key_id="fake",
+        aws_secret_key="fake",
     )
 
     today_date_str_url = date.today().strftime("%Y-%m-%d")
@@ -37,7 +20,6 @@ def main():
     )
 
     today_date_str_url = date.today().strftime("%Y_%m_%d")
-    filename_in_bucket = "fwi_" + today_date_str_url + ".tiff"
 
     # Download file from EFFIS and convert it to a geodf
     fwi = FWIHelpers()
