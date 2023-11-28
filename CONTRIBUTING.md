@@ -121,6 +121,23 @@ pip install black
 pip install -e .
 ```
 
+#### Local deployment
+
+To enable a smoother development experience, you can run AWS locally using docker containers with this command:
+
+```shell
+make setup-dev
+```
+
+If you cannot use Makefile, you can run the following commands:
+
+```shell
+# Create a localstack container
+docker compose -f docker-compose.localstack.yml up -d --build
+# Create a bucket
+docker compose exec localstack awslocal s3 mb s3://pyro-risk
+```
+
 ### Contributing workflow
 
 * * *
