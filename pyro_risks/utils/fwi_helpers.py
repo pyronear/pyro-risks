@@ -84,6 +84,7 @@ class FWIHelpers:
                                 - 5 : extreme
                                 - 6 : very extreme
         """
+        # TODO: use a `dict`
         categories = [
             (58, 6),
             (145, 1),
