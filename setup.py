@@ -23,22 +23,12 @@ with open("README.md") as f:
 requirements = [
     "boto3==1.28.45",
     "botocore==1.31.45",
-    "Rtree>=0.9.4",
-    "Shapely>=1.7.1",
-    "netCDF4>=1.5.4",
-    "requests>=2.24.0",
-    "xarray>=0.16.1",
-    "scipy>=1.5.4",
-    "scikit-learn>=0.23.2",
-    "imbalanced-learn>=0.7.0",
-    "xgboost==1.2.1",
-    "xlrd==1.2.0",
-    "numpy>=1.18.5",
-    "cdsapi==0.4.0",
-    "python-dotenv>=0.15.0",
-    "plot-metric==0.0.6",
-    "dvc>=2.0.5",
-    "dvc[gdrive]>=2.0.5",
+    "click==8.1.7",
+    "geopandas==0.13.2",
+    "pandas==2.1.0",
+    "python-dotenv==1.0.0",
+    "rasterio==1.3.9",
+    "requests==2.31.0",
 ]
 
 setup(
