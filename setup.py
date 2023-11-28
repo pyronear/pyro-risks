@@ -13,35 +13,16 @@ import os
 import subprocess
 from setuptools import setup, find_packages
 
-package_name = "pyro_risks"
-with open(os.path.join(package_name, "version.py")) as version_file:
-    version = version_file.read().strip()
-sha = "Unknown"
-
-cwd = os.path.dirname(os.path.abspath(__file__))
-
-try:
-    sha = (
-        subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=cwd)
-        .decode("ascii")
-        .strip()
-    )
-except Exception:
-    pass
-
-if os.getenv("BUILD_VERSION"):
-    version = os.getenv("BUILD_VERSION")
-elif sha != "Unknown":
-    version += "+" + sha[:7]
-print("Building wheel {}-{}".format(package_name, version))
+PACKAGE_NAME = "pyro_risks"
+VERSION = "0.0.1"
 
 
 with open("README.md") as f:
     readme = f.read()
 
 requirements = [
-    "pandas>=1.1.4",
-    "geopandas>=0.8.1",
+    "boto3==1.28.45",
+    "botocore==1.31.45",
     "Rtree>=0.9.4",
     "Shapely>=1.7.1",
     "netCDF4>=1.5.4",
@@ -61,8 +42,8 @@ requirements = [
 ]
 
 setup(
-    name=package_name,
-    version="0.0.1",
+    name=PACKAGE_NAME,
+    version=VERSION,
     author="Pyronear Contributors",
     description="Pre-processing pipelines and models for wildfire forecasting and monitoring",
     long_description=readme,
@@ -93,6 +74,6 @@ setup(
     zip_safe=True,
     python_requires=">=3.6.0",
     include_package_data=True,
-    # install_requires=requirements,
+    install_requires=requirements,
     package_data={"": ["LICENSE"]},
 )
