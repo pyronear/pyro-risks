@@ -36,7 +36,7 @@ The pyro-risks project aims at providing the pyronear-platform with a machine le
 
 ### Prerequisites
 
--   Python 3.6 (or more recent)
+-   Python 3.6 (or more recent), but < 3.12.0
 -   [pip](https://pip.pypa.io/en/stable/)
 ### Installation
 

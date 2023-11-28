@@ -186,7 +186,8 @@ class S3Bucket:
         """
         files = []
         object_filter = self.bucket.objects.filter(Prefix=prefix, Delimiter=delimiter)
-        if limit != 0: object_filter = object_filter.limit(limit)
+        if limit != 0:
+            object_filter = object_filter.limit(limit)
         for obj in object_filter:
             if not patterns or (
                 type(patterns) == list and any([p in obj.key for p in patterns])
