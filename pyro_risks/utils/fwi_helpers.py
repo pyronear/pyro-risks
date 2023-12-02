@@ -4,6 +4,7 @@ import geopandas as gpd
 import requests
 from io import BytesIO
 import json
+from typing import Optional
 
 
 class FWIHelpers:
@@ -17,7 +18,7 @@ class FWIHelpers:
         """
         rasterio.Env()
 
-    def get_fwi(self, tiff_url: str) -> None:
+    def get_fwi(self, tiff_url: str) -> Optional[gpd.GeoDataFrame]:
         """
         Retrieves Fire Weather Index (FWI) data from a GeoTIFF file hosted at a given URL.
 
@@ -44,16 +45,18 @@ class FWIHelpers:
                         shapes(image, mask=mask, transform=data["transform"])
                     )
                 )
+
             geoms = list(results)
-            c = str(data["crs"])
-            gpd_polygonized_raster = gpd.GeoDataFrame.from_features(geoms, crs=c)
+            gpd_polygonized_raster = gpd.GeoDataFrame.from_features(
+                geoms, crs=str(data["crs"])
+            )
             return gpd_polygonized_raster
 
         except Exception as e:
             print(f"Error: {e}")
             return None
 
-    def fwi_sea_remover(self, geodataframe: int) -> str:
+    def fwi_sea_remover(self, geodataframe: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
         """
         Removes the sea from the dataset (FWI pixel value = 0).
 
@@ -98,7 +101,7 @@ class FWIHelpers:
 
         return 3
 
-    def fwi_geojson_maker(self, gdf: gpd.GeoDataFrame) -> json:
+    def fwi_geojson_maker(self, geodataframe: gpd.GeoDataFrame) -> json:
         """
         Converts a GeoDataFrame into a GeoJSON.
 
@@ -107,13 +110,13 @@ class FWIHelpers:
         essential properties and the CRS information.
 
         Args:
-            gdf (geopandas.GeoDataFrame): The GeoDataFrame to be converted into GeoJSON.
+            geodataframe (geopandas.GeoDataFrame): The GeoDataFrame to be converted into GeoJSON.
 
         Returns:
             new_json_fwi: A GeoJSON representation of the input GeoDataFrame with essential
                 properties and CRS information.
         """
-        json_fwi = gdf.to_json()
+        json_fwi = geodataframe.to_json()
         json_fwi = json.loads(json_fwi)
         for feature_dict in json_fwi["features"]:
             del feature_dict["id"]
