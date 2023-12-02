@@ -121,7 +121,6 @@ class UtilsTester(unittest.TestCase):
 
     @patch("pyro_risks.datasets.utils.requests.get")
     def test_url_retrieve(self, mock_get):
-
         mock_get.return_value.status_code = 200
         mock_get.return_value.content = bytes("WEATHER OR WILDFIRE FILE", "utf-8")
         content = utils.url_retrieve("url")
@@ -134,7 +133,6 @@ class UtilsTester(unittest.TestCase):
         )
 
     def test_get_fname(self):
-
         url_firms = "https://firms.modaps.eosdis.nasa.gov/data/active_fire/c6/csv/MODIS_C6_Europe_24h.csv"
         url_ghcn = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_year/2020.csv.gz"
         url_isd = "https://www.ncei.noaa.gov/data/global-hourly/archive/csv/2020.tar.gz"
@@ -163,7 +161,6 @@ class UtilsTester(unittest.TestCase):
             writer.writerows(unzipped_content)
 
     def _make_tarfile(self, destination):
-
         self._mock_csv(destination, "test_tar.csv")
 
         full_path = os.path.join(destination, "server/")
@@ -177,7 +174,6 @@ class UtilsTester(unittest.TestCase):
         return memory_file
 
     def _make_gzipfile(self, destination):
-
         self._mock_csv(destination, "test_gz.csv")
 
         full_path = os.path.join(destination, "server/")
@@ -193,7 +189,6 @@ class UtilsTester(unittest.TestCase):
         return memory_file
 
     def _make_zipfile(self, destination):
-
         self._mock_csv(destination, "test_zip.csv")
 
         full_path = os.path.join(destination, "server/")
@@ -209,7 +204,6 @@ class UtilsTester(unittest.TestCase):
         return memory_file
 
     def _make_csv(self, destination):
-
         self._mock_csv(destination, "test_csv.csv")
 
         full_path = os.path.join(destination, "server/")
@@ -220,7 +214,6 @@ class UtilsTester(unittest.TestCase):
 
     @staticmethod
     def _mock_fname(compression):
-
         if compression == "tar.gz":
             return ("test_tar", "csv", "tar.gz")
 

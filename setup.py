@@ -13,56 +13,27 @@ import os
 import subprocess
 from setuptools import setup, find_packages
 
-package_name = "pyro_risks"
-with open(os.path.join(package_name, "version.py")) as version_file:
-    version = version_file.read().strip()
-sha = "Unknown"
-
-cwd = os.path.dirname(os.path.abspath(__file__))
-
-try:
-    sha = (
-        subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=cwd)
-        .decode("ascii")
-        .strip()
-    )
-except Exception:
-    pass
-
-if os.getenv("BUILD_VERSION"):
-    version = os.getenv("BUILD_VERSION")
-elif sha != "Unknown":
-    version += "+" + sha[:7]
-print("Building wheel {}-{}".format(package_name, version))
+PACKAGE_NAME = "pyro_risks"
+VERSION = "0.0.1"
 
 
 with open("README.md") as f:
     readme = f.read()
 
 requirements = [
-    "pandas>=1.1.4",
-    "geopandas>=0.8.1",
-    "Rtree>=0.9.4",
-    "Shapely>=1.7.1",
-    "netCDF4>=1.5.4",
-    "requests>=2.24.0",
-    "xarray>=0.16.1",
-    "scipy>=1.5.4",
-    "scikit-learn>=0.23.2",
-    "imbalanced-learn>=0.7.0",
-    "xgboost==1.2.1",
-    "xlrd==1.2.0",
-    "numpy>=1.18.5",
-    "cdsapi==0.4.0",
-    "python-dotenv>=0.15.0",
-    "plot-metric==0.0.6",
-    "dvc>=2.0.5",
-    "dvc[gdrive]>=2.0.5",
+    "boto3==1.28.45",
+    "botocore==1.31.45",
+    "click==8.1.7",
+    "geopandas==0.13.2",
+    "pandas==2.1.0",
+    "python-dotenv==1.0.0",
+    "rasterio==1.3.9",
+    "requests==2.31.0",
 ]
 
 setup(
-    name=package_name,
-    version="0.0.1",
+    name=PACKAGE_NAME,
+    version=VERSION,
     author="Pyronear Contributors",
     description="Pre-processing pipelines and models for wildfire forecasting and monitoring",
     long_description=readme,
@@ -93,6 +64,6 @@ setup(
     zip_safe=True,
     python_requires=">=3.6.0",
     include_package_data=True,
-    # install_requires=requirements,
+    install_requires=requirements,
     package_data={"": ["LICENSE"]},
 )
