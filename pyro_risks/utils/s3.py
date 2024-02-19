@@ -1,4 +1,6 @@
 import boto3
+import json
+
 import os
 
 __all__ = ["S3Bucket"]
@@ -95,6 +97,18 @@ class S3Bucket:
         """
         self.bucket.upload_file(file_path, object_key)
 
+    def write_json_to_s3(self, json_data: json, object_key: str) -> None:
+        """
+        Writes a JSON file on the S3 bucket.
+
+        Args:
+            json_data (json): The JSON data we want to upload.
+            object_key (str): The S3 key (path) where the file will be stored.
+        """
+        self.bucket.put_object(
+            Key=object_key, Body=bytes(json.dumps(json_data).encode("UTF-8"))
+        )
+
     def download_file(self, object_key: str, file_path: str) -> None:
         """
         Downloads a file from the S3 bucket.
@@ -141,10 +155,14 @@ class S3Bucket:
             A list of folder keys (paths) in the bucket.
         """
         folders = []
-        for obj in self.bucket.meta.client.list_objects_v2(
-            Bucket=self.bucket_name, Prefix=prefix, Delimiter=delimiter
-        )["CommonPrefixes"]:
-            folders.append(obj["Prefix"])
+        try:
+            for obj in self.bucket.meta.client.list_objects_v2(
+                Bucket=self.bucket_name, Prefix=prefix, Delimiter=delimiter
+            )["CommonPrefixes"]:
+                folders.append(obj["Prefix"])
+        # If no objects in the bucket match the given prefix and delimiter
+        except KeyError:
+            pass
         return folders
 
     def list_files(
@@ -167,20 +185,14 @@ class S3Bucket:
             A list of file keys (paths) in the bucket.
         """
         files = []
-        if limit == 0:
-            for obj in self.bucket.objects.filter(Prefix=prefix, Delimiter=delimiter):
-                if not patterns or (
-                    type(patterns) == list and any([p in obj.key for p in patterns])
-                ):
-                    files.append(obj.key)
-        else:
-            for obj in self.bucket.objects.filter(
-                Prefix=prefix, Delimiter=delimiter
-            ).limit(limit):
-                if not patterns or (
-                    type(patterns) == list and any([p in obj.key for p in patterns])
-                ):
-                    files.append(obj.key)
+        object_filter = self.bucket.objects.filter(Prefix=prefix, Delimiter=delimiter)
+        if limit != 0:
+            object_filter = object_filter.limit(limit)
+        for obj in object_filter:
+            if not patterns or (
+                type(patterns) == list and any([p in obj.key for p in patterns])
+            ):
+                files.append(obj.key)
         return files
 
     def get_file_metadata(self, object_key: str) -> dict:
