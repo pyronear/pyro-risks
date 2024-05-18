@@ -109,6 +109,19 @@ class S3Bucket:
             Key=object_key, Body=bytes(json.dumps(json_data).encode("UTF-8"))
         )
 
+    def read_json_from_s3(self, object_key: str) -> None:
+        """
+        Read a JSON file from the S3 bucket.
+
+        Args:
+            object_key (str): The S3 key (path) where the file is stored.
+        """
+        file_content = (
+            self.bucket.Object(object_key).get()["Body"].read().decode("utf-8")
+        )
+        json_content = json.loads(file_content)
+        return json_content
+
     def download_file(self, object_key: str, file_path: str) -> None:
         """
         Downloads a file from the S3 bucket.
