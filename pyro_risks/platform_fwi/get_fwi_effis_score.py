@@ -1,13 +1,25 @@
-from pyro_risks.utils.s3 import S3Bucket
+# Usual Imports
 from dotenv import load_dotenv
 import os
 from datetime import date
+
+# Geographic librairies Imports
 import geopandas as gpd
-from shapely.geometry import Point
+from shapely.geometry import Point, Polygon
+
+# Pyro Risks Imports
+from pyro_risks.utils.s3 import S3Bucket
+
+
+def point_fwi_category(row, point_coords):
+    if row["geometry"].contains(point_coords):
+        return row["fwi_category"]
+    else:
+        return None
 
 
 def get_score(lat, lon):
-    point_coords = Point(lat, lon)
+    point_coords = Point(lon, lat)
 
     load_dotenv()
 
@@ -27,7 +39,9 @@ def get_score(lat, lon):
     )
 
     gdf = gpd.GeoDataFrame.from_features(json_content["features"])
-    point_fwi_score = gpd.sjoin(gdf, point_coords, how="inner", op="within").iloc[0][
-        "fwi_category"
-    ]
+
+    gdf["fwi_category_for_point"] = gdf.apply(
+        lambda row: point_fwi_category(row, point_coords), axis=1
+    )
+    point_fwi_score = gdf.dropna().iloc[0]["fwi_category"]
     return point_fwi_score
