@@ -1,13 +1,8 @@
-# Usual Imports
 from dotenv import load_dotenv
 import os
 from datetime import date
-
-# Geographic librairies Imports
 import geopandas as gpd
 from shapely.geometry import Point, Polygon
-
-# Pyro Risks Imports
 from pyro_risks.utils.s3 import S3Bucket
 
 
