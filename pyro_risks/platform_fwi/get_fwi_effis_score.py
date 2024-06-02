@@ -10,7 +10,7 @@ from shapely.geometry import Point, Polygon
 # Pyro Risks Imports
 from pyro_risks.utils.s3 import S3Bucket
 
-
+__all__ = ["get_score"]
 def point_fwi_category(row, point_coords):
     if row["geometry"].contains(point_coords):
         return row["fwi_category"]
