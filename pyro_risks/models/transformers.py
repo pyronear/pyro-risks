@@ -13,7 +13,6 @@ import numpy as np
 
 
 class TargetDiscretizer(BaseEstimator):
-
     """Discretize numerical target variable.
 
     The `TargetDiscretizer` transformer maps target variable values to discrete values using
@@ -54,7 +53,6 @@ class TargetDiscretizer(BaseEstimator):
 
 
 class CategorySelector(BaseEstimator):
-
     """Select features and targets rows.
 
     The `CategorySelector` transformer select features and targets rows
@@ -109,7 +107,6 @@ class CategorySelector(BaseEstimator):
 
 
 class Imputer(SimpleImputer):
-
     """Impute missing values.
 
     The `Imputer` transformer wraps scikit-learn SimpleImputer transformer.
@@ -178,7 +175,6 @@ class Imputer(SimpleImputer):
 
 
 class LagTransformer(BaseEstimator, TransformerMixin):
-
     """Add lags features of the selected columns.
 
     Lags added correspond to day -1, -3 and -7 and are added to each department separately.
@@ -247,7 +243,6 @@ class LagTransformer(BaseEstimator, TransformerMixin):
 
 
 class FeatureSelector(BaseEstimator, TransformerMixin):
-
     """Select features correlated to the target.
 
     Select features with correlation to the target above the threshold.
@@ -310,7 +305,6 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
 
 
 class FeatureSubsetter(BaseEstimator, TransformerMixin):
-
     """Subset dataframe's column.
 
     Subset any given of the dataframe.
