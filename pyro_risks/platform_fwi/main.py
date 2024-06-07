@@ -24,7 +24,7 @@ def main(retrieved_date):
         retrieved_date = date.today().strftime("%Y-%m-%d")
 
     effis_tiff_file_url = (
-        f"{BASE_URL}?LAYERS=ecmwf007.fwi&FORMAT=image/tiff&TRANSPARENT=true&SINGLETILE=false&SERVICE=wms&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG:4326&BBOX=-6.0,41.0,10.0,52.0&WIDTH=1600&HEIGHT=1200&TIME=" # noqa: E501
+        f"{BASE_URL}?LAYERS=ecmwf007.fwi&FORMAT=image/tiff&TRANSPARENT=true&SINGLETILE=false&SERVICE=wms&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG:4326&BBOX=-6.0,41.0,10.0,52.0&WIDTH=1600&HEIGHT=1200&TIME="  # noqa: E501
         + retrieved_date
     )
 
