@@ -2,8 +2,8 @@ name: GetTodayEffisFwi
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 1 * * *"
+  # schedule:
+  #   - cron: "0 1 * * *"
 
 jobs:
   scheduled:
@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Check out this repo
         uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: pip install -e .
 
       - name: Get Today Effis Fwi
         run: python scripts/pyro_risks/platform_fwi/main.py
