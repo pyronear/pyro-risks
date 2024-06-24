@@ -29,6 +29,7 @@ requirements = [
     "python-dotenv==1.0.0",
     "rasterio==1.3.9",
     "requests==2.31.0",
+    "numpy==1.26.4",
 ]
 
 setup(
