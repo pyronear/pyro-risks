@@ -1,0 +1,26 @@
+name: GetTodayEffisFwi
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *"
+
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Get Today Effis Fwi
+        run: python pyro_risks/platform_fwi/main.py
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          BUCKET_NAME: risk
+          REGION_NAME: gra
+          ENDPOINT_URL: https://s3.gra.io.cloud.ovh.net/
+

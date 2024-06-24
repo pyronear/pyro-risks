@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 from pyro_risks.utils.fwi_helpers import FWIHelpers
 from pyro_risks.utils.s3 import S3Bucket
 
+BASE_URL = "https://ies-ows.jrc.ec.europa.eu/effis"
+
 
 @click.command()
 @click.option(
@@ -20,8 +22,9 @@ def main(retrieved_date):
     # Get the FWI GeoJSON from EFFIS
     if retrieved_date is None:
         retrieved_date = date.today().strftime("%Y-%m-%d")
+
     effis_tiff_file_url = (
-        "https://ies-ows.jrc.ec.europa.eu/effis?LAYERS=ecmwf007.fwi&FORMAT=image/tiff&TRANSPARENT=true&SINGLETILE=false&SERVICE=wms&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG:4326&BBOX=-6.0,41.0,10.0,52.0&WIDTH=1600&HEIGHT=1200&TIME="
+        f"{BASE_URL}?LAYERS=ecmwf007.fwi&FORMAT=image/tiff&TRANSPARENT=true&SINGLETILE=false&SERVICE=wms&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG:4326&BBOX=-6.0,41.0,10.0,52.0&WIDTH=1600&HEIGHT=1200&TIME="  # noqa: E501
         + retrieved_date
     )
 
