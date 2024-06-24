@@ -9,7 +9,7 @@ boto3==1.26.106
 
 cdsapi
 
-numpy>=1.18.5
+numpy==1.26.4
 xarray>=0.16.1
 scipy>=1.5.4
 
