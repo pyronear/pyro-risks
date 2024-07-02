@@ -1,0 +1,102 @@
+[tool.poetry]
+name = "pyrorisks"
+version = "0.1.0"
+description = "Data pre-processing pipelines and models for wildfire forecasting and monitoring"
+authors = ["Pyronear <contact@pyronear.org>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "pyrorisks"}]
+classifiers=[
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords=["data science", "time series", "machine learning"]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+geopandas = "1.0.1"
+boto3 = "^1.28.62"
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+black = "^23.9.1"
+coverage = "^7.3.2"
+pre-commit = "^3.4.0"
+mypy = "^1.6.0"
+ruff = "^0.0.292"
+
+
+[tool.poetry.group.app.dependencies]
+fastapi = "^0.103.2"
+uvicorn = "^0.23.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+ignore = [
+    "F401",  # line too long, handled by black
+    "E402",  # do not perform function calls in argument defaults
+    "E265",  # raise from
+    "F403",  # too complex
+    "F821",  # list comprehension to list()
+    "W605",  # list comprehension to list()
+]
+exclude = [".git", "venv", "docs", "build"]
+line-length = 120
+target-version = "py39"
+preview = true
+
+[tool.mypy]
+python_version = "3.10"
+mypy_path = "src/"
+files = ["pyro_risks/*.py", "app/*.py"]
+show_error_codes = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = [
+    "dotenv",
+    "xarray",
+    "pandas",
+    "sklearn",
+    "sklearn",
+    "sklearn",
+    "sklearn",
+    "xgboost",
+    "numpy",
+    "geopandas",
+    "cdsapi",
+    "urllib3",
+    "joblib",
+    "imblearn",
+    "matplotlib",
+    "plot_metric",
+    "shapely",
+    "scipy",
+    "netCDF4",
+    "pyro_risks.version"
+]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
