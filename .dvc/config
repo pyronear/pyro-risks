@@ -1,6 +1,0 @@
-['remote "artifacts-registry"']
-    url = gdrive://1fyD6xyuWWhyjNPoCiCazKshp0yJ8xKs9
-    gdrive_use_service_account = true
-    gdrive_service_account_json_file_path = tmp/credentials.json
-[core]
-    remote = artifacts-registry
