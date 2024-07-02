@@ -20,7 +20,7 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import os
 import sys
-import pyro_risks
+import pyrorisks
 import sphinx_rtd_theme
 from datetime import datetime
 
@@ -29,17 +29,16 @@ from sphinx.util.docfields import TypedField
 from sphinx import addnodes
 
 
-sys.path.insert(0, os.path.abspath("../../pyro_risks"))
 # -- Project information -----------------------------------------------------
 
 master_doc = "index"
-project = "pyro_risks"
+project = "pyrorisks"
 copyright = f"{datetime.now().year}, Pyronear Contributors"
 author = "Pyronear Contributors"
 
 # The full version, including alpha/beta/rc tags
-version = pyro_risks.__version__
-release = pyro_risks.__version__ + "-git"
+version = "0.1.0"
+release = "0.1.0" + "-git"
 
 
 # -- General configuration ---------------------------------------------------

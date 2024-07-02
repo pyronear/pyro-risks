@@ -13,7 +13,7 @@ import os
 import subprocess
 from setuptools import setup, find_packages
 
-PACKAGE_NAME = "pyro_risks"
+PACKAGE_NAME = "pyrorisks"
 VERSION = "0.0.1"
 
 
@@ -30,6 +30,7 @@ requirements = [
     "rasterio==1.3.9",
     "requests==2.31.0",
     "numpy==1.26.4",
+    "sphinx_rtd_theme",
 ]
 
 setup(
@@ -42,7 +43,6 @@ setup(
     url="https://github.com/pyronear/pyro-risks",
     download_url="https://github.com/pyronear/pyro-risks/tags",
     license="GPLv3",
-    entry_points={"console_scripts": ["pyrorisks = pyro_risks.main:main"]},
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
