@@ -17,7 +17,7 @@ Pyronear Wildfire Risk Forecasting Documentation
       </p>
 
 The pyro-risks project aims at providing the pyronear-platform with a machine learning based wildfire forecasting capability.
-The :mod:`pyro_risks` package aggregates pre-processing pipelines and models for wildfire forecasting.
+The :mod:`pyrorisks` package aggregates pre-processing pipelines and models for wildfire forecasting.
 
 
 .. toctree::
@@ -34,17 +34,6 @@ The :mod:`pyro_risks` package aggregates pre-processing pipelines and models for
    overview/datasets/CEMS-ECMWF_FDI
    overview/datasets/C3S-ECMWF_ERA5T
    overview/datasets/C3S-ECMWF_ERA5LAND
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Pyro Risks Package References
-
-   modules/datasets/modules
-   modules/models/modules
-   modules/pipeline/modules
-
-.. automodule:: pyro_risks
-   :members:
 
 
 .. toctree::
