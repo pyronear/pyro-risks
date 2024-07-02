@@ -12,7 +12,7 @@ COPY ./requirements.txt requirements.txt
 COPY ./requirements-app.txt /usr/src/app/requirements-app.txt
 COPY ./setup.py setup.py
 COPY ./README.md README.md
-COPY ./pyro_risks pyro_risks
+COPY ./pyrorisks pyrorisks
 
 # install dependencies
 RUN apt-get update && \
