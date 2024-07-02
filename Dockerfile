@@ -1,28 +1,18 @@
-FROM python:3.8.1
+FROM python:3.10-buster
 
-# set work directory
-WORKDIR /usr/src/app
+RUN pip install poetry==1.7.1
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache \
+    VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
 
-# copy app requirements
-COPY ./requirements.txt requirements.txt
-COPY ./requirements-app.txt /usr/src/app/requirements-app.txt
-COPY ./setup.py setup.py
-COPY ./README.md README.md
-COPY ./pyrorisks pyrorisks
+WORKDIR /app
 
-# install dependencies
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y libspatialindex-dev python3-rtree && \
-    pip install --upgrade pip setuptools wheel && \
-    pip install -e . && \
-    pip install -r /usr/src/app/requirements-app.txt && \
-    mkdir /usr/src/app/app && \
-    rm -rf /root/.cache/pip && \
-    rm -rf /var/lib/apt/lists/*
+COPY pyrorisks ./pyrorisks
+COPY app ./app
+COPY pyproject.toml poetry.lock README.md ./
 
-# copy project
-COPY app/ /usr/src/app/app/
+RUN poetry install
