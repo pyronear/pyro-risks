@@ -5,7 +5,7 @@ services:
     build: .
     command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     volumes:
-      - ./app/:/usr/src/app/app/
+      - ./app/:/app/app/
     ports:
       - ${PORT}:8000
     environment:

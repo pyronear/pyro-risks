@@ -9,7 +9,8 @@ __all__ = ["predictor"]
 
 class Mock:
     def predict(self, date):
-        return {"01": 0.5, "02": 0.5}
+        _ = date
+        return {"01": {"score": 0.5, "explainability": "weather"}, "02": {"score": 0.5, "explainability": "weather"}}
 
 
 predictor = Mock()
