@@ -1,10 +1,9 @@
 import rasterio
-from rasterio.features import shapes
 import geopandas as gpd
 import requests
 from io import BytesIO
 import json
-from typing import Optional
+from typing import Optional, Dict, Any
 
 
 class FWIHelpers:
@@ -41,7 +40,7 @@ class FWIHelpers:
                 image = src.read(1)  # first band
                 results = (
                     {"properties": {"fwi_pixel_value": v}, "geometry": s}
-                    for i, (s, v) in enumerate(shapes(image, mask=mask, transform=data["transform"]))
+                    for i, (s, v) in enumerate(rasterio.features.shapes(image, mask=mask, transform=data["transform"]))
                 )
 
             geoms = list(results)
@@ -96,7 +95,7 @@ class FWIHelpers:
 
         return 3
 
-    def fwi_geojson_maker(self, geodataframe: gpd.GeoDataFrame) -> json:
+    def fwi_geojson_maker(self, geodataframe: gpd.GeoDataFrame) -> Dict[str, Any]:
         """
         Converts a GeoDataFrame into a GeoJSON.
 

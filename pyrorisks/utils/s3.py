@@ -1,5 +1,6 @@
 import boto3
 import json
+from typing import Dict, Any, Optional
 
 import os
 
@@ -13,7 +14,7 @@ class S3Bucket:
     Example:
         To create an instance of the S3Bucket class with a session, use:
 
-        >>> from pyro_risks.utils.s3 import S3Bucket
+        >>> from pyrorisks.utils.s3 import S3Bucket
 
         >>> s3 = S3Bucket(
                 bucket_name='mybucket',
@@ -97,7 +98,7 @@ class S3Bucket:
         """
         self.bucket.upload_file(file_path, object_key)
 
-    def write_json_to_s3(self, json_data: json, object_key: str) -> None:
+    def write_json_to_s3(self, json_data: Dict[str, Any], object_key: str) -> None:
         """
         Writes a JSON file on the S3 bucket.
 
@@ -176,7 +177,7 @@ class S3Bucket:
 
     def list_files(
         self,
-        patterns: list[str] = None,
+        patterns: Optional[list[str]] = None,
         prefix: str = "",
         delimiter: str = "",
         limit: int = 0,
@@ -198,7 +199,7 @@ class S3Bucket:
         if limit != 0:
             object_filter = object_filter.limit(limit)
         for obj in object_filter:
-            if not patterns or (type(patterns) == list and any([p in obj.key for p in patterns])):
+            if not patterns or (isinstance(patterns, list) and any([p in obj.key for p in patterns])):
                 files.append(obj.key)
         return files
 
