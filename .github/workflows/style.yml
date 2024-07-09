@@ -23,6 +23,9 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
+      - name: Install dependencies
+        run: poetry install
+
       - name: Run Ruff linter
         run: |
           poetry run ruff --version
@@ -43,6 +46,9 @@ jobs:
           version: 1.8.1
           virtualenvs-create: true
           virtualenvs-in-project: true
+
+      - name: Install dependencies
+        run: poetry install
 
       - name: Run Ruff formatter
         run: |
@@ -65,7 +71,10 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
-      - name: Run Ruff formatter
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run mypy 
         run: |
           poetry run mypy --version
           poetry run mypy app pyrorisks
