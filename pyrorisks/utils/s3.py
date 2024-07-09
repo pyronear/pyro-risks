@@ -217,7 +217,9 @@ class S3Bucket:
         metadata = obj.metadata
         return metadata
 
-    def get_files_metadata(self, patterns: list[str] = None, prefix: str = "", delimiter: str = "") -> list[dict]:
+    def get_files_metadata(
+        self, patterns: Optional[list[str]] = None, prefix: str = "", delimiter: str = ""
+    ) -> list[dict]:
         """
         Lists files in the S3 bucket with their size in bytes and last modified dates.
 
