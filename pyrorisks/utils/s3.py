@@ -233,7 +233,7 @@ class S3Bucket:
         """
         files = []
         for obj in self.bucket.objects.filter(Prefix=prefix, Delimiter=delimiter):
-            if not patterns or (type(patterns) == list and any([p in obj.key for p in patterns])):
+            if not patterns or (isinstance(patterns, list) and any([p in obj.key for p in patterns])):
                 files.append({
                     "file_name": obj.key,
                     "file_size": round(obj.size * 1.0 / (1024), 2),
