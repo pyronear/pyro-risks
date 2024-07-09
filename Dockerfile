@@ -13,6 +13,7 @@ WORKDIR /app
 
 COPY pyrorisks ./pyrorisks
 COPY app ./app
+COPY build ./build
 COPY pyproject.toml poetry.lock README.md ./
 
 RUN poetry install
