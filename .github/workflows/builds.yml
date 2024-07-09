@@ -1,4 +1,4 @@
-name: web-server
+name: builds
 
 on:
   push:
@@ -7,14 +7,14 @@ on:
     branches: [ master ]
 
 jobs:
-  docker-ready:
+  docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build & run docker
+      - name: Build & run docker container
         env:
           CDS_UID: ${{ secrets.CDS_UID }}
           CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
         run: PORT=8003 docker-compose up -d --build
-      - name: Ping app inside the container
+      - name: Ping containerized app
         run: sleep 5 && nc -vz localhost 8003
