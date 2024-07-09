@@ -8,6 +8,6 @@ from pydantic import BaseModel, Field
 
 
 class RegionRisk(BaseModel):
-    geocode: str = Field(..., example="01")
-    score: float = Field(..., gt=0, lt=1, example=0.5)
-    explainability: Optional[str] = Field(None, example="weather")
+    geocode: str = Field(..., examples=["01"])
+    score: float = Field(..., gt=0, lt=1, examples=[0.5])
+    explainability: Optional[str] = Field(None, examples=["weather"])
