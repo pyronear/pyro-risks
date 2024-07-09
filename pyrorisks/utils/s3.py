@@ -105,9 +105,7 @@ class S3Bucket:
             json_data (json): The JSON data we want to upload.
             object_key (str): The S3 key (path) where the file will be stored.
         """
-        self.bucket.put_object(
-            Key=object_key, Body=bytes(json.dumps(json_data).encode("UTF-8"))
-        )
+        self.bucket.put_object(Key=object_key, Body=bytes(json.dumps(json_data).encode("UTF-8")))
 
     def read_json_from_s3(self, object_key: str) -> None:
         """
@@ -116,9 +114,7 @@ class S3Bucket:
         Args:
             object_key (str): The S3 key (path) where the file is stored.
         """
-        file_content = (
-            self.bucket.Object(object_key).get()["Body"].read().decode("utf-8")
-        )
+        file_content = self.bucket.Object(object_key).get()["Body"].read().decode("utf-8")
         json_content = json.loads(file_content)
         return json_content
 
@@ -202,9 +198,7 @@ class S3Bucket:
         if limit != 0:
             object_filter = object_filter.limit(limit)
         for obj in object_filter:
-            if not patterns or (
-                type(patterns) == list and any([p in obj.key for p in patterns])
-            ):
+            if not patterns or (type(patterns) == list and any([p in obj.key for p in patterns])):
                 files.append(obj.key)
         return files
 
@@ -222,9 +216,7 @@ class S3Bucket:
         metadata = obj.metadata
         return metadata
 
-    def get_files_metadata(
-        self, patterns: list[str] = None, prefix: str = "", delimiter: str = ""
-    ) -> list[dict]:
+    def get_files_metadata(self, patterns: list[str] = None, prefix: str = "", delimiter: str = "") -> list[dict]:
         """
         Lists files in the S3 bucket with their size in bytes and last modified dates.
 
@@ -238,16 +230,12 @@ class S3Bucket:
         """
         files = []
         for obj in self.bucket.objects.filter(Prefix=prefix, Delimiter=delimiter):
-            if not patterns or (
-                type(patterns) == list and any([p in obj.key for p in patterns])
-            ):
-                files.append(
-                    {
-                        "file_name": obj.key,
-                        "file_size": round(obj.size * 1.0 / (1024), 2),
-                        "file_last_modified": obj.last_modified,
-                    }
-                )
+            if not patterns or (type(patterns) == list and any([p in obj.key for p in patterns])):
+                files.append({
+                    "file_name": obj.key,
+                    "file_size": round(obj.size * 1.0 / (1024), 2),
+                    "file_last_modified": obj.last_modified,
+                })
         return files
 
 
@@ -277,7 +265,5 @@ def read_credentials(
         for line in lines:
             if "region" in line:
                 credentials["region_name"] = line.split("=")[1].strip()
-    credentials["endpoint_url"] = (
-        "https://s3." + credentials["region_name"] + ".io.cloud.ovh.net/"
-    )
+    credentials["endpoint_url"] = "https://s3." + credentials["region_name"] + ".io.cloud.ovh.net/"
     return credentials

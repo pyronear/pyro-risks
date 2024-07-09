@@ -41,15 +41,11 @@ class FWIHelpers:
                 image = src.read(1)  # first band
                 results = (
                     {"properties": {"fwi_pixel_value": v}, "geometry": s}
-                    for i, (s, v) in enumerate(
-                        shapes(image, mask=mask, transform=data["transform"])
-                    )
+                    for i, (s, v) in enumerate(shapes(image, mask=mask, transform=data["transform"]))
                 )
 
             geoms = list(results)
-            gpd_polygonized_raster = gpd.GeoDataFrame.from_features(
-                geoms, crs=str(data["crs"])
-            )
+            gpd_polygonized_raster = gpd.GeoDataFrame.from_features(geoms, crs=str(data["crs"]))
             return gpd_polygonized_raster
 
         except Exception as e:
@@ -66,9 +62,7 @@ class FWIHelpers:
         Returns:
             geodataframe (geopandas.GeoDataFrame): The GeoDataFrame without the sea.
         """
-        geodataframe = geodataframe.loc[
-            (geodataframe["fwi_pixel_value"] != 0)
-        ]  # remove the sea
+        geodataframe = geodataframe.loc[(geodataframe["fwi_pixel_value"] != 0)]  # remove the sea
         return geodataframe
 
     def fwi_category(self, fwi_pixel_val: int) -> int:

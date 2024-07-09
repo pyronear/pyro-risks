@@ -32,9 +32,7 @@ def main(retrieved_date):
     fwi = FWIHelpers()
     gdf_fwi = fwi.get_fwi(effis_tiff_file_url)
     gdf_fwi = fwi.fwi_sea_remover(gdf_fwi)
-    gdf_fwi["fwi_category"] = gdf_fwi.apply(
-        lambda row: fwi.fwi_category(row["fwi_pixel_value"]), axis=1
-    )
+    gdf_fwi["fwi_category"] = gdf_fwi.apply(lambda row: fwi.fwi_category(row["fwi_pixel_value"]), axis=1)
     gdf_fwi = gdf_fwi.drop("fwi_pixel_value", axis=1)
 
     new_json_fwi = fwi.fwi_geojson_maker(gdf_fwi)
