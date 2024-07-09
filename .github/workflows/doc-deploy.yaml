@@ -1,39 +1,27 @@
 name: doc-deploy
 on:
   push:
-    branches: master
+    branches: [master]
 
 jobs:
-  docs-publish:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
-      - name: Set up Python 3.7
+      - name: Set up Python 3.10.5
         uses: actions/setup-python@v1
         with:
-          python-version: 3.7
-          architecture: x64
-      - name: Cache python modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pkg-deps-${{ hashFiles('requirements.txt') }}-${{ hashFiles('**/*.py') }}
-          restore-keys: |
-            ${{ runner.os }}-pkg-deps-${{ hashFiles('requirements.txt') }}-
-            ${{ runner.os }}-pkg-deps-
-            ${{ runner.os }}-
+          python-version: 3.10.5
+
       - name: Install dependencies
-        run: |
-          sudo apt install libspatialindex-dev python3-rtree
-          python -m pip install --upgrade pip
-          pip install -e .
-          pip install -r docs/requirements.txt
+        run: poetry install
+
 
       - name: Build documentation
         run: |
-          sphinx-build docs/source docs/build -a -v
+          poetry run sphinx-build docs/source docs/build -a -v
 
       - name: Install SSH Client 🔑
         uses: webfactory/ssh-agent@v0.4.1
