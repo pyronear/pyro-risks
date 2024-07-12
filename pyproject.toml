@@ -41,11 +41,14 @@ pre-commit = "^3.4.0"
 mypy = "^1.10.0"
 ruff = "^0.5.1"
 pytest-cov = "^5.0.0"
+ipykernel = "^6.29.5"
 
 
 [tool.poetry.group.app.dependencies]
 fastapi = "^0.111.0"
 uvicorn = "^0.25"
+pydantic-settings = "^2.3.4"
+pydantic = "^2.8.2"
 
 
 [tool.poetry.group.docs.dependencies]
