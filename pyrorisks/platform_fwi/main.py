@@ -5,8 +5,8 @@ from datetime import date
 from dotenv import load_dotenv
 
 # Pyro Risks Imports
-from pyro_risks.utils.fwi_helpers import FWIHelpers
-from pyro_risks.utils.s3 import S3Bucket
+from pyrorisks.utils.fwi_helpers import FWIHelpers
+from pyrorisks.utils.s3 import S3Bucket
 
 BASE_URL = "https://ies-ows.jrc.ec.europa.eu/effis"
 

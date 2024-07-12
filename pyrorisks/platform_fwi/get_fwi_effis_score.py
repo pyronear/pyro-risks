@@ -3,7 +3,7 @@ import os
 from datetime import date
 import geopandas as gpd
 from shapely.geometry import Point, Polygon
-from pyro_risks.utils.s3 import S3Bucket
+from pyrorisks.utils.s3 import S3Bucket
 
 __all__ = ["get_score"]
 
