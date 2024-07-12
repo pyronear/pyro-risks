@@ -20,7 +20,4 @@ router = APIRouter()
 async def get_pyrorisk(country: str, date: str):
     """Using the country identifier, this will compute the wildfire risk for all known subregions"""
     preds = predictor.predict(date)
-    return [
-        RegionRisk(geocode=k, score=v["score"], explainability=v["explainability"])
-        for k, v in preds.items()
-    ]
+    return [RegionRisk(geocode=k, score=v["score"], explainability=v["explainability"]) for k, v in preds.items()]

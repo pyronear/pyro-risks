@@ -1,4 +1,0 @@
-sphinx
-sphinx-rtd-theme==0.4.3
-myst-parser==0.12.10
-sphinx-autobuild==2020.9.1
