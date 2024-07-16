@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   web:
     build: .
@@ -11,3 +9,4 @@ services:
     environment:
       - CDS_UID=${CDS_UID}
       - CDS_API_KEY=${CDS_API_KEY}
+    platform: "linux/amd64"
