@@ -30,4 +30,4 @@ class Settings(BaseSettings):
     S3_ENDPOINT_URL: str
 
 
-settings = Settings()
+settings = Settings()  # type: ignore[call-arg]
