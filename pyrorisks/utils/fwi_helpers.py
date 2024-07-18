@@ -1,3 +1,4 @@
+from rasterio.features import shapes
 import rasterio
 import geopandas as gpd
 import requests
@@ -40,7 +41,7 @@ class FWIHelpers:
                 image = src.read(1)  # first band
                 results = (
                     {"properties": {"fwi_pixel_value": v}, "geometry": s}
-                    for i, (s, v) in enumerate(rasterio.features.shapes(image, mask=mask, transform=data["transform"]))
+                    for i, (s, v) in enumerate(shapes(image, mask=mask, transform=data["transform"]))
                 )
 
             geoms = list(results)
