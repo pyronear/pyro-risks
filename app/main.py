@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.openapi.utils import get_openapi
 
 from app.core.config import settings
-from app.api.routes import risk
+from app.api.routes import risk, fwi
 
 
 app = FastAPI(
@@ -20,6 +20,7 @@ app = FastAPI(
 
 # Routing
 app.include_router(risk.router, prefix="/risk", tags=["risk"])
+app.include_router(fwi.router, prefix="/fwi", tags=["fwi"])
 
 
 # Middleware
