@@ -2,10 +2,6 @@ FROM python:3.10-buster
 
 WORKDIR /app
 
-# Install miniconda
-RUN apt-get update && apt-get install -y wget bzip2 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
     /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
     rm /tmp/miniconda.sh
