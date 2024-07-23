@@ -17,15 +17,16 @@ class ScoreQueryParams(BaseModel):
     longitude: float = Field(..., gt=-90.0, lt=90.0)
     latitude: float = Field(..., gt=-180.0, lt=180.0)
     crs: str = Field(
-        default="EPSG:2154",
-        examples=["EPSG:2154"],
-        description="Coordinate Reference System  (CRS), Default to France reference CRS (RGF93 / Lambert 93).",
+        default="EPSG:4326",
+        examples=["EPSG:4326"],
+        description="Coordinate Reference System (CRS), Default to World Geodetic System CRS (EPSG:4326 / WGS84).",
     )
 
 
 class Score(BaseModel):
-    longitude: float = Field(..., gt=-90.0, lt=90.0, examples=[])
-    latitude: float = Field(..., gt=-180.0, lt=180.0, examples=[])
-    crs: str = Field(..., examples=["EPSG:4326"], description="")
-    score: str = Field(..., examples=[], description="FWI")
-    value: float = Field(..., examples=[], description="")
+    longitude: float = Field(..., gt=-90.0, lt=90.0, examples=[2.638828])
+    latitude: float = Field(..., gt=-180.0, lt=180.0, examples=[48.391842])
+    crs: str = Field(..., examples=["EPSG:4326"], description="Coordinate Reference System (CRS).")
+    score: str = Field(..., examples=["fwi"], description="Score name.")
+    value: float = Field(..., examples=[2, 1], description="Score value.")
+    date: str = Field(..., examples=["2024-01-01"], description="Date in %Y-%m-%d format")
