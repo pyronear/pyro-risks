@@ -7,6 +7,10 @@ services:
     ports:
       - ${PORT}:8000
     environment:
-      - CDS_UID=${CDS_UID}
-      - CDS_API_KEY=${CDS_API_KEY}
+      - DEBUG=${DEBUG}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
+      - S3_SECRET_KEY=${S3_SECRET_KEY}
+      - S3_REGION=${S3_REGION}
+      - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
     platform: "linux/amd64"
