@@ -5,13 +5,13 @@
 
 import unittest
 
-import pyro_risks
+import pyrorisks
 
 
 class CoreTester(unittest.TestCase):
     # Template unittest
     def test_version(self):
-        self.assertEqual(len(pyro_risks.__version__.split(".")), 3)
+        self.assertEqual(len(pyrorisks.__version__.split(".")), 3)
 
 
 if __name__ == "__main__":

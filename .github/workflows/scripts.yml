@@ -16,12 +16,18 @@ jobs:
         with:
           python-version: 3.10.5
 
+      - uses: s-weigand/setup-conda@v1
+        with:
+          activate-conda: false
+      - run: conda install conda-lock
+      - run: conda-lock install -n pyro-risks pyrorisks.conda-lock.yml
+      - run: conda activate pyro-risks
+
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
           version: 1.8.1
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+          virtualenvs-create: false
 
       - name: Install dependencies
         run: poetry install

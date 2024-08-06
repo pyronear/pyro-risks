@@ -7,19 +7,19 @@ import time
 from fastapi import FastAPI, Request
 from fastapi.openapi.utils import get_openapi
 
-from app import config as cfg
-from app.api.routes import risk
+from app.core.config import settings
+from app.api.routes import fwi
 
 
 app = FastAPI(
-    title=cfg.PROJECT_NAME,
-    description=cfg.PROJECT_DESCRIPTION,
-    debug=cfg.DEBUG,
-    version=cfg.VERSION,
+    title=settings.PROJECT_NAME,
+    description=settings.PROJECT_DESCRIPTION,
+    debug=settings.DEBUG,
+    version=settings.VERSION,
 )
 
 # Routing
-app.include_router(risk.router, prefix="/risk", tags=["risk"])
+app.include_router(fwi.router, prefix="/fwi", tags=["fwi"])
 
 
 # Middleware
@@ -37,12 +37,12 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title=cfg.PROJECT_NAME,
-        version=cfg.VERSION,
-        description=cfg.PROJECT_DESCRIPTION,
+        title=settings.PROJECT_NAME,
+        version=settings.VERSION,
+        description=settings.PROJECT_DESCRIPTION,
         routes=app.routes,
     )
-    openapi_schema["info"]["x-logo"] = {"url": cfg.LOGO_URL}
+    openapi_schema["info"]["x-logo"] = {"url": settings.LOGO_URL}
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
