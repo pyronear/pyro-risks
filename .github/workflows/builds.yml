@@ -15,6 +15,6 @@ jobs:
         env:
           CDS_UID: ${{ secrets.CDS_UID }}
           CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
-        run: PORT=8003 docker-compose up -d --build
+        run: PORT=8003 docker compose up -d --build
       - name: Ping containerized app
         run: sleep 5 && nc -vz localhost 8003
