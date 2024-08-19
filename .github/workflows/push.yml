@@ -12,8 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build docker
-        run: docker compose build -t $DOCKERHUB_USER/$IMAGE_NAME:latest
+      - name: Build image
+        run: docker compose build
+      
+      - name: Tag image
+        run: docker tag pyro-risks-web $DOCKERHUB_USER/$IMAGE_NAME:latest
+        
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
