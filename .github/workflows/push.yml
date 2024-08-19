@@ -1,7 +1,7 @@
 name: push
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 env:
   IMAGE_NAME: pyro-risks
