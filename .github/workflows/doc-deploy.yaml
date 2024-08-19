@@ -10,14 +10,26 @@ jobs:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
-      - name: Set up Python 3.10.5
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
+      
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: false
+          activate-environment: pyrorisks
+      - run: conda install conda-lock
+      - run: conda-lock install -n pyro-risks pyrorisks.conda-lock.yml
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.8.1
+          virtualenvs-create: false
 
       - name: Install dependencies
         run: poetry install
-
 
       - name: Build documentation
         run: |

@@ -8,6 +8,9 @@ on:
 jobs:
   get-effis-fwi:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
     steps:
       - uses: actions/checkout@v4
 
@@ -16,12 +19,12 @@ jobs:
         with:
           python-version: 3.10.5
 
-      - uses: s-weigand/setup-conda@v1
+      - uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-conda: false
+          auto-update-conda: false
+          activate-environment: pyrorisks
       - run: conda install conda-lock
       - run: conda-lock install -n pyro-risks pyrorisks.conda-lock.yml
-      - run: conda activate pyro-risks
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
