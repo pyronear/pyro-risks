@@ -16,12 +16,11 @@ jobs:
         with:
           python-version: 3.10.5
 
-      - uses: s-weigand/setup-conda@v1
+      - uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-conda: false
+          auto-update-conda: false
       - run: conda install conda-lock
       - run: conda-lock install -n pyro-risks pyrorisks.conda-lock.yml
-      - run: conda activate pyro-risks
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
